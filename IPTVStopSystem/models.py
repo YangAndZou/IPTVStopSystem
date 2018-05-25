@@ -1,7 +1,9 @@
 # coding=utf-8
-from __future__ import unicode_literals
-
 from django.db import models
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 
 class IPTVRouterGroup(models.Model):
@@ -44,7 +46,7 @@ class IPTVPlatform(models.Model):
 
 class IPTVZone(models.Model):
     platform = models.ForeignKey(to=IPTVPlatform, verbose_name='平台')
-    zone_name = models.CharField(max_length='区域名称')
+    zone_name = models.CharField(max_length=256, verbose_name='区域名称')
 
     class Meta:
         db_table = 'iptv_zone'
@@ -54,7 +56,7 @@ class IPTVZone(models.Model):
 
 class IPTVZoneNode(models.Model):
     platform = models.ForeignKey(to=IPTVZone, verbose_name='区域')
-    node_name = models.CharField(max_length='区域结点名称')
+    node_name = models.CharField(max_length=256, verbose_name='区域结点名称')
 
     class Meta:
         db_table = 'iptv_zone_node'

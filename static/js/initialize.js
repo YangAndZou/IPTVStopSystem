@@ -1,7 +1,47 @@
 //初始化函数
-window.onload=function () {
-    
-};
+$(function () {
+    var layoutClass= {
+        container: {
+            name: '.container-box',
+            width: 1,
+            height: 1
+        },
+        loginTitle: {
+            name: '.login-title',
+            width: 1,
+            height:0.25,
+            lineHeight:1
+        }
+    };
+    layout(layoutClass);
+    $(window).resize(function () {
+        layout(layoutClass);
+    })
+
+});
+
+
+function layout(option) {
+    var height=$(window).height();
+    var width=$(window).width();
+    for(var key in option){
+        var name=option[key].name;
+        var ratioW=option[key].width;
+        var ratioH=option[key].height;
+        $(name).width(ratioW*width-1);
+        $(name).height(ratioH*height-1);
+        var lineHeight=option[key].lineHeight;
+        if(lineHeight!=undefined){
+            $(name).css({
+                lineHeight:$(name).height()*lineHeight+"px"
+            })
+        }
+    }
+
+
+}
+
+/*
 function autoInputFn() {
     var autoinput = $("input.auto-input");
 
@@ -88,4 +128,4 @@ function initialize() {
         })
     }
 }
-
+*/

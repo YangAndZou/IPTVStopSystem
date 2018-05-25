@@ -1,0 +1,14 @@
+
+.container-box.login{
+    background: url("../image/loginBg.png") no-repeat;
+    background-size: 100% 100%;
+}
+.container-fluid{
+    padding: 0;
+    margin:0;
+}
+.login-title{
+    text-align: center;
+    color:#2A9FD6;
+    font-size: 46px;
+}

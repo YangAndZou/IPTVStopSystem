@@ -10,17 +10,20 @@ import utils
 
 # 登录
 def login(request):
-    if request.session.get('username') is not None:
-        return HttpResponseRedirect('/', {"user": request.user})
-    else:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = auth.authenticate(username=username, password=password)
-        if user and user.is_active:
-            auth.login(request, user)
-            request.session['username'] = username
+    if request.method == 'GET':
+        return render(request, 'login.html')
+    elif request.method == 'POST':
+        if request.session.get('username') is not None:
             return HttpResponseRedirect('/', {"user": request.user})
-        return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
+        else:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = auth.authenticate(username=username, password=password)
+            if user and user.is_active:
+                auth.login(request, user)
+                request.session['username'] = username
+                return HttpResponseRedirect('/', {"user": request.user})
+            return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
 
 
 # 登录

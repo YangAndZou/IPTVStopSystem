@@ -72,113 +72,61 @@
                         <th>
                             <input type="checkbox" class="icheckbox_all" name="icheckbox_all" id="all_checked">
                         </th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Salary</th>
+                        <th>频道名称</th>
+                        <th>频道描述</th>
+                        <th>控制路由组</th>
+                        <th>频道ip</th>
+                        <th>频道状态</th>
+                        <th>策略id</th>
+                        <td>操作</td>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for ds in programs %}
                     <tr>
                         <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>1</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td ><i class="greenCircle"></i></td>
-                        <td>
-                            <button class="btn btn-primary btn-xs">封堵</button>
+                        <td class="center">{{ ds.program_name }}</td>
+                        <td class="center">{{ ds.program_desc }}</td>
+                        <td class="center">{{ ds.router.router_name }}</td>
+                        <td class="center">{{ ds.program_ip }}</td>
+                        <td class="center">
+                            {% if ds.status == 1 %}
+                            <i class="closeCircle"></i>
+                            {% elif ds.status == 2 %}
+                            <i class="openCircle"></i>
+                            {% endif %}
+                        </td>
+                        <td class="center">{{ ds.strategy }}</td>
+                        <td class="center">
+                            {% if ds.status == 1 %}
+                            <button class="btn btn-success btn-xs">开启</button>
+                            {% elif ds.status == 2 %}
+                            <button class="btn btn-danger btn-xs">关停</button>
+                            {% endif %}
                             &nbsp;
-                            <button class="btn btn-info btn-xs">封堵列表</button></td>
+                            <button class="btn btn-info btn-xs">检测</button>
+                        </td>
                     </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>2</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td><i class="redCircle"></i></td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>3</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>4</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>5</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>6</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>7</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>8</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>9</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>10</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>11</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td>12</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>$320,800</td>
-                    </tr>
+                    {% endfor %}
+                    <!--<tr>-->
+                        <!--<td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>-->
+                        <!--<td>1</td>-->
+                        <!--<td>System Architect</td>-->
+                        <!--<td>Edinburgh</td>-->
+                        <!--<td ><i class="greenCircle"></i></td>-->
+                        <!--<td>-->
+                            <!--<button class="btn btn-primary btn-xs">封堵</button>-->
+                            <!--&nbsp;-->
+                            <!--<button class="btn btn-info btn-xs">封堵列表</button></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>-->
+                        <!--<td>2</td>-->
+                        <!--<td>System Architect</td>-->
+                        <!--<td>Edinburgh</td>-->
+                        <!--<td><i class="redCircle"></i></td>-->
+                        <!--<td>$320,800</td>-->
+                    <!--</tr>-->
 
                     </tbody>
                 </table>
@@ -232,6 +180,7 @@
 </body>
 </html>
 <script>
+    console.log("{{ programs }}")
     {% block page-js %}
     var oTable=null;
     $(function(){
@@ -290,7 +239,7 @@
             "buttons": [
                 'pageLength',
                 'colvis',
-                {
+               /* {
                     text: '大区关停',
                     className: 'btn btn-sm btn-warning ',
                     action: function (e, dt, node, config) {
@@ -308,7 +257,7 @@
                     className: 'btn btn-sm btn-violet',
                     action: function (e, dt, node, config) {
                     }
-                },
+                },*/
                 /*{
                     text: '区域边缘关停',
                     className: 'btn btn-sm btn-warning ',
@@ -329,12 +278,20 @@
                 },*/
                 {
                     text: '关停',
+                    className: 'btn btn-sm btn-danger',
+                    action: function (e, dt, node, config) {
+                        //console.log(selectList)
+                        console.log('{{ mode }}')
+                    }
+                },
+                {
+                    text: '开启',
                     className: 'btn btn-sm btn-success',
                     action: function (e, dt, node, config) {
 
                         console.log(selectList)
                     }
-                },
+                }
             ],
             "drawCallback" : function(settings) {
                 var ischeckAll=$("#all_checked").prop('checked');

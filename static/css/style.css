@@ -195,6 +195,8 @@
 .table > tbody > tr > td{
     text-align: center;
     padding: 0;
+    height:40px;
+    line-height: 40px;
 }
 .table > tbody > tr > td{
     border-top:0;
@@ -242,6 +244,9 @@
 }
 .btn.btn-success{
     color:#4cae4c
+}
+.btn.btn-danger{
+    color:#d43f3a
 }
 .btn.btn-violet{
     color: #9933CC;
@@ -300,14 +305,14 @@
 .btn:focus{
    color:#fff;
 }
-.greenCircle{
+.openCircle{
     width: 16px;
     height: 16px;
     border-radius: 8px;
     display: inline-block;
     background:#77B300
 }
-.redCircle{
+.closeCircle{
     width: 16px;
     height: 16px;
     border-radius: 8px;

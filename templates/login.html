@@ -10,13 +10,14 @@
     <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="../static/css/common.css">
     <link rel="stylesheet" href="../static/css/style.css">
+
 </head>
 <body>
     <div class="container-box login">
         <h1 class="login-title">湖南电信天翼高清一键关停</h1>
         <div class="login-body">
             <div class="loginForm">
-                <form action="/index" method="post">
+               <form action="/index" method="post" target="_blank">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="text" placeholder="请输入用户名" class="form-control"
@@ -27,10 +28,10 @@
                                name="password" id="password">
                     </div>
                     <button type="submit" class="btn btn-primary  btn-block">登录</button>
-                </form>
+               </form>
             </div>
         </div>
     </div>
-
+    <script src="../static/js/login.js"></script>
 </body>
 </html>

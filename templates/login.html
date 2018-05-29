@@ -16,13 +16,15 @@
         <h1 class="login-title">湖南电信天翼高清一键关停</h1>
         <div class="login-body">
             <div class="loginForm">
-                <form action="#" method="post">
+                <form action="/index" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" placeholder="请输入用户名" class="form-control" name="">
+                        <input type="text" placeholder="请输入用户名" class="form-control"
+                               name="username" id="username">
                     </div>
                     <div class="form-group">
-                        <input type="password" placeholder="请输入密码" class="form-control" name="">
+                        <input type="password" placeholder="请输入密码" class="form-control"
+                               name="password" id="password">
                     </div>
                     <button type="submit" class="btn btn-primary  btn-block">登录</button>
                 </form>

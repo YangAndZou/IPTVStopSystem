@@ -15,29 +15,12 @@ def login(request):
     else:
         username = request.POST.get('username')
         password = request.POST.get('password')
-        # 以下为验证码功能
-        # rand = request.POST.get('rand')
-        # try:
-        #     check_code = request.session['check_code']
-        # except Exception as e:
-        #     print('error', e)
-        #     check_code = ''
-        # # 注销session
-        # request.session['check_code'] = ''
-        # if check_code != rand:
-        #     if request.method == "POST":
-        #         return render(request, 'login.html', {"login_error_info": "验证码错误！"})
-
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
             request.session['username'] = username
             return HttpResponseRedirect('/', {"user": request.user})
-        else:
-            if request.method == "POST":
-                return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
-            else:
-                return render(request, 'login.html')
+        return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
 
 
 # 登录
@@ -52,7 +35,7 @@ def noperm(request):
 
 
 # 主页
-@login_required(login_url='/login')
+# @login_required(login_url='/login')
 def index(request, program_name='0', program_ip='0', status='0'):
     if request.method == 'GET':
         programs = IPTVProgram.objects.all()

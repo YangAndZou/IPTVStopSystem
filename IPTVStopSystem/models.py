@@ -24,6 +24,7 @@ class IPTVProgram(models.Model):
     program_name = models.CharField(max_length=128, verbose_name='频道名称')
     program_desc = models.CharField(max_length=256, verbose_name='频道描述', null=True, blank=True)
     router = models.ForeignKey(to=IPTVRouterGroup, verbose_name='控制路由组', related_name='iptv_program')
+    program_ip = models.CharField(max_length=128, verbose_name='频道ip')
     status = models.SmallIntegerField(choices=program_status, verbose_name='频道状态 0 关闭 1 开启')
     # TODO 策略id？
     strategy = models.CharField(max_length=123)

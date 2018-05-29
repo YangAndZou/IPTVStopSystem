@@ -48,13 +48,12 @@ def noperm(request):
 def index(request, program_name='0', program_ip='0', status='0'):
     programs = IPTVProgram.objects.all()
     # 以下为搜索功能，分别对应频道名，频道ip，状态
-
-    # programs.program_name 频道名称
-    # programs.program_desc 频道描述
-    # programs.router 控制路由组
-    # programs.program_ip 频道ip
-    # programs.status 频道状态
-    # programs.strategy 策略id
+    if program_name != '0':
+        programs = programs.filter(program_name=program_name)
+    if program_ip != '0':
+        programs = programs.filter(program_ip=program_ip)
+    if status != '0':
+        programs = programs.filter(status=status)
     return render(request, 'index.html', {'programs': programs})
 
 

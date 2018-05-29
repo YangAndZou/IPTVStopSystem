@@ -50,14 +50,34 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IPTVStopSystem/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="47" column="24" lean-forward="false" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+            <state relative-caret-position="642">
+              <caret line="79" column="28" lean-forward="false" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
               <folding>
-                <element signature="e#15#56#0" expanded="true" />
-                <element signature="e#1367#1428#0" expanded="false" />
-                <element signature="e#1963#2561#0" expanded="false" />
-                <element signature="e#2600#2716#0" expanded="false" />
+                <element signature="e#15#26#0" expanded="true" />
+                <element signature="e#2195#2256#0" expanded="false" />
+                <element signature="e#2972#3570#0" expanded="false" />
+                <element signature="e#3609#3725#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IPTVStopSystem/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="514">
+              <caret line="28" column="15" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/django/contrib/auth/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="129" column="43" lean-forward="false" selection-start-line="129" selection-start-column="43" selection-end-line="129" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -77,8 +97,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+            <state relative-caret-position="274">
+              <caret line="82" column="23" lean-forward="false" selection-start-line="82" selection-start-column="23" selection-end-line="82" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -87,8 +107,8 @@
       <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="22" column="72" lean-forward="true" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
+            <state relative-caret-position="226">
+              <caret line="22" column="50" lean-forward="false" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -98,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/static/js/login.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -117,8 +137,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IPTVStopSystem/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+            <state relative-caret-position="567">
+              <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="33" />
               <folding>
                 <element signature="e#647#659#0" expanded="true" />
               </folding>
@@ -143,7 +163,9 @@
       <find>footer</find>
       <find>.table &gt; tbody &gt; tr &gt; td</find>
       <find>logout</find>
+      <find>auth</find>
       <find>form</find>
+      <find>program</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,8 +188,8 @@
         <option value="$PROJECT_DIR$/static/js/initialize.js" />
         <option value="$PROJECT_DIR$/static/css/common.css" />
         <option value="$PROJECT_DIR$/IPTVStopSystem/urls.py" />
-        <option value="$PROJECT_DIR$/IPTVStopSystem/views.py" />
         <option value="$PROJECT_DIR$/templates/login.html" />
+        <option value="$PROJECT_DIR$/IPTVStopSystem/views.py" />
       </list>
     </option>
   </component>
@@ -416,20 +438,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/IPTVStopSystem/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2184">
-          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPTVStopSystem/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2132">
-          <caret line="82" column="58" lean-forward="false" selection-start-line="82" selection-start-column="58" selection-end-line="82" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IPTVStopSystem/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="546">
@@ -622,24 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IPTVStopSystem/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding>
-            <element signature="e#619#1479#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPTVStopSystem/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="18" column="32" lean-forward="false" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -687,6 +677,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/IPTVStopSystem/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="712">
@@ -695,49 +693,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/IPTVStopSystem/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding>
+            <element signature="e#619#1479#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="22" column="50" lean-forward="false" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/b9e476d0/0093927f-c6a6-4667-9d19-b337a80ab141/iptv.auth_user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/django/contrib/auth/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="129" column="43" lean-forward="false" selection-start-line="129" selection-start-column="43" selection-end-line="129" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        <state relative-caret-position="274">
+          <caret line="82" column="23" lean-forward="false" selection-start-line="82" selection-start-column="23" selection-end-line="82" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/IPTVStopSystem/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+        <state relative-caret-position="567">
+          <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="33" />
           <folding>
             <element signature="e#647#659#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/login.js">
+    <entry file="file://$PROJECT_DIR$/IPTVStopSystem/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="22" column="72" lean-forward="true" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
+        <state relative-caret-position="514">
+          <caret line="28" column="15" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/IPTVStopSystem/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="47" column="24" lean-forward="false" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+        <state relative-caret-position="642">
+          <caret line="79" column="28" lean-forward="false" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
           <folding>
-            <element signature="e#15#56#0" expanded="true" />
-            <element signature="e#1367#1428#0" expanded="false" />
-            <element signature="e#1963#2561#0" expanded="false" />
-            <element signature="e#2600#2716#0" expanded="false" />
+            <element signature="e#15#26#0" expanded="true" />
+            <element signature="e#2195#2256#0" expanded="false" />
+            <element signature="e#2972#3570#0" expanded="false" />
+            <element signature="e#3609#3725#0" expanded="false" />
           </folding>
         </state>
       </provider>

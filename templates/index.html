@@ -17,6 +17,7 @@
     <script src="../static/dataTables/buttonsDataTables/buttons.colVis.js"></script>
 </head>
 <body>
+    {% block page-content %}
     <div class="container-box">
         <div class="nav">
             <div class="navBar">
@@ -43,6 +44,7 @@
             <div class="panel-body">
                 <div class="query row">
                     <form class="form-group">
+                        {% csrf_token %}
                         <label  class="col-lg-1 col-md-1 col-sm-2 control-label">系统属性:</label>
                         <div class="col-lg-2 col-md-2 col-sm-4">
                             <input type="text" class="form-control input-sm"  name="ansible_ssh_host">
@@ -60,8 +62,6 @@
                             &nbsp;
                             <button class="btn-info btn btn-sm" type="reset" name="">重置</button>
                         </div>
-
-
                     </form>
                 </div>
                 <table id="dataTableList"
@@ -196,6 +196,7 @@
                 </div>
                 <div class="modal-body">
                     <form  class="main form-horizontal">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label class="col-sm-4 control-label">平台</label>
                             <div class="col-sm-6">
@@ -224,9 +225,12 @@
             </div>
         </div>
     </div>
+    {% endblock %}
+    <div class="footer">©&nbsp;中国电信湖南公司客户支撑中心2017-2018</div>
 </body>
 </html>
 <script>
+    {% block page-js %}
     var oTable=null;
     $(function(){
         initTable();
@@ -383,5 +387,5 @@
             }
         })
     };
-
+    {% endblock %}
 </script>

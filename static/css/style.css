@@ -297,3 +297,20 @@
 .modal-content label{
     color:#fff;
 }
+.btn:focus{
+   color:#fff;
+}
+.greenCircle{
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: inline-block;
+    background:#77B300
+}
+.redCircle{
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: inline-block;
+    background: #CC0000
+}

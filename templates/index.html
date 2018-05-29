@@ -35,7 +35,7 @@
                 </ul>
                 <ul class="loginUser">
                     <li class="user"><i class="glyphicon glyphicon-user"></i> <span>{{ user }}</span></li>
-                    <li class="exit"><a href="/login">退出</a> </li>
+                    <li class="exit"><a href="/login"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a> </li>
                 </ul>
             </div>
         </div>
@@ -85,7 +85,7 @@
                         <td>1</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
-                        <td>61</td>
+                        <td ><i class="greenCircle"></i></td>
                         <td>
                             <button class="btn btn-primary btn-xs">封堵</button>
                             &nbsp;
@@ -96,7 +96,7 @@
                         <td>2</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
-                        <td>61</td>
+                        <td><i class="redCircle"></i></td>
                         <td>$320,800</td>
                     </tr>
                     <tr>
@@ -308,7 +308,7 @@
                     className: 'btn btn-sm btn-violet',
                     action: function (e, dt, node, config) {
                     }
-                }
+                },
                 /*{
                     text: '区域边缘关停',
                     className: 'btn btn-sm btn-warning ',
@@ -326,7 +326,7 @@
                     className: 'btn btn-sm btn-success',
                     action: function (e, dt, node, config) {
                     }
-                },
+                },*/
                 {
                     text: '关停',
                     className: 'btn btn-sm btn-success',
@@ -334,7 +334,7 @@
 
                         console.log(selectList)
                     }
-                },*/
+                },
             ],
             "drawCallback" : function(settings) {
                 var ischeckAll=$("#all_checked").prop('checked');
@@ -355,41 +355,30 @@
 
         });
 
-
-        $('#dataTableList_wrapper').find(' tbody').on( 'click', 'tr', function () {
-             var ischeck=$(this).find("td").eq(0).find("input").prop('checked');
-             if(!ischeck){
-                 $(this).find("td").eq(0).find("input").prop('checked',true);
-                 selectList.push($(this).find("td").eq(1).text())
-             }else{
-                $(this).find("td").eq(0).find("input").prop('checked',false);
-                 for(var index=0;index<selectList.length;index++){
-                     var filed=$(this).find("td").eq(1).text();
+        $('#dataTableList_wrapper').on("change", ".icheckbox_all", function() {
+            //选择全选复选框按钮
+            var ischeckAll=$(this).prop('checked');
+            $(":checkbox").prop("checked",ischeckAll);
+            if(ischeckAll){
+                selectList=["all"]
+            }else{
+                selectList=[]
+            }
+        });
+        $('#dataTableList_wrapper').on("change", ".icheckbox_minimal", function() {
+            //选择复选框按钮事件
+            var ischeck=$(this).prop('checked');
+            if(ischeck){
+                selectList.push($(this).parents('td').next().text())
+            }else{
+                for(var index=0;index<selectList.length;index++){
+                    var filed=$(this).parents('td').next().text();
                     if(selectList[index]==filed){
                         selectList.splice(index,1)
                     }
-                 }
-             }
-
-        });
-        $('#dataTableList_wrapper').on("change", ":checkbox", function() {
-            // 列表复选框
-            var ischeckAll=$("#all_checked").prop('checked');
-            $(":checkbox").prop("checked",ischeckAll);
-            if ($(this).is("[name='icheckbox_all']")) {
-                // 全选
-                var ischeckAll=$(this).prop('checked');
-                if(ischeckAll){
-                    selectList=["all"]
-                }else{
-                    selectList=[]
                 }
-
-            }else{
-                var ischeck=$(this).find("td").eq(0).find("input").prop('checked');
-
             }
-        })
+        });
     };
     function logout() {
         $.ajax({

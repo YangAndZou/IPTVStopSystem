@@ -12,3 +12,7 @@ table { border-collapse:collapse; }
 .clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
 .clearfix { *zoom:1; }
 .footer{  text-align: center;  color:#fff;height:20px;line-height: 20px;}
+input[type="radio"], input[type="checkbox"]{
+    height:15px;
+    width: 15px;
+}

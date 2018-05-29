@@ -1,4 +1,7 @@
-
+.container-box{
+    background: url("../image/bg.png") no-repeat;
+    background-size: 100% 100%;
+}
 .container-box.login{
     background: url("../image/loginBg.png") no-repeat;
     background-size: 100% 100%;
@@ -10,5 +13,286 @@
 .login-title{
     text-align: center;
     color:#2A9FD6;
-    font-size: 46px;
+    font-size: 36px;
+    text-indent: 1em;
+
+}
+.login-body{
+    position: relative;
+}
+.loginForm{
+    width: 20%;
+    height: 40%;
+    position: absolute;
+    top: 35%;
+    left: 39%;
+}
+.loginForm input,.loginForm button{
+    border-radius: 2em;
+}
+.loginForm input{
+    background: transparent;
+    border:2px solid #128fe9;
+}
+
+.loginForm input::-webkit-input-placeholder {
+    color: #888;
+    font-size: 16px;
+    letter-spacing:5px;
+    text-align: center;
+    font-family:'宋体';
+}
+.loginForm input{
+    color:#fff;
+}
+.loginForm button.btn{
+    color:#fff;
+}
+.loginForm input:-moz-placeholder {
+    color: #fff;
+    font-size: 16px;
+    letter-spacing:5px;
+    text-align: center;
+    font-family:'宋体';
+}
+.loginForm input::-moz-placeholder {
+    color: #888;
+    font-size: 16px;
+    letter-spacing:5px;
+    text-align: center;
+    font-family:'宋体';
+}
+.loginForm input:-ms-input-placeholder {
+    color: #888;
+    font-size: 16px;
+    letter-spacing:5px;
+    text-align: center;
+    font-family:'宋体';
+}
+.loginForm button{
+    background: rgba(42, 159, 214, 0.82);
+}
+.nav{
+    height:60px;
+    border-bottom: 0;
+}
+.nav h1{
+    font-size: 24px;
+    width: 350px;
+    height: 50px;
+    margin-top: 5px;
+    line-height:35px;
+    text-indent: 1em;
+    color: rgb(42, 159, 214);
+    background: url(../image/logo.png) no-repeat;
+    background-size: 350px 50px;
+    float: left;
+}
+
+.navBar{
+    width:100%;
+}
+.itemTabContent{
+    float: left;
+    margin-top:10px;
+}
+.itemTabContent li{
+    float: left;
+    padding: 0 20px;
+
+}
+.itemTabContent li a{
+    color:#5a6d82;
+    line-height: 40px;
+    height: 40px;
+    display: block;
+    width: 100px;
+    border: 0;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+
+}
+.itemTabContent li a:hover{
+    text-decoration: none;
+}
+.itemTabContent li.active a {
+    background: url("../image/head_Selected.png");
+    background-size: 100px 40px;
+    color:#ffff00;
+}
+.loginUser {
+    float: right;
+    line-height: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin-top:5px;
+}
+.loginUser .user{
+    margin-right:10px;
+}
+.loginUser li{
+    float: left;
+    color:#509ff0
+}
+.loginUser li.exit{
+    background: url(../image/exit.png) no-repeat center right;
+    height: 50px;
+    background-size: 100px 50px;
+    width: 100px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.loginUser li a{
+    color:#509ff0
+}
+.loginUser li a.exit{
+
+}
+.headTitle{
+    background: url("../image/head_bg1.png") no-repeat center;
+    height:50px;
+    background-size: 100% 50px;
+    text-align: center;
+    color:#fff;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 50px;
+}
+.panel.panel-default{
+    background: rgba(0, 0, 0, 0.2);
+}
+.panel.panel-default .panel-heading{
+    background: rgba(0, 0, 0, 0.1);
+    color:#fff;
+    border:0;
+}
+.panel.panel-default .panel-body{
+    color:#fff;
+}
+.panel{
+    margin: 10px;
+    border:0;
+}
+.table-striped > tbody > tr:nth-of-type(odd),
+.table-hover > tbody > tr:hover{
+    background-color: rgba(2, 42, 93, 0.41);
+}
+.table{
+    margin-bottom: 0;
+}
+.table tr td{
+    border:0;
+}
+.table thead tr{
+    background:rgba(83, 105, 159, 0.64);
+}
+.table > thead > tr > th{
+    border-bottom: 0;
+}
+.table > tbody > tr > td{
+    text-align: center;
+}
+.table > tbody > tr > td{
+    border-top:0;
+}
+.table{
+    border:1px solid rgb(83, 105, 159);
+}
+.query{
+    padding: 20px;
+    margin: 0;
+    margin-bottom: 10px;
+    border:1px solid rgb(83, 105, 159);
+    background: rgba(2, 42, 93, 0.41);
+}
+.query .control-label{
+    text-align: right;
+    font-weight: normal;
+}
+.query .form-control{
+    background: transparent;
+
+}
+.form-group>div,
+.form-group>label{
+    text-align: right;
+    margin:5px 0;
+}
+.btn{
+    background: transparent;
+}
+.btn.btn-default{
+    color:#fff;
+}
+.btn.btn-default:hover{
+    color:#000;
+}
+.btn.btn-warning{
+    color:#eea236
+}
+.btn.btn-primary{
+    color:#2e6da4
+}
+.btn.btn-info{
+    color:#46b8da
+}
+.btn.btn-success{
+    color:#4cae4c
+}
+.btn.btn-violet{
+    color: #9933CC;
+    border-color: #9933CC;
+}
+.btn.btn-violet:hover{
+    background: #9933CC;
+}
+.btn:hover{
+    color:#fff;
+}
+.btn.btn-primary:visited,.btn.btn-primary.visited{
+    color:#fff;
+}
+.dt-button.active span {
+    color:#fff;
+}
+.dt-button.buttons-page-length{
+    background: transparent;
+    color:#5bc0de;
+    border:1px solid #5bc0de;
+}
+.dt-button.buttons-page-length:hover{
+    background:#5bc0de;
+    color:#fff;
+}
+.pagination > li > a, .pagination > li > span{
+    border: 1px solid rgb(83, 105, 159) !important;
+    background: transparent;
+}
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus{
+    background: transparent;
+}
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{
+    background-color: rgba(2, 42, 93, 0.41) !important;
+}
+.table tr td,.table tr th{
+    text-align: center;
+}
+.modal-content{
+    background: rgb(15, 31, 68);
+}
+.modal-content .modal-header,
+.modal-content .modal-header button{
+    color:#fff;
+}
+.modal-content .modal-header{
+    border-bottom: 1px solid rgb(83, 105, 159);
+}
+.modal-content .modal-footer{
+    border-top: 1px solid rgb(83, 105, 159);
+}
+.modal-content label{
+    color:#fff;
 }

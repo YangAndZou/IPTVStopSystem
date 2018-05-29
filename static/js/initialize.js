@@ -11,6 +11,12 @@ $(function () {
             width: 1,
             height:0.25,
             lineHeight:1
+        },
+        loginbody: {
+            name: '.login-body',
+            width: 1,
+            height:0.6,
+            lineHeight:1
         }
     };
     layout(layoutClass);
@@ -29,7 +35,10 @@ function layout(option) {
         var ratioW=option[key].width;
         var ratioH=option[key].height;
         $(name).width(ratioW*width-1);
-        $(name).height(ratioH*height-1);
+        $(name).css({
+            height:ratioH*height-1
+        });
+        //$(name).height(ratioH*height-1);
         var lineHeight=option[key].lineHeight;
         if(lineHeight!=undefined){
             $(name).css({
@@ -37,7 +46,9 @@ function layout(option) {
             })
         }
     }
-
+    $(".panel").css({
+        minHeight:(height-150)+'px'
+    })
 
 }
 
@@ -129,3 +140,37 @@ function initialize() {
     }
 }
 */
+
+//表格里溢出的数据打省略号
+var ellipsisText=function(oSettings){
+    var dom=$(oSettings.nTBody);
+    var html=dom.html();
+    dom.find('td').find("div").css("display",'inline-block');
+    dom.find('td').each(function (index,obj) {
+        //将每个td里添加一个div
+        var len=$(obj).find('div').length;
+
+        // var code=$(obj).find('code').length;
+        if(len==0){
+            //if(code>0){
+            $(obj).html('<div style="display:inline-block">'+$(obj).html()+'</div>')
+            //}
+        }
+        var child=$(obj).find('div').eq(0);
+        var tdWidth=$(obj).width();
+        var textWidth=child.width();
+        if(tdWidth<textWidth){
+            var textlen=child.find('a').length;
+            //每个字体的平均宽度=文本宽度/字体个数
+            var fontSize=textWidth/child.text().length;
+            //表格长度能容纳字体的个数=表格宽度/每个字体的平均宽度
+            var tableFontNum=Math.floor(tdWidth/fontSize)-1;
+            if(textlen>0){
+                child.find('a').attr("title",child.text()).text(child.text().substr(0,tableFontNum)+"...")
+            }else{
+                child.attr("title",child.text()).text(child.text().substr(0,tableFontNum)+"...")
+            }
+        }
+
+    });
+};

@@ -3,8 +3,387 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/initialize.js"></script>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css"
+          href="../static/dataTables/DataTables-1.10.15/1.10.15/css/dataTables.bootstrap.css"/>
+    <script type="text/javascript" src="../static/dataTables/DataTables-1.10.15/1.10.15/js/dataTables.bootstrap.js"></script>
+    <link rel="stylesheet" href="../static/dataTables/buttonsDataTables/buttons.dataTables.css">
+    <script src="../static/dataTables/buttonsDataTables/dataTables.buttons.js"></script>
+    <script src="../static/dataTables/buttonsDataTables/buttons.colVis.js"></script>
+
+    <script src="../static/iCheck-141102135003/icheck.js"></script>
 </head>
 <body>
+    <div class="container-box">
+        <div class="nav">
+            <div class="navBar">
+                <h1>湖南电信天翼高清一键关停</h1>
+                <ul class="itemTabContent">
+                    <li class="active">
+                        <a href="javascript:;">EPG关停</a>
+                    </li>
+                    <li >
+                        <a href="javascript:;">区域CDN关停</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">直播关停</a>
+                    </li>
+                </ul>
+                <ul class="loginUser">
+                    <li class="user"><i class="glyphicon glyphicon-user"></i> <span>ytyh</span></li>
+                    <li class="exit">退出</li>
+                </ul>
+            </div>
+        </div>
+        <div class="headTitle">EPG一键关停</div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="query row">
+                    <form class="form-group">
+                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">系统属性:</label>
+                        <div class="col-lg-2 col-md-2 col-sm-4">
+                            <input type="text" class="form-control input-sm"  name="ansible_ssh_host">
+                        </div>
+                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">属性值:</label>
+                        <div class="col-lg-2 col-md-2 col-sm-4">
+                            <input type="text" class="form-control input-sm" name="ansible_ssh_port">
+                        </div>
+                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">路由组:</label>
+                        <div class="col-lg-2 col-md-2 col-sm-4">
+                            <input type="text" class="form-control input-sm" name="ansible_ssh_port">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                             <button class="btn-primary btn btn-sm" type="submit" name="">查询</button>
+                            &nbsp;
+                            <button class="btn-info btn btn-sm" type="reset" name="">重置</button>
+                        </div>
 
+
+                    </form>
+                </div>
+                <table id="dataTableList"
+                       class="table table-striped  table-hover "
+                       style="word-break:break-all;">
+                    <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" class="icheckbox_all" name="icheckbox_all" id="all_checked">
+                        </th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Salary</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>1</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>
+                            <button class="btn btn-primary btn-xs">封堵</button>
+                            &nbsp;
+                            <button class="btn btn-info btn-xs">封堵列表</button></td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>2</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>3</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>4</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>5</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>6</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>7</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>8</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>9</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>10</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>11</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td>12</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>$320,800</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="regionDialog" tabindex="-1" role="dialog" aria-labelledby="regionModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="regionModalLabel">修改代理配置</h4>
+                </div>
+                <div class="modal-body">
+                    <form  class="main form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">平台</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="username" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">选择大区</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control"  name="email" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">大区IP地址列表<span
+                                    style="color:red;"> *</span></label>
+                            <div class="col-sm-6">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+<script>
+    var oTable=null;
+    $(function(){
+        initTable();
+    });
+    var selectList=[];
+    var initTable = function () {
+        if (oTable != null) {
+            oTable.fnClearTable(0);
+            oTable.fnDraw(); //重新加载数据
+            oTable.fnDestroy();
+        }
+        oTable = $('#dataTableList').dataTable({
+            "aLengthMenu": [10,20, 50, 100], //更改显示记录数选项
+            "bProcessing": true,
+            "bJQueryUI": false,
+            "bFilter": false,
+            "bLengthChange": true,
+            "bSort": false,
+            "bStateSave": false,
+            //"bServerSide": true,
+            "iDisplayStart": 0,
+            "iDisplayLength":10,
+            "paging": true,
+            "bScrollCollapse": true,
+            "bAutoWidth": false,
+            "infoCallback":function (oSettings) {
+                ellipsisText(oSettings);
+            },
+            "fnInitComplete": function (oSettings, json) {
+                ellipsisText(oSettings);
+            },
+            "oLanguage": {
+                "sLengthMenu": "每页显示 _MENU_条",
+                "sZeroRecords": "没有找到符合条件的数据",
+                "sProcessing": " 数据加载中， 请稍候......",
+                "sInfo": "当前第 _START_ - _END_ 条　共计 _TOTAL_ 条",
+                "sInfoEmpty": "没有记录",
+                "sInfoFiltered": "(从 _MAX_ 条记录中过滤)",
+                "sSearch": "",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "前一页",
+                    "sNext": "后一页",
+                    "sLast": "尾页"
+                }
+            },
+//            "sAjaxSource": "/asset/hard/select/",
+            "dom": 'Bfrtip',
+            /*'columnDefs': [{
+                targets:0,
+                data: null,
+                defaultContent:"<input type ='checkbox' name='test' class='icheckbox_minimal' value=''>",
+            }],*/
+
+            "buttons": [
+                'pageLength',
+                'colvis',
+                {
+                    text: '大区关停',
+                    className: 'btn btn-sm btn-warning ',
+                    action: function (e, dt, node, config) {
+                        $("#regionDialog").modal('show')
+                    }
+                },
+                {
+                    text: '大区关停列表',
+                    className: 'btn btn-sm btn-warning ',
+                    action: function (e, dt, node, config) {
+                    }
+                },
+                {
+                    text: '操作日志',
+                    className: 'btn btn-sm btn-violet',
+                    action: function (e, dt, node, config) {
+                    }
+                }
+                /*{
+                    text: '区域边缘关停',
+                    className: 'btn btn-sm btn-warning ',
+                    action: function (e, dt, node, config) {
+                    }
+                },
+                {
+                    text: '区域边缘关停列表',
+                    className: 'btn btn-sm btn-warning ',
+                    action: function (e, dt, node, config) {
+                    }
+                },
+                {
+                    text: '操作日志',
+                    className: 'btn btn-sm btn-success',
+                    action: function (e, dt, node, config) {
+                    }
+                },
+                {
+                    text: '关停',
+                    className: 'btn btn-sm btn-success',
+                    action: function (e, dt, node, config) {
+
+                        console.log(selectList)
+                    }
+                },*/
+            ],
+            "drawCallback" : function(settings) {
+                var ischeckAll=$("#all_checked").prop('checked');
+                $(":checkbox").prop("checked",ischeckAll);
+                for(var index=0;index<$(settings.nTBody).find("tr").length;index++){
+                    if(selectList.length>0&&selectList[0]!="all"){
+                        for(var i=0;i<selectList.length;i++){
+                            var dom=$($(settings.nTBody).find("tr")[index]).find("td");
+                            var text=dom.eq(1).text();
+                            var data=selectList[i];
+                            if(text==data){
+                                dom.eq(0).find(":checkbox").prop("checked",true);
+                            }
+                        }
+                    }
+                }
+            },
+
+        });
+
+
+        $('#dataTableList_wrapper').find(' tbody').on( 'click', 'tr', function () {
+             var ischeck=$(this).find("td").eq(0).find("input").prop('checked');
+             if(!ischeck){
+                 $(this).find("td").eq(0).find("input").prop('checked',true);
+                 selectList.push($(this).find("td").eq(1).text())
+             }else{
+                $(this).find("td").eq(0).find("input").prop('checked',false);
+                 for(var index=0;index<selectList.length;index++){
+                     var filed=$(this).find("td").eq(1).text();
+                    if(selectList[index]==filed){
+                        selectList.splice(index,1)
+                    }
+                 }
+             }
+
+        });
+        $('#dataTableList_wrapper').on("change", ":checkbox", function() {
+            // 列表复选框
+            var ischeckAll=$("#all_checked").prop('checked');
+            $(":checkbox").prop("checked",ischeckAll);
+
+            if ($(this).is("[name='icheckbox_all']")) {
+                // 全选
+                var ischeckAll=$(this).prop('checked');
+                if(ischeckAll){
+                    selectList=["all"]
+                }else{
+                    selectList=[]
+                }
+
+            }
+        })
+    };
+
+</script>

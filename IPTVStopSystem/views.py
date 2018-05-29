@@ -1,6 +1,7 @@
 # coding=utf-8
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from models import IPTVProgram
@@ -8,22 +9,44 @@ from models import IPTVProgramOperationLog
 import utils
 
 
-# 登录
+# 登录验证
 def login(request):
     if request.method == 'GET':
         return render(request, 'login.html')
     elif request.method == 'POST':
+        print('session', request.session.get('username'))
         if request.session.get('username') is not None:
             return HttpResponseRedirect('/', {"user": request.user})
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
+            print('username', username)
+            print('password', password)
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
                 request.session['username'] = username
                 return HttpResponseRedirect('/', {"user": request.user})
             return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
+
+
+def checkuser(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        passwd = request.POST.get('password')
+        print(username, passwd)
+        try:
+            passwd_db = User.objects.get(username=username).password
+        except Exception as e:
+            print('error', e)
+            messages.add_message(request, messages.WARNING, '找不到用户')
+            return render(request, 'login.html', {'login_info': '请使用正确的账号/密码登录'})
+        if passwd == passwd_db:
+            request.session['username'] = username
+            return render(request, 'index.html')
+        else:
+            messages.add_message(request, messages.WARNING, '密码错误')
+            return render(request, 'login.html', {'login_info': '请使用正确的账号/密码登录'})
 
 
 # 登录
@@ -38,7 +61,7 @@ def noperm(request):
 
 
 # 主页
-# @login_required(login_url='/login')
+@login_required()
 def index(request, program_name='0', program_ip='0', status='0'):
     if request.method == 'GET':
         programs = IPTVProgram.objects.all()

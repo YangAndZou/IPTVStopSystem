@@ -30,25 +30,6 @@ def login(request):
             return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
 
 
-def checkuser(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        passwd = request.POST.get('password')
-        print(username, passwd)
-        try:
-            passwd_db = User.objects.get(username=username).password
-        except Exception as e:
-            print('error', e)
-            messages.add_message(request, messages.WARNING, '找不到用户')
-            return render(request, 'login.html', {'login_info': '请使用正确的账号/密码登录'})
-        if passwd == passwd_db:
-            request.session['username'] = username
-            return render(request, 'index.html')
-        else:
-            messages.add_message(request, messages.WARNING, '密码错误')
-            return render(request, 'login.html', {'login_info': '请使用正确的账号/密码登录'})
-
-
 # 登录
 def logout(request):
     auth.logout(request)
@@ -63,15 +44,15 @@ def noperm(request):
 # 主页
 @login_required()
 def index(request, program_name='0', program_ip='0', status='0'):
-      programs = IPTVProgram.objects.all()
-      # 以下为搜索功能，分别对应频道名，频道ip，状态
-      if program_name != 0:
-          programs = programs.filter(program_name__contains=program_name)
-      if program_ip != 0:
-          programs = programs.filter(program_ip__contains=program_ip)
-      if status != 0:
-          programs = programs.filter(status=status)
-      return render(request, 'index.html', {'programs': programs})
+    programs = IPTVProgram.objects.all()
+    # 以下为搜索功能，分别对应频道名，频道ip，状态
+    if program_name != 0:
+        programs = programs.filter(program_name__contains=program_name)
+    if program_ip != 0:
+        programs = programs.filter(program_ip__contains=program_ip)
+    if status != 0:
+        programs = programs.filter(status=status)
+    return render(request, 'index.html', {'programs': programs})
 
 
 # 关停 / 开启

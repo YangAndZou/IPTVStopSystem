@@ -18,8 +18,8 @@ class IPTVRouterGroup(models.Model):
 
 class IPTVProgram(models.Model):
     program_status = (
-        ('0', 'off'),
-        ('1', 'on')
+        ('1', 'off'),
+        ('2', 'on')
     )
     program_name = models.CharField(max_length=128, verbose_name='频道名称')
     program_desc = models.CharField(max_length=256, verbose_name='频道描述', null=True, blank=True)
@@ -66,8 +66,8 @@ class IPTVZoneNode(models.Model):
 
 class IPTVSystem(models.Model):
     operation_status = (
-        ('0', '失败'),
-        ('1', '成功')
+        ('1', '失败'),
+        ('2', '成功')
     )
     router_group = models.ForeignKey(to=IPTVRouterGroup, verbose_name='控制路由组名称')
     platform = models.ForeignKey(to=IPTVPlatform, verbose_name='平台表')

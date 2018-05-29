@@ -37,16 +37,15 @@ def noperm(request):
 # 主页
 # @login_required(login_url='/login')
 def index(request, program_name='0', program_ip='0', status='0'):
-    if request.method == 'GET':
-        programs = IPTVProgram.objects.all()
-        # 以下为搜索功能，分别对应频道名，频道ip，状态
-        if program_name != 0:
-            programs = programs.filter(program_name__contains=program_name)
-        if program_ip != 0:
-            programs = programs.filter(program_ip__contains=program_ip)
-        if status != 0:
-            programs = programs.filter(status=status)
-        return render(request, 'index.html', {'programs': programs})
+      programs = IPTVProgram.objects.all()
+      # 以下为搜索功能，分别对应频道名，频道ip，状态
+      if program_name != 0:
+          programs = programs.filter(program_name__contains=program_name)
+      if program_ip != 0:
+          programs = programs.filter(program_ip__contains=program_ip)
+      if status != 0:
+          programs = programs.filter(status=status)
+      return render(request, 'index.html', {'programs': programs})
 
 
 # 关停 / 开启

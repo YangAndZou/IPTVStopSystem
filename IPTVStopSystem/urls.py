@@ -23,4 +23,3 @@ urlpatterns = [
     url(r'^(?P<program_name>[\s\S]*)/(?P<program_ip>[\s\S]*)/(?P<status>[\s\S]*)$',
         views.index),
 ]
-# 

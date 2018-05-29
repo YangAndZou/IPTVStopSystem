@@ -6,18 +6,21 @@
 
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/initialize.js"></script>
+    <link rel="stylesheet" href="../static/xcConfirm/css/xcConfirm.css">
     <link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap.css">
     <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
     <link rel="stylesheet" href="../static/css/common.css">
     <link rel="stylesheet" href="../static/css/style.css">
 
+    <script src="../static/xcConfirm/js/xcConfirm.js"></script>
 </head>
 <body>
     <div class="container-box login">
         <h1 class="login-title">湖南电信天翼高清一键关停</h1>
         <div class="login-body">
             <div class="loginForm">
-               <form action="/index" method="post" target="_blank">
+               <form action="/index" method="post"  onsubmit="return submitCheck()">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="text" placeholder="请输入用户名" class="form-control"

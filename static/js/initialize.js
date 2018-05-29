@@ -2,7 +2,7 @@
 $(function () {
     var layoutClass= {
         container: {
-            name: '.container-box',
+            name: '.login',
             width: 1,
             height: 1
         },
@@ -34,7 +34,7 @@ function layout(option) {
         var name=option[key].name;
         var ratioW=option[key].width;
         var ratioH=option[key].height;
-        $(name).width(ratioW*width-1);
+        //$(name).width(ratioW*width-1);
         $(name).css({
             height:ratioH*height-1
         });
@@ -48,6 +48,11 @@ function layout(option) {
     }
     $(".panel").css({
         minHeight:(height-150)+'px'
+    });
+    var panelH=$(".panel").height();
+    $(".table tr td").css({
+        height:(panelH-250)/10+"px",
+        lineHeight:(panelH-250)/10+"px"
     })
 
 }

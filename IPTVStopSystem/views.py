@@ -13,41 +13,23 @@ import utils
 # 登录验证
 def login(request):
     if request.method == 'GET':
-        user = request.user
-        if user.is_authenticated:
-            print('already login')
-            return redirect('/')
-        else:
-            return render(request, 'login.html')
+        return render(request, 'login.html')
     elif request.method == 'POST':
-        # print('session', request.session.get('username'))
-        # if request.session.get('username') is not None:
-        #     return HttpResponseRedirect('/', {"user": request.user})
-        # else:
-        #     username = request.POST.get('username')
-        #     password = request.POST.get('password')
-        #     print('username', username)
-        #     print('password', password)
-        #     user = auth.authenticate(username=username, password=password)
-        #     if user and user.is_active:
-        #         auth.login(request, user)
-        #         request.session['username'] = username
-        #         return HttpResponseRedirect('/', {"user": request.user})
-        #     return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = auth.authenticate(username=username, password=password)
-        print('username', username)
-        print('username', password)
-        if user is not None and user.is_active:
-            auth.login(request, user)
-            # 更新最后登录时间
-            now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-            user.last_login = now_time
-            user.save()
+        print('session', request.session.get('username'))
+        if request.session.get('username') is not None:
             return redirect('/', {"user": request.user})
         else:
-            return render(request, 'login.html', {'error': '邮箱或者密码不正确'})
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = auth.authenticate(username=username, password=password)
+            if user and user.is_active:
+                auth.login(request, user)
+                request.session['username'] = username
+                now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+                user.last_login = now_time
+                user.save()
+                return redirect('/', {"user": request.user})
+            return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
 
 
 # 登录

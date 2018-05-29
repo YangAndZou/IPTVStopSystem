@@ -43,26 +43,26 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="query row">
-                    <form class="form-group">
+                    <div class="form-group">
                         {% csrf_token %}
-                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">系统属性:</label>
+                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">频道名称:</label>
                         <div class="col-lg-2 col-md-2 col-sm-4">
-                            <input type="text" class="form-control input-sm"  name="ansible_ssh_host">
+                            <input type="text" class="form-control input-sm" id="program_name" name="program_name">
                         </div>
-                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">属性值:</label>
+                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">频道IP:</label>
                         <div class="col-lg-2 col-md-2 col-sm-4">
-                            <input type="text" class="form-control input-sm" name="ansible_ssh_port">
+                            <input type="text" class="form-control input-sm" id="program_ip" name="program_ip">
                         </div>
-                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">路由组:</label>
+                        <label  class="col-lg-1 col-md-1 col-sm-2 control-label">状态:</label>
                         <div class="col-lg-2 col-md-2 col-sm-4">
-                            <input type="text" class="form-control input-sm" name="ansible_ssh_port">
+                            <input type="text" class="form-control input-sm" id="status" name="status">
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-12">
-                             <button class="btn-primary btn btn-sm" type="submit" name="">查询</button>
+                             <button class="btn-primary btn btn-sm" type="submit" name="" onclick="sumbitQuery()">查询</button>
                             &nbsp;
                             <button class="btn-info btn btn-sm" type="reset" name="">重置</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <table id="dataTableList"
                        class="table table-striped  table-hover "
@@ -78,7 +78,7 @@
                         <th>频道ip</th>
                         <th>频道状态</th>
                         <th>策略id</th>
-                        <td>操作</td>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -180,7 +180,6 @@
 </body>
 </html>
 <script>
-    console.log("{{ programs }}")
     {% block page-js %}
     var oTable=null;
     $(function(){
@@ -281,7 +280,7 @@
                     className: 'btn btn-sm btn-danger',
                     action: function (e, dt, node, config) {
                         //console.log(selectList)
-                        console.log('{{ mode }}')
+                        console.log(selectList)
                     }
                 },
                 {
@@ -300,7 +299,7 @@
                     if(selectList.length>0&&selectList[0]!="all"){
                         for(var i=0;i<selectList.length;i++){
                             var dom=$($(settings.nTBody).find("tr")[index]).find("td");
-                            var text=dom.eq(1).text();
+                            var text=dom.parents('tr').find('td').eq(4).text();
                             var data=selectList[i];
                             if(text==data){
                                 dom.eq(0).find(":checkbox").prop("checked",true);
@@ -326,10 +325,10 @@
             //选择复选框按钮事件
             var ischeck=$(this).prop('checked');
             if(ischeck){
-                selectList.push($(this).parents('td').next().text())
+                selectList.push($(this).parents('tr').find('td').eq(4).text())
             }else{
                 for(var index=0;index<selectList.length;index++){
-                    var filed=$(this).parents('td').next().text();
+                    var filed=$(this).parents('tr').find('td').eq(4).text();
                     if(selectList[index]==filed){
                         selectList.splice(index,1)
                     }
@@ -352,6 +351,15 @@
 
             }
         })
+    }
+    function sumbitQuery(){
+        var programName=0;
+        var programIp=0;
+        var status=0;
+        $("#program_name").val()==''?programName=0:programName=$("#program_name").val();
+        $("#program_ip").val()==''?programIp=0:programIp=$("#program_ip").val();
+        $("#status").val()==''?status=0:status=$("#status").val();
+        location.href="/index/"+programName+"/"+programIp+"/"+status
     }
     {% endblock %}
 </script>

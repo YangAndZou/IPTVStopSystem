@@ -376,7 +376,7 @@
         $("#program_name").val()==''?programName=0:programName=$("#program_name").val();
         $("#program_ip").val()==''?programIp=0:programIp=$("#program_ip").val();
         $("#status").val()==''?status=0:status=$("#status").val();
-        location.href="/index/"+programName+"/"+programIp+"/"+status
+        location.href='/' + programName+"/"+programIp+"/"+status
     }
     {% endblock %}
 </script>

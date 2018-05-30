@@ -53,7 +53,7 @@ def index(request, program_name='0', program_ip='0', status='0'):
     if program_name != '0':
         programs = programs.filter(program_name=program_name)
     if program_ip != '0':
-        programs = programs.filter(program_ip=program_ip)
+        programs = programs.filter(program_ip__contains=program_ip)
     if status != '0':
         programs = programs.filter(status=status)
     return render(request, 'index.html', {'programs': programs})

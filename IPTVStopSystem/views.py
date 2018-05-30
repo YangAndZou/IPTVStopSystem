@@ -72,10 +72,10 @@ def program_turn_off(request):
             elif mode == 'turn_on':
                 for ip in program_ips:
                     utils.ssh_paramiko(ip, 'root', '12', 'turn on')
-            return JsonResponse({'msg': 'ok', 'code': 200})
+            return JsonResponse({'msg': 'ok', 'code': "200"})
         except Exception as e:
             print(e)
-            return JsonResponse({'msg': e, 'code': 201})
+            return JsonResponse({'msg': e, 'code': "201"})
 
 
 # 显示操作记录

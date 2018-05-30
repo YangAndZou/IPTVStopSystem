@@ -237,7 +237,8 @@
     color:#eea236
 }
 .btn.btn-primary{
-    color:#2e6da4
+    color:#0682f5;
+    border-color:#0682f5;
 }
 .btn.btn-info{
     color:#46b8da
@@ -318,4 +319,24 @@
     border-radius: 8px;
     display: inline-block;
     background: #CC0000
+}
+.nav-tabs > li > a{
+    color:#fff;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:hover {
+    color:#fff;
+    background:rgb(8, 36, 67);
+    border: 1px solid rgb(83, 105, 159);
+    border-bottom-color:transparent ;
+}
+.nav.nav-tabs{
+    height:auto;
+}
+.tab-content{
+    padding-top:10px ;
+    border-top: 1px solid rgb(2, 42, 93);
 }

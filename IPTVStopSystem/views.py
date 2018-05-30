@@ -17,7 +17,7 @@ def login(request):
     elif request.method == 'POST':
         print('session', request.session.get('username'))
         if request.session.get('username') is not None:
-            return redirect('/', {"user": request.user})
+            return redirect('/directBroadcast', {"user": request.user})
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -28,7 +28,7 @@ def login(request):
                 now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 user.last_login = now_time
                 user.save()
-                return redirect('/', {"user": request.user})
+                return redirect('/directBroadcast', {"user": request.user})
             return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
 
 
@@ -54,8 +54,7 @@ def index(request, program_name='0', program_ip='0', status='0'):
         programs = programs.filter(program_ip=program_ip)
     if status != '0':
         programs = programs.filter(status=status)
-    return render(request, 'index.html', {'programs': programs})
-
+    return render(request, 'directBroadcast.html', {'programs': programs})
 
 # 关停 / 开启
 def program_turn_off(request):
@@ -79,3 +78,15 @@ def program_turn_off(request):
 def show_log(request):
     logs = IPTVProgramOperationLog.objects.all()
     return render(request, 'program_logs.html', {'program_logs': logs})
+
+@login_required()
+def epg(request, program_name='0', program_ip='0', status='0'):
+    programs = IPTVProgram.objects.all()
+    # 以下为搜索功能，分别对应频道名，频道ip，状态
+    if program_name != '0':
+        programs = programs.filter(program_name=program_name)
+    if program_ip != '0':
+        programs = programs.filter(program_ip=program_ip)
+    if status != '0':
+        programs = programs.filter(status=status)
+    return render(request, 'epg.html', {'programs': programs})

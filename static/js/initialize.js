@@ -22,8 +22,7 @@ $(function () {
     layout(layoutClass);
     $(window).resize(function () {
         layout(layoutClass);
-    })
-
+    });
 });
 
 

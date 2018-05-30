@@ -20,7 +20,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^login$', views.login),
     url(r'^logout$', views.logout),
-    url(r'^', views.index),
+    url(r'^$', views.index),
+    url(r'^epg$', views.epg),
     url(r'^(?P<program_name>[\s\S]*)/(?P<program_ip>[\s\S]*)/(?P<status>[\s\S]*)$',
         views.index),
 ]

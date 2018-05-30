@@ -1,4 +1,4 @@
-$(".itemTabContent").find("li").eq(2).addClass('active')
+$(".itemTabContent").find("li").eq(2).addClass('active');
 var oTable = null;
 $(function () {
     initTable();
@@ -97,14 +97,15 @@ var initTable = function () {
                 text: '关停',
                 className: 'btn btn-sm btn-danger',
                 action: function (e, dt, node, config) {
-                    turnFn('turn_off', selectList, 1)
+                    turnFn('turn_on', selectList, 1)
                 }
             },
             {
                 text: '开启',
                 className: 'btn btn-sm btn-success',
                 action: function (e, dt, node, config) {
-                    turnFn('turn_on', selectList, 1)
+
+                    turnFn('turn_off', selectList, 1)
                 }
             },
             {

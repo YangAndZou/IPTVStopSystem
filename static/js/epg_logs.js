@@ -1,8 +1,9 @@
 var oTable=null;
+$(".itemTabContent").find("li").eq(0).addClass('active');
 $(function(){
     initTable();
     $(".back").click(function () {
-        location.href="/index"
+        location.href="/epg/0/0/0"
     })
 });
 var initTable = function () {

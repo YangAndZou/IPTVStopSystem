@@ -49,10 +49,12 @@ function layout(option) {
         minHeight:(height-150)+'px'
     });
     var panelH=$(".panel").height();
-    $(".table tr td").css({
-        height:(panelH-250)/10+"px",
-        lineHeight:(panelH-250)/10+"px"
-    })
+    /*$(".table tr td").css({
+        height:(panelH-200)/10+"px",
+        lineHeight:(panelH-200)/10+"px",
+        minHeight:'40px',
+        maxHeight:'60px'
+    })*/
 
 }
 

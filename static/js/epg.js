@@ -1,5 +1,4 @@
 $(".itemTabContent").find("li").eq(0).addClass('active')
-alert("gyt")
 var oTable=null;
 $(function(){
     initTable();
@@ -95,28 +94,14 @@ var initTable = function () {
              }
              },*/
             {
-                text: '关停',
-                className: 'btn btn-sm btn-danger',
-                action: function (e, dt, node, config) {
-                    turnFn('turn_off',selectList,1)
-                }
-            },
-            {
-                text: '开启',
-                className: 'btn btn-sm btn-success',
-                action: function (e, dt, node, config) {
-                    turnFn('turn_on',selectList,1)
-                }
-            },
-            {
                 text: '操作日志',
                 className: 'btn btn-sm btn-warning',
                 action: function (e, dt, node, config) {
-                    location.href="/program_logs"
+                    location.href="/epg_logs"
                 }
             }
         ],
-        "drawCallback" : function(settings) {
+       /* "drawCallback" : function(settings) {
             var ischeckAll=$("#all_checked").prop('checked');
             $(":checkbox").prop("checked",ischeckAll);
             for(var index=0;index<$(settings.nTBody).find("tr").length;index++){
@@ -131,33 +116,8 @@ var initTable = function () {
                     }
                 }
             }
-        },
+        },*/
 
-    });
-
-    $('#dataTableList_wrapper').on("change", ".icheckbox_all", function() {
-        //选择全选复选框按钮
-        var ischeckAll=$(this).prop('checked');
-        $(":checkbox").prop("checked",ischeckAll);
-        if(ischeckAll){
-            selectList=["all"]
-        }else{
-            selectList=[]
-        }
-    });
-    $('#dataTableList_wrapper').on("change", ".icheckbox_minimal", function() {
-        //选择复选框按钮事件
-        var ischeck=$(this).prop('checked');
-        if(ischeck){
-            selectList.push($(this).parents('tr').find('td').eq(4).text())
-        }else{
-            for(var index=0;index<selectList.length;index++){
-                var filed=$(this).parents('tr').find('td').eq(4).text();
-                if(selectList[index]==filed){
-                    selectList.splice(index,1)
-                }
-            }
-        }
     });
 };
 function logout() {
@@ -177,60 +137,17 @@ function logout() {
     })
 }
 function sumbitQuery(){
-    var programName=0;
-    var programIp=0;
-    var status=0;
-    $("#program_name").val()==''?programName=0:programName=$("#program_name").val();
-    $("#program_ip").val()==''?programIp=0:programIp=$("#program_ip").val();
-    $("#status").val()==''?status=0:status=$("#status").val();
-    var url='/'+programName+"/"+programIp+"/"+status;
+    var systemName=0;
+    var routerIp=0;
+    var routerGroup=0;
+    $("#system_name").val()==''?systemName=0:systemName=$("#system_name").val();
+    $("#router_ip").val()==''?routerIp=0:routerIp=$("#router_ip").val();
+    $("#router_group").val()==''?routerGroup=0:routerGroup=$("#router_group").val();
+    var url='/epg/'+systemName+"/"+routerIp+"/"+routerGroup;
     location.href=url
 }
-function turnFn(turn,list,type) {
-    var List=[];
-    if(type==0){
-        List.push(list)
-    }else{
-        List=list;
-    }
-    var formData = new FormData();
-    formData.append("mode",turn);
-    formData.append("program_ips",JSON.stringify(List));
-    formData.append("csrfmiddlewaretoken",token);
-    console.log(List)
-    $.ajax({
-        url: "/program_change",
-        type: "Post",
-        data:{
-            mode:turn,
-            program_ips:List,
-            csrfmiddlewaretoken:token
-        },
-        dataType:'json',
-        /* processData: false,
-         contentType: false,*/
-        "success": function (resp) {
-            location.reload()
-        },
-        "error": function (response) {}
-    })
-}
-
 $(document).keyup(function(event){
-    var active=0;
-    var panel=$('#myTabContent').find(".tab-pane");
-    panel.each(function (index,obj) {
-        if($(obj).hasClass('active')){
-            active=index;
-        }
-    });
-
     if(event.keyCode ==13){
-        if(active==0){
-            $("#submitprogram").trigger("click");
-        }else{
-            $("#submitprogram").trigger("click");
-        }
-
+        $("#submitEpg").trigger("click");
     }
 });

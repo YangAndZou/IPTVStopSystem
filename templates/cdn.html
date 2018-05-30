@@ -1,10 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'index.html' %}
+{% block page-content %}
+{% load static %}
+<div class="headTitle">区域CDN一键关停</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="query row">
+            <div class="form-group">
+                {% csrf_token %}
+                <label  class="col-lg-1 col-md-1 col-sm-2 control-label">系统属性:</label>
+                <div class="col-lg-2 col-md-2 col-sm-4">
+                    <input type="text" class="form-control input-sm" id="system_name" name="system_name">
+                </div>
+                <label  class="col-lg-1 col-md-1 col-sm-2 control-label">属性值:</label>
+                <div class="col-lg-2 col-md-2 col-sm-4">
+                    <input type="text" class="form-control input-sm" id="router_ip" name="router_ip">
+                </div>
+                <label  class="col-lg-1 col-md-1 col-sm-2 control-label">路由组:</label>
+                <div class="col-lg-2 col-md-2 col-sm-4">
+                    <input type="text" class="form-control input-sm" id="router_group" name="router_group">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <button class="btn-primary btn btn-sm" type="submit"  id="submitEpg" name="" onclick="sumbitQuery()">查询</button>
+                    &nbsp;
+                    <button class="btn-info btn btn-sm" type="reset" name="" onclick="location.reload()">重置</button>
+                </div>
+            </div>
+        </div>
+        <table id="dataTableList"
+               class="table table-striped  table-hover "
+               style="word-break:break-all;">
+            <thead>
+            <tr>
+                <th>系统名称</th>
+                <th>路由设备ip</th>
+                <th>系统负责人</th>
+                <th>责任科室</th>
+                <th>最近操作时间</th>
+                <th>路由组</th>
+                <th>操作结果</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ds in systems %}
+            <tr>
+                <td class="center">{{ ds.system_name }}</td>
+                <td class="center">{{ ds.router_ip }}</td>
+                <td class="center">{{ ds.system_manager }}</td>
+                <td class="center">{{ ds.system_manage_room }}</td>
+                <td class="center">{{ ds.update_time }}</td>
+                <td class="center">{{ ds.router_group.router_name }}</td>
+                <td class="center">{{ ds.status }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="regionDialog" tabindex="-1" role="dialog" aria-labelledby="regionModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="regionModalLabel">修改代理配置</h4>
+            </div>
+            <div class="modal-body">
+                <form  class="main form-horizontal">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">平台</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="username" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">选择大区</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"  name="email" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">大区IP地址列表<span
+                                style="color:red;"> *</span></label>
+                        <div class="col-sm-6">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="{% static 'js/cdn.js' %}"></script>
+{% endblock %}

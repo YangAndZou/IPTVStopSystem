@@ -5,10 +5,12 @@ import paramiko
 
 # paramiko ssh 连接封装
 def ssh_paramiko(ip, username, passwd, cmd):
+    result = {}
     try:
         ssh = paramiko.SSHClient()
+        # 用于允许连接不在known_hosts名单中的主机
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(ip, 22, username, passwd, timeout=5)
+        ssh.connect(hostname=ip, port=22, username=username, password=passwd, timeout=5)
         stdin, stdout, stderr = ssh.exec_command(cmd)
         # 与服务器交互，输出Y，这里的交互是指后面的cmd需要的执行的程序可能
         # 出现交互的情况下，可以通过该参数进行交互。
@@ -18,6 +20,7 @@ def ssh_paramiko(ip, username, passwd, cmd):
         ssh.close()
     except Exception as e:
         print('%s Error,  %s\n' % (ip, e))
+        return result
 
 
 if __name__ == '__main__':

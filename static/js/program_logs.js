@@ -1,6 +1,9 @@
 var oTable=null;
 $(function(){
     initTable();
+    $(".back").click(function () {
+        location.href="/0/0/0"
+    })
 });
 var initTable = function () {
     if (oTable != null) {

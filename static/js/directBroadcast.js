@@ -199,7 +199,6 @@ function turnFn(turn, list, type) {
     formData.append("mode",turn);
     formData.append("program_ips",JSON.stringify(List));
     formData.append("csrfmiddlewaretoken",token);
-    console.log(List)
     $.ajax({
         url: "/program_change",
         type: "Post",

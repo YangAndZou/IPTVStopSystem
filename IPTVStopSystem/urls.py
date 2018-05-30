@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^(?P<program_name>[\s\S]*)/(?P<program_ip>[\s\S]*)/(?P<status>[\s\S]*)$',
         views.index),
+    url(r'^logs$', views.show_log),
 ]

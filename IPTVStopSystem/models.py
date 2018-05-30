@@ -90,6 +90,7 @@ class IPTVSystem(models.Model):
 
 class IPTVProgramOperationLog(models.Model):
     program = models.ForeignKey(to=IPTVProgram, verbose_name='频道', related_name='iptv_program_operation_log')
+    content = models.TextField(verbose_name='操作内容')
     update_time = models.DateTimeField(auto_now_add=True, verbose_name='更新时间')
 
     class Meta:

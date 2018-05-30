@@ -27,7 +27,9 @@
                                 <select class="selectpicker"
                                         id="status"
                                         name="status"
+                                        data-none-selected-text="请选择"
                                         data-width="100%">
+                                    <option name="status" value="0">请选择</option>
                                     <option name="status" value="1">关停</option>
                                     <option name="status" value="2">开启</option>
                                 </select>
@@ -75,9 +77,9 @@
                             <td class="center">{{ ds.strategy }}</td>
                             <td class="center">
                                 {% if ds.status == 1 %}
-                                <button class="btn btn-success btn-xs">开启</button>
+                                <button class="btn btn-success btn-xs" onclick="turnFn('turn_on','{{ ds.program_ip }}',0)">开启</button>
                                 {% elif ds.status == 2 %}
-                                <button class="btn btn-danger btn-xs">关停</button>
+                                <button class="btn btn-danger btn-xs" onclick="turnFn('turn_off','{{ ds.program_ip }}',0)">关停</button>
                                 {% endif %}
                                 &nbsp;
                                 <button class="btn btn-info btn-xs">检测</button>
@@ -133,5 +135,8 @@
     </div>
 
 </div>
+<script>
+    var token='{{ csrf_token }}';
+</script>
     <script src="{% static 'js/directBroadcast.js' %}"></script>
 {% endblock %}

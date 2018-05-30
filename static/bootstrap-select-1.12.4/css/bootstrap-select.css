@@ -302,4 +302,14 @@ select.selectpicker {
   background-color: transparent;
   border-color: #fff;
 }
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default{
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+}
+.btn.btn-default:hover{
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+}
 /*# sourceMappingURL=bootstrap-select.css.map */

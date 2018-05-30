@@ -57,4 +57,4 @@ def index(request, program_name='0', program_ip='0', status='0'):
             programs = programs.filter(program_ip__contains=program_ip)
         if status != '0':
             programs = programs.filter(status=status)
-        return render(request, 'index.html', {'programs': programs})
+        return render(request, 'directBroadcast.html', {'programs': programs})

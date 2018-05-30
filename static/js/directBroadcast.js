@@ -97,16 +97,21 @@ var initTable = function () {
                 text: '关停',
                 className: 'btn btn-sm btn-danger',
                 action: function (e, dt, node, config) {
-                    //console.log(selectList)
-                    console.log(selectList)
+                    turnFn('turn_off',selectList,1)
                 }
             },
             {
                 text: '开启',
                 className: 'btn btn-sm btn-success',
                 action: function (e, dt, node, config) {
-
-                    console.log(selectList)
+                    turnFn('turn_on',selectList,1)
+                }
+            },
+            {
+                text: '操作日志',
+                className: 'btn btn-sm btn-warning',
+                action: function (e, dt, node, config) {
+                    location.href="/program_logs"
                 }
             }
         ],
@@ -180,7 +185,28 @@ function sumbitQuery(){
     var url='/'+programName+"/"+programIp+"/"+status;
     location.href=url
 }
-
+function turnFn(turn,list,type) {
+    var List=[];
+    if(type==0){
+        List.push(list)
+    }else{
+        List=list;
+    }
+    $.ajax({
+        url: "/program_change",
+        type: "Post",
+        data:{
+            mode:turn,
+            program_ips:List,
+            csrfmiddlewaretoken:token
+        },
+        dataType: "json",
+        "success": function (resp) {
+            location.reload()
+        },
+        "error": function (response) {}
+    })
+}
  
 $(document).keyup(function(event){
     var active=0;

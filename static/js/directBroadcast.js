@@ -1,9 +1,9 @@
 $(".itemTabContent").find("li").eq(2).addClass('active')
-var oTable=null;
-$(function(){
+var oTable = null;
+$(function () {
     initTable();
 });
-var selectList=[];
+var selectList = [];
 var initTable = function () {
     if (oTable != null) {
         oTable.fnClearTable(0);
@@ -11,7 +11,7 @@ var initTable = function () {
         oTable.fnDestroy();
     }
     oTable = $('#dataTableList').dataTable({
-        "aLengthMenu": [10,20, 50, 100], //更改显示记录数选项
+        "aLengthMenu": [10, 20, 50, 100], //更改显示记录数选项
         "bProcessing": true,
         "bJQueryUI": false,
         "bFilter": false,
@@ -20,11 +20,11 @@ var initTable = function () {
         "bStateSave": false,
         //"bServerSide": true,
         "iDisplayStart": 0,
-        "iDisplayLength":10,
+        "iDisplayLength": 10,
         "paging": true,
         "bScrollCollapse": true,
         "bAutoWidth": false,
-        "infoCallback":function (oSettings) {
+        "infoCallback": function (oSettings) {
             ellipsisText(oSettings);
         },
         "fnInitComplete": function (oSettings, json) {
@@ -97,35 +97,35 @@ var initTable = function () {
                 text: '关停',
                 className: 'btn btn-sm btn-danger',
                 action: function (e, dt, node, config) {
-                    turnFn('turn_off',selectList,1)
+                    turnFn('turn_off', selectList, 1)
                 }
             },
             {
                 text: '开启',
                 className: 'btn btn-sm btn-success',
                 action: function (e, dt, node, config) {
-                    turnFn('turn_on',selectList,1)
+                    turnFn('turn_on', selectList, 1)
                 }
             },
             {
                 text: '操作日志',
                 className: 'btn btn-sm btn-warning',
                 action: function (e, dt, node, config) {
-                    location.href="/program_logs"
+                    location.href = "/program_logs"
                 }
             }
         ],
-        "drawCallback" : function(settings) {
-            var ischeckAll=$("#all_checked").prop('checked');
-            $(":checkbox").prop("checked",ischeckAll);
-            for(var index=0;index<$(settings.nTBody).find("tr").length;index++){
-                if(selectList.length>0&&selectList[0]!="all"){
-                    for(var i=0;i<selectList.length;i++){
-                        var dom=$($(settings.nTBody).find("tr")[index]).find("td");
-                        var text=dom.parents('tr').find('td').eq(4).text();
-                        var data=selectList[i];
-                        if(text==data){
-                            dom.eq(0).find(":checkbox").prop("checked",true);
+        "drawCallback": function (settings) {
+            var ischeckAll = $("#all_checked").prop('checked');
+            $(":checkbox").prop("checked", ischeckAll);
+            for (var index = 0; index < $(settings.nTBody).find("tr").length; index++) {
+                if (selectList.length > 0 && selectList[0] != "all") {
+                    for (var i = 0; i < selectList.length; i++) {
+                        var dom = $($(settings.nTBody).find("tr")[index]).find("td");
+                        var text = dom.parents('tr').find('td').eq(4).text();
+                        var data = selectList[i];
+                        if (text == data) {
+                            dom.eq(0).find(":checkbox").prop("checked", true);
                         }
                     }
                 }
@@ -134,31 +134,32 @@ var initTable = function () {
 
     });
 
-    $('#dataTableList_wrapper').on("change", ".icheckbox_all", function() {
+    $('#dataTableList_wrapper').on("change", ".icheckbox_all", function () {
         //选择全选复选框按钮
-        var ischeckAll=$(this).prop('checked');
-        $(":checkbox").prop("checked",ischeckAll);
-        if(ischeckAll){
-            selectList=["all"]
-        }else{
-            selectList=[]
+        var ischeckAll = $(this).prop('checked');
+        $(":checkbox").prop("checked", ischeckAll);
+        if (ischeckAll) {
+            selectList = ["all"]
+        } else {
+            selectList = []
         }
     });
-    $('#dataTableList_wrapper').on("change", ".icheckbox_minimal", function() {
+    $('#dataTableList_wrapper').on("change", ".icheckbox_minimal", function () {
         //选择复选框按钮事件
-        var ischeck=$(this).prop('checked');
-        if(ischeck){
+        var ischeck = $(this).prop('checked');
+        if (ischeck) {
             selectList.push($(this).parents('tr').find('td').eq(4).text())
-        }else{
-            for(var index=0;index<selectList.length;index++){
-                var filed=$(this).parents('tr').find('td').eq(4).text();
-                if(selectList[index]==filed){
-                    selectList.splice(index,1)
+        } else {
+            for (var index = 0; index < selectList.length; index++) {
+                var filed = $(this).parents('tr').find('td').eq(4).text();
+                if (selectList[index] == filed) {
+                    selectList.splice(index, 1)
                 }
             }
         }
     });
 };
+
 function logout() {
     $.ajax({
         url: "/logout",
@@ -175,22 +176,24 @@ function logout() {
         }
     })
 }
-function sumbitQuery(){
-    var programName=0;
-    var programIp=0;
-    var status=0;
-    $("#program_name").val()==''?programName=0:programName=$("#program_name").val();
-    $("#program_ip").val()==''?programIp=0:programIp=$("#program_ip").val();
-    $("#status").val()==''?status=0:status=$("#status").val();
-    var url='/'+programName+"/"+programIp+"/"+status;
-    location.href=url
+
+function sumbitQuery() {
+    var programName = 0;
+    var programIp = 0;
+    var status = 0;
+    $("#program_name").val() == '' ? programName = 0 : programName = $("#program_name").val();
+    $("#program_ip").val() == '' ? programIp = 0 : programIp = $("#program_ip").val();
+    $("#status").val() == '' ? status = 0 : status = $("#status").val();
+    var url = '/' + programName + "/" + programIp + "/" + status;
+    location.href = url
 }
-function turnFn(turn,list,type) {
-    var List=[];
-    if(type==0){
+
+function turnFn(turn, list, type) {
+    var List = [];
+    if (type == 0) {
         List.push(list)
-    }else{
-        List=list;
+    } else {
+        List = list;
     }
     var formData = new FormData();
     formData.append("mode",turn);
@@ -200,10 +203,10 @@ function turnFn(turn,list,type) {
     $.ajax({
         url: "/program_change",
         type: "Post",
-        data:{
-            mode:turn,
-            program_ips:List,
-            csrfmiddlewaretoken:token
+        data: {
+            mode: turn,
+            program_ips: JSON.stringify(List),
+            csrfmiddlewaretoken: token
         },
         dataType:'json',
        /* processData: false,
@@ -211,23 +214,24 @@ function turnFn(turn,list,type) {
         "success": function (resp) {
             location.reload()
         },
-        "error": function (response) {}
+        "error": function (response) {
+        }
     })
 }
- 
-$(document).keyup(function(event){
-    var active=0;
-    var panel=$('#myTabContent').find(".tab-pane");
-    panel.each(function (index,obj) {
-        if($(obj).hasClass('active')){
-            active=index;
+
+$(document).keyup(function (event) {
+    var active = 0;
+    var panel = $('#myTabContent').find(".tab-pane");
+    panel.each(function (index, obj) {
+        if ($(obj).hasClass('active')) {
+            active = index;
         }
     });
 
-    if(event.keyCode ==13){
-        if(active==0){
+    if (event.keyCode == 13) {
+        if (active == 0) {
             $("#submitprogram").trigger("click");
-        }else{
+        } else {
             $("#submitprogram").trigger("click");
         }
 

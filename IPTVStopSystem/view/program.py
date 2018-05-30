@@ -13,17 +13,17 @@ def program_change(request):
     if request.method == 'POST':
         try:
             mode = request.POST.get('mode')
+            # program_ips 接收的数据有两种格式： 当全选时，接收的数据为 ['all']，
+            # 当部分选中时，接收的数据为['192.168...', '192.168...', ...]
             program_ips = json.loads(request.POST.get('program_ips'))
             programs = IPTVProgram.objects.all()
             if mode == 'turn_off':
-                # for ip in program_ips:
-                #     utils.ssh_paramiko(ip, 'root', '12', 'turn off')
+                utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017', 'rm -rf /home/transfar/oooooooooooooooooooooops')
                 if program_ips == [u'all']:
                     programs.update(status=1)
                 programs.filter(program_ip__in=program_ips).update(status=1)
             elif mode == 'turn_on':
-                # for ip in program_ips:
-                #     utils.ssh_paramiko(ip, 'root', '12', 'turn on')
+                utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017', 'touch /home/transfar/oooooooooooooooooooooops')
                 if program_ips == [u'all']:
                     programs.update(status=2)
                 programs.filter(program_ip__in=program_ips).update(status=2)

@@ -50,8 +50,8 @@ function layout(option) {
     });
     var panelH=$(".panel").height();
     $(".table tr td").css({
-        height:(panelH-250)/10+"px",
-        lineHeight:(panelH-250)/10+"px"
+        height:(panelH-100)/10+"px",
+        lineHeight:(panelH-100)/10+"px"
     })
 
 }

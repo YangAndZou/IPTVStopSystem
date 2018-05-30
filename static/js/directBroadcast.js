@@ -184,7 +184,7 @@ function sumbitQuery() {
     $("#program_name").val() == '' ? programName = 0 : programName = $("#program_name").val();
     $("#program_ip").val() == '' ? programIp = 0 : programIp = $("#program_ip").val();
     $("#status").val() == '' ? status = 0 : status = $("#status").val();
-    var url = '/' + programName + "/" + programIp + "/" + status;
+    var url = '/index/' + programName + "/" + programIp + "/" + status;
     location.href = url
 }
 

@@ -31,39 +31,25 @@
                style="word-break:break-all;">
             <thead>
             <tr>
-                <th>频道名称</th>
-                <th>频道描述</th>
-                <th>控制路由组</th>
-                <th>频道ip</th>
-                <th>频道状态</th>
-                <th>策略id</th>
-                <th>操作</th>
+                <th>系统名称</th>
+                <th>路由设备ip</th>
+                <th>系统负责人</th>
+                <th>责任科室</th>
+                <th>最近操作时间</th>
+                <th>路由组</th>
+                <th>操作结果</th>
             </tr>
             </thead>
             <tbody>
-            {% for ds in programs %}
+            {% for ds in systems %}
             <tr>
-                <td class="center">{{ ds.program_name }}</td>
-                <td class="center">{{ ds.program_desc }}</td>
-                <td class="center">{{ ds.router.router_name }}</td>
-                <td class="center">{{ ds.program_ip }}</td>
-                <td class="center">
-                    {% if ds.status == 1 %}
-                    <i class="closeCircle"></i>
-                    {% elif ds.status == 2 %}
-                    <i class="openCircle"></i>
-                    {% endif %}
-                </td>
-                <td class="center">{{ ds.strategy }}</td>
-                <td class="center">
-                    {% if ds.status == 1 %}
-                    <button class="btn btn-success btn-xs">开启</button>
-                    {% elif ds.status == 2 %}
-                    <button class="btn btn-danger btn-xs">关停</button>
-                    {% endif %}
-                    &nbsp;
-                    <button class="btn btn-info btn-xs">检测</button>
-                </td>
+                <td class="center">{{ ds.system_name }}</td>
+                <td class="center">{{ ds.router_ip }}</td>
+                <td class="center">{{ ds.system_manager }}</td>
+                <td class="center">{{ ds.system_manage_room }}</td>
+                <td class="center">{{ ds.update_time }}</td>
+                <td class="center">{{ ds.router_group.router_name }}</td>
+                <td class="center">{{ ds.status }}</td>
             </tr>
             {% endfor %}
             </tbody>

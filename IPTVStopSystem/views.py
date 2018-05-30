@@ -18,7 +18,7 @@ def login(request):
         print('session', request.session.get('username'))
         # session不为空，无需再次登录
         if request.session.get('username') is not None:
-            return redirect('/', {"user": request.user})
+            return redirect('/0/0/0', {"user": request.user})
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -30,7 +30,7 @@ def login(request):
                 now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 user.last_login = now_time
                 user.save()
-                return redirect('/', {"user": request.user})
+                return redirect('/0/0/0', {"user": request.user})
             return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
 
 

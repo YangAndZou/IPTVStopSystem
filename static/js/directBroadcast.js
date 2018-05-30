@@ -192,6 +192,11 @@ function turnFn(turn,list,type) {
     }else{
         List=list;
     }
+    var formData = new FormData();
+    formData.append("mode",turn);
+    formData.append("program_ips",JSON.stringify(List));
+    formData.append("csrfmiddlewaretoken",token);
+    console.log(List)
     $.ajax({
         url: "/program_change",
         type: "Post",
@@ -200,7 +205,9 @@ function turnFn(turn,list,type) {
             program_ips:List,
             csrfmiddlewaretoken:token
         },
-        dataType: "json",
+        dataType:'json',
+       /* processData: false,
+        contentType: false,*/
         "success": function (resp) {
             location.reload()
         },

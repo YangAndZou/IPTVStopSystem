@@ -36,7 +36,7 @@ urlpatterns = [
     #url(r'^cdn_change', CDN.cdn_change),
 
     # EPG
-    url(r'^epg_logs', EPG.show_log),
-    url(r'^epg/(?P<system_attr>[\s\S]*)/(?P<system_val>[\s\S]*)/(?P<router_group>[\s\S]*)', EPG.epg),
+    url(r'^epg_logs$', EPG.show_log),
+    url(r'^epg/(?P<system_attr>[\s\S]*)/(?P<system_val>[\s\S]*)/(?P<router_group>[\s\S]*)$', EPG.epg),
     #url(r'^epg_change', EPG.epg_change),
 ]

@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 import views
+from view import program
+from view import CDN
+from view import EPG
 from django.conf.urls import url
-from django.contrib import admin
 
 urlpatterns = [
     url(r'^login$', views.login),
@@ -23,5 +25,18 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^(?P<program_name>[\s\S]*)/(?P<program_ip>[\s\S]*)/(?P<status>[\s\S]*)$',
         views.index),
-    url(r'^logs$', views.show_log),
+
+    # program
+    url(r'^program_logs$', program.show_log),
+    url(r'^program_change$', program.program_change),
+
+    # CDN
+    url(r'^cdn_logs$', CDN.show_log),
+    url(r'^cdn/(?P<system_attr>[\s\S]*)/(?P<system_val>[\s\S]*)/(?P<router_group>[\s\S]*)$', CDN.cdn),
+    url(r'^cdn_change', CDN.cdn_change),
+
+    # EPG
+    url(r'^epg_logs', EPG.show_log),
+    url(r'^epg/(?P<system_attr>[\s\S]*)/(?P<system_val>[\s\S]*)/(?P<router_group>[\s\S]*)', EPG.epg),
+    url(r'^epg_change', EPG.epg_change),
 ]

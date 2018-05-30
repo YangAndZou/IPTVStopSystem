@@ -73,7 +73,7 @@ class IPTVSystem(models.Model):
     router_group = models.ForeignKey(to=IPTVRouterGroup, verbose_name='控制路由组名称')
     platform = models.ForeignKey(to=IPTVPlatform, verbose_name='平台表')
     system_name = models.CharField(max_length=128, verbose_name='系统名称')
-    status = models.SmallIntegerField(choices=operation_status, verbose_name='操作状态')
+    status = models.SmallIntegerField(choices=operation_status, verbose_name='操作结果')
     router_ip = models.GenericIPAddressField(verbose_name='路由设备ip')
     system_manager = models.CharField(max_length=128, verbose_name='系统责任人', null=True)
     system_manage_room = models.CharField(max_length=128, verbose_name='责任科室', null=True)
@@ -97,3 +97,25 @@ class IPTVProgramOperationLog(models.Model):
         db_table = 'iptv_program_operation_log'
         verbose_name = '直播频道操作日志表'
         verbose_name_plural = '直播频道操作日志表'
+
+
+class IPTVCDNOperationLog(models.Model):
+    system = models.ForeignKey(to=IPTVSystem, verbose_name='系统', related_name='iptv_cdn_operation_log')
+    content = models.TextField(verbose_name='操作内容')
+    update_time = models.DateTimeField(auto_now_add=True, verbose_name='更新时间')
+
+    class Meta:
+        db_table = 'iptv_cdn_operation_log'
+        verbose_name = 'CDN操作日志表'
+        verbose_name_plural = 'CDN操作日志表'
+
+
+class IPTVEPGOperationLog(models.Model):
+    system = models.ForeignKey(to=IPTVSystem, verbose_name='系统', related_name='iptv_epg_operation_log')
+    content = models.TextField(verbose_name='操作内容')
+    update_time = models.DateTimeField(auto_now_add=True, verbose_name='更新时间')
+
+    class Meta:
+        db_table = 'iptv_epg_operation_log'
+        verbose_name = 'EPG操作日志表'
+        verbose_name_plural = 'EPG操作日志表'

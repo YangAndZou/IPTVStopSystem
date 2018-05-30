@@ -36,4 +36,4 @@ def program_change(request):
 # 显示操作记录
 def show_log(request):
     logs = IPTVProgramOperationLog.objects.all()
-    return render(request, 'program_logs.html', {'program_logs': logs})
+    return render(request, 'program/program_logs.html', {'program_logs': logs})

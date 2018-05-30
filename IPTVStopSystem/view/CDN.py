@@ -14,13 +14,13 @@ def cdn(request, system_attr, system_val, router_group):
         print(system_val)
     if router_group != '0':
         systems.filter(router_group__router_name__contains=router_group)
-    return render(request, 'cdn.html', {"systems": systems})
+    return render(request, 'cdn/cdn.html', {"systems": systems})
 
 
 # 显示操作记录
 def show_log(request):
     logs = IPTVCDNOperationLog.objects.all()
-    return render(request, 'cdn_logs.html', {'cdn_logs': logs})
+    return render(request, 'cdn/cdn_logs.html', {'cdn_logs': logs})
 
 
 def cdn_change(request):

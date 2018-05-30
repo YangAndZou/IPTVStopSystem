@@ -14,13 +14,13 @@ def epg(request, system_attr, system_val, router_group):
         print(system_val)
     if router_group != '0':
         systems.filter(router_group__router_name__contains=router_group)
-    return render(request, 'epg.html', {"systems": systems})
+    return render(request, 'epg/epg.html', {"systems": systems})
 
 
 # 显示操作记录
 def show_log(request):
     logs = IPTVEPGOperationLog.objects.all()
-    return render(request, 'epg_logs.html', {'html': logs})
+    return render(request, 'epg/epg_logs.html', {'html': logs})
 
 
 def epg_change(request):

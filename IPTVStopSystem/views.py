@@ -16,19 +16,21 @@ def login(request):
         return render(request, 'login.html')
     elif request.method == 'POST':
         print('session', request.session.get('username'))
+        # session不为空，无需再次登录
         if request.session.get('username') is not None:
-            return redirect('/directBroadcast', {"user": request.user})
+            return redirect('/', {"user": request.user})
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
+                # 存储session
                 request.session['username'] = username
                 now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 user.last_login = now_time
                 user.save()
-                return redirect('/directBroadcast', {"user": request.user})
+                return redirect('/', {"user": request.user})
             return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
 
 
@@ -46,47 +48,13 @@ def noperm(request):
 # 主页
 @login_required()
 def index(request, program_name='0', program_ip='0', status='0'):
-    programs = IPTVProgram.objects.all()
-    # 以下为搜索功能，分别对应频道名，频道ip，状态
-    if program_name != '0':
-        programs = programs.filter(program_name=program_name)
-    if program_ip != '0':
-        programs = programs.filter(program_ip=program_ip)
-    if status != '0':
-        programs = programs.filter(status=status)
-    return render(request, 'directBroadcast.html', {'programs': programs})
-
-# 关停 / 开启
-def program_turn_off(request):
-    if request.method == 'POST':
-        try:
-            mode = request.POST.get('mode')
-            program_ips = request.POST.get('program_ips')
-            if mode == 'turn_off':
-                for ip in program_ips:
-                    utils.ssh_paramiko(ip, 'root', '12', 'turn off')
-            elif mode == 'turn_on':
-                for ip in program_ips:
-                    utils.ssh_paramiko(ip, 'root', '12', 'turn on')
-            return JsonResponse({'msg': 'ok', 'code': 200})
-        except Exception as e:
-            print(e)
-            return JsonResponse({'msg': e, 'code': 201})
-
-
-# 显示操作记录
-def show_log(request):
-    logs = IPTVProgramOperationLog.objects.all()
-    return render(request, 'program_logs.html', {'program_logs': logs})
-
-@login_required()
-def epg(request, program_name='0', program_ip='0', status='0'):
-    programs = IPTVProgram.objects.all()
-    # 以下为搜索功能，分别对应频道名，频道ip，状态
-    if program_name != '0':
-        programs = programs.filter(program_name=program_name)
-    if program_ip != '0':
-        programs = programs.filter(program_ip=program_ip)
-    if status != '0':
-        programs = programs.filter(status=status)
-    return render(request, 'epg.html', {'programs': programs})
+    if request.method == 'GET':
+        programs = IPTVProgram.objects.all()
+        # 以下为搜索功能，分别对应频道名，频道ip，状态
+        if program_name != '0':
+            programs = programs.filter(program_name=program_name)
+        if program_ip != '0':
+            programs = programs.filter(program_ip__contains=program_ip)
+        if status != '0':
+            programs = programs.filter(status=status)
+        return render(request, 'index.html', {'programs': programs})

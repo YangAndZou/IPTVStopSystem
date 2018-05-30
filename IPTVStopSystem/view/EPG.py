@@ -1,5 +1,5 @@
 # coding=utf-8
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from IPTVStopSystem import utils
 from IPTVStopSystem.models import IPTVSystem
@@ -21,3 +21,7 @@ def epg(request, system_attr, system_val, router_group):
 def show_log(request):
     logs = IPTVEPGOperationLog.objects.all()
     return render(request, 'epg_logs.html', {'html': logs})
+
+
+def epg_change(request):
+    return HttpResponse('hello')

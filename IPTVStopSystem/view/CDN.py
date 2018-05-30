@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from IPTVStopSystem import utils
 from IPTVStopSystem.models import IPTVSystem
 from IPTVStopSystem.models import IPTVCDNOperationLog
@@ -21,3 +21,7 @@ def cdn(request, system_attr, system_val, router_group):
 def show_log(request):
     logs = IPTVCDNOperationLog.objects.all()
     return render(request, 'cdn_logs.html', {'cdn_logs': logs})
+
+
+def cdn_change(request):
+    return HttpResponse('hello')

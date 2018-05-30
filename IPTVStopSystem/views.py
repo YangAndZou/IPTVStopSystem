@@ -16,6 +16,7 @@ def login(request):
         return render(request, 'login.html')
     elif request.method == 'POST':
         print('session', request.session.get('username'))
+        # session不为空，无需再次登录
         if request.session.get('username') is not None:
             return redirect('/', {"user": request.user})
         else:
@@ -24,6 +25,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
+                # 存储session
                 request.session['username'] = username
                 now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 user.last_login = now_time

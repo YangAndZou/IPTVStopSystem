@@ -22,8 +22,9 @@ from django.conf.urls import url
 urlpatterns = [
     url(r'^login$', views.login),
     url(r'^logout$', views.logout),
-    url(r'^$', views.index),
-    url(r'^(?P<program_name>[\s\S]*)/(?P<program_ip>[\s\S]*)/(?P<status>[\s\S]*)$',
+    url(r'^$', views.redirect_to_index),
+    url(r'^index$', views.index),
+    url(r'^index/(?P<program_name>[\s\S]*)/(?P<program_ip>[\s\S]*)/(?P<status>[\s\S]*)$',
         views.index),
 
     # program
@@ -36,7 +37,7 @@ urlpatterns = [
     # url(r'^cdn_change', CDN.cdn_change),
 
     # EPG
-    url(r'^epg_logs', EPG.show_log),
-    url(r'^epg/(?P<system_attr>[\s\S]*)/(?P<system_val>[\s\S]*)/(?P<router_group>[\s\S]*)', EPG.epg),
+    url(r'^epg_logs$', EPG.show_log),
+    url(r'^epg/(?P<system_attr>[\s\S]*)/(?P<system_val>[\s\S]*)/(?P<router_group>[\s\S]*)$', EPG.epg),
     # url(r'^epg_change', EPG.epg_change),
 ]

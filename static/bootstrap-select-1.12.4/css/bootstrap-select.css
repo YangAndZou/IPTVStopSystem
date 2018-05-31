@@ -312,4 +312,11 @@ select.selectpicker {
   background-color: transparent;
   border-color: #fff;
 }
+.btn-default:focus,.btn-default.focus{
+  background: transparent !important;
+}
+.bootstrap-select.btn-group .dropdown-menu li.selected a{
+  background:#337ab7;
+  color:#fff;
+}
 /*# sourceMappingURL=bootstrap-select.css.map */

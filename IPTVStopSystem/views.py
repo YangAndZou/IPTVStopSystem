@@ -15,10 +15,10 @@ def login(request):
     if request.method == 'GET':
         return render(request, 'login.html')
     elif request.method == 'POST':
-        print('session', request.session.get('username'))
         # session不为空，无需再次登录
         if request.session.get('username') is not None:
-            return redirect('/index', {"user": request.user})
+            #return redirect('/index', {"user": request.user})
+            return JsonResponse({"status": "ok"})
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -30,9 +30,10 @@ def login(request):
                 now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 user.last_login = now_time
                 user.save()
-                return redirect('/index', {"user": request.user})
-            return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
-
+                #return redirect('/index', {"user": request.user})
+                return JsonResponse({"status": "ok"})
+            #return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
+            return JsonResponse({"status": "用户名或者密码错误！"})
 
 # 登录
 def logout(request):

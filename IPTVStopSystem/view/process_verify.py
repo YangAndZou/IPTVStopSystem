@@ -17,8 +17,15 @@ def process_pass(request, process):
     elif process_type == 3:
         pass
 
+
 def process_reject(request, process):
-    pass
+    process_type = process.operation_type
+    if process_type == 1:
+        pass
+    elif process_type == 2:
+        pass
+    elif process_type == 3:
+        pass
 
 
 def process_verify(request):

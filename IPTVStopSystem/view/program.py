@@ -39,19 +39,9 @@ def program_change(request):
             if mode == 'turn_off':
                 # 1 为关停
                 mode = 1
-                # utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017',
-                #                    'rm -rf /home/transfar/oooooooooooooooooooooops')
-                # if program_ips == [u'all']:
-                #     programs.update(status=1)
-                # programs.filter(program_ip__in=program_ips).update(status=1)
             elif mode == 'turn_on':
                 # 2 为恢复
                 mode = 2
-                # utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017',
-                #                    'touch /home/transfar/oooooooooooooooooooooops')
-                # if program_ips == [u'all']:
-                #     programs.update(status=2)
-                # programs.filter(program_ip__in=program_ips).update(status=2)
             # 向管理员发起请求，但是不会重复发送
             pv = IPTVProcessVerify.objects.filter(operation_target=program_ips, status=1)
             if len(pv) > 0:

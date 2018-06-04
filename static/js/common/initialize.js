@@ -180,3 +180,19 @@ var ellipsisText=function(oSettings){
 
     });
 };
+function logout() {
+    $.ajax({
+        url: "/logout",
+        type: "Post",
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        "success": function (resp) {
+            window.wxc.xcConfirm("登出成功", window.wxc.xcConfirm.typeEnum.info);
+        },
+        "error": function (response) {
+
+        }
+    })
+}

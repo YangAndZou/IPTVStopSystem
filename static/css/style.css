@@ -213,6 +213,7 @@
     background: rgba(2, 42, 93, 0.41);
 }
 .query .control-label{
+    line-height: 30px;
     text-align: right;
     font-weight: normal;
 }

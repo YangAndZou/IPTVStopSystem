@@ -2,19 +2,19 @@
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse
 from IPTVStopSystem import utils
-from IPTVStopSystem.models import IPTVSystem
+from IPTVStopSystem.models import IPTVCDNNode
 from IPTVStopSystem.models import IPTVCDNOperationLog
 
 
-def cdn(request, system_attr, system_val, router_group):
-    systems = IPTVSystem.objects.all()
-    if system_attr != '0':
-        print(system_attr)
-    if system_val != '0':
-        print(system_val)
-    if router_group != '0':
-        systems.filter(router_group__router_name__contains=router_group)
-    return render(request, 'cdn/cdn.html', {"systems": systems})
+def show_cdn(request, platform, city, pop_node):
+    nodes = IPTVCDNNode.objects.all()
+    if platform != '0':
+        nodes.filter(platform=platform)
+    if city != '0':
+        nodes.filter(city__contains=city)
+    if pop_node != '0':
+        nodes.filter(node_name__contains=pop_node)
+    return render(request, 'cdn/cdn.html', {'nodes': nodes})
 
 
 # 显示操作记录

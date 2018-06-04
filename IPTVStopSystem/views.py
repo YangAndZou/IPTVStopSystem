@@ -32,6 +32,7 @@ def login(request):
                 return JsonResponse({"status": "ok"})
             return JsonResponse({"status": "用户名或者密码错误！"})
 
+
 # 登录
 def logout(request):
     auth.logout(request)
@@ -45,17 +46,11 @@ def noperm(request):
 
 # 主页
 @login_required()
-def index(request, program_name='0', program_ip='0', status='0'):
-    if request.method == 'GET':
-        programs = IPTVProgram.objects.all()
-        # 以下为搜索功能，分别对应频道名，频道ip，状态
-        if program_name != '0':
-            programs = programs.filter(program_name=program_name)
-        if program_ip != '0':
-            programs = programs.filter(program_ip__contains=program_ip)
-        if status != '0':
-            programs = programs.filter(status=status)
-        return render(request, 'program/program.html', {'programs': programs})
+def index(request):
+    if request.user.username == 'admin':
+        return render(request, 'admin.html')
+    else:
+        return render(request, 'epg/epg.html')
 
 
 def redirect_to_index(request):

@@ -97,15 +97,14 @@ var initTable = function () {
                 text: '关停',
                 className: 'btn btn-sm btn-danger',
                 action: function (e, dt, node, config) {
-
-                    turnFn('turn_off', selectList, 1)
+                    modeConfirm('turn_off', selectList, 1)
                 }
             },
             {
                 text: '开启',
                 className: 'btn btn-sm btn-success',
                 action: function (e, dt, node, config) {
-                    turnFn('turn_on', selectList, 1)
+                    modeConfirm('turn_on', selectList, 1)
 
                 }
             },
@@ -189,15 +188,22 @@ function sumbitQuery() {
     var url = '/index/' + programName + "/" + programIp + "/" + status;
     location.href = url
 }
-function modeConfirm(turn, list, type){
-    window.wxc.xcConfirm("确定执行频道一键关停操作？", window.wxc.xcConfirm.typeEnum.warning, {
+function modeConfirm(turn, list, type,name){
+    var title="";
+    (type==1)?title="所选":title=name;
+     var isturn="";
+    (turn=="turn_on")?isturn="开启":isturn="关停";
+    window.wxc.xcConfirm("确定执行"+title+"频道一键"+isturn+"操作？", window.wxc.xcConfirm.typeEnum.warning, {
         onOk: function(v) {
-            window.location = 'Device.html';
+            turnFn(turn, list, type)
         }
     })
 }
-function turnFn(turn, list, type) {
-
+function turnFn(turn, list, type,name) {
+    var title="";
+    (name==undefined)?title="所选":title=name;
+    var isturn="";
+    (turn=="turn_on")?isturn="开启":isturn="关停";
     var List = [];
     if (type == 0) {
         List.push(list)
@@ -220,8 +226,10 @@ function turnFn(turn, list, type) {
        /* processData: false,
         contentType: false,*/
         "success": function (resp) {
-           location.reload()
-        },
+            if(resp.code=="200"){
+                window.wxc.xcConfirm(title+"频道一键"+isturn+"操作已提交审核！", window.wxc.xcConfirm.typeEnum.success);
+            }
+         },
         "error": function (response) {
         }
     })

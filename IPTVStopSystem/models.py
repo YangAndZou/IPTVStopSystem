@@ -22,17 +22,21 @@ class IPTVProgram(models.Model):
         ('2', 'on')
     )
     program_name = models.CharField(max_length=128, verbose_name='频道名称')
-    program_desc = models.CharField(max_length=256, verbose_name='频道描述', null=True, blank=True)
-    router = models.ForeignKey(to=IPTVRouterGroup, verbose_name='控制路由组', related_name='iptv_program')
+    # program_desc = models.CharField(max_length=256, verbose_name='频道描述', null=True, blank=True)
+    # router = models.ForeignKey(to=IPTVRouterGroup, verbose_name='控制路由组', related_name='iptv_program')
+    program_num = models.CharField(max_length=128, verbose_name='频道号')
     program_ip = models.CharField(max_length=128, verbose_name='频道ip')
     status = models.SmallIntegerField(choices=program_status, verbose_name='频道状态 0 关闭 1 开启')
-    # TODO 策略id？
-    strategy = models.CharField(max_length=123)
+    # strategy = models.CharField(max_length=123)
 
     class Meta:
         db_table = 'iptv_program'
         verbose_name = '直播频道表'
         verbose_name_plural = '直播频道表'
+
+
+class IPTVCDN(models.Model):
+    pass
 
 
 class IPTVPlatform(models.Model):
@@ -119,3 +123,25 @@ class IPTVEPGOperationLog(models.Model):
         db_table = 'iptv_epg_operation_log'
         verbose_name = 'EPG操作日志表'
         verbose_name_plural = 'EPG操作日志表'
+
+
+class IPTVProcessVerify(models.Model):
+    type = (
+        ('1', 'EPG关停'),
+        ('2', '直播频道关停'),
+        ('3', 'CDN关停')
+    )
+    s = (
+        ('0', '未通过'),
+        ('1', '已通过'),
+        ('2', '审核中')
+    )
+    operation_type = models.SmallIntegerField(choices=type, verbose_name='操作类型 1:EPG关停 2:直播频道关停 3:CDN关停')
+    operation_target = models.CharField(max_length=256, verbose_name='操作对象')
+    status = models.SmallIntegerField(choices=s, verbose_name='状态，0:未通过 1:已通过 2:审核中')
+    suggestion = models.TextField(verbose_name='意见', null=True, blank=True)
+
+    class Meta:
+        db_table = 'iptv_process_verify'
+        verbose_name = '流程审批表'
+        verbose_name_plural = '流程审批表'

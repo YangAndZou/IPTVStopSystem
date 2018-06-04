@@ -17,6 +17,7 @@ import views
 from view import program
 from view import CDN
 from view import EPG
+from view import process_verify
 from django.conf.urls import url
 from django.contrib import admin
 
@@ -43,4 +44,7 @@ urlpatterns = [
     url(r'^epg_logs$', EPG.show_log),
     url(r'^epg/(?P<system_attr>[\s\S]*)/(?P<system_val>[\s\S]*)/(?P<router_group>[\s\S]*)$', EPG.epg),
     # url(r'^epg_change', EPG.epg_change),
+
+    # process verify
+    url(r'^process_verify$', process_verify.show_process_verify),
 ]

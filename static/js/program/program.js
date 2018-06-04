@@ -182,26 +182,40 @@ function sumbitQuery() {
     var programName = 0;
     var programIp = 0;
     var status = 0;
+    var programCode=0;
     $("#program_name").val() == '' ? programName = 0 : programName = $("#program_name").val();
     $("#program_ip").val() == '' ? programIp = 0 : programIp = $("#program_ip").val();
+     $("#program_code").val() == '' ? status = 0 : status = $("#status").val();
     $("#status").val() == '' ? status = 0 : status = $("#status").val();
-    var url = '/index/' + programName + "/" + programIp + "/" + status;
+    var url = '/index/' + programName + "/" + programIp + "/" +programCode+"/"+ status;
     location.href = url
 }
 function modeConfirm(turn, list, type,name){
     var title="";
-    (type==1)?title="所选":title=name;
+    if(type==1){
+        title="所选"
+    }else if(type==2){
+        title="所有"
+    }else{
+       title=name
+    }
      var isturn="";
     (turn=="turn_on")?isturn="开启":isturn="关停";
     window.wxc.xcConfirm("确定执行"+title+"频道一键"+isturn+"操作？", window.wxc.xcConfirm.typeEnum.warning, {
         onOk: function(v) {
-            turnFn(turn, list, type)
+            turnFn(turn, list, type,name)
         }
     })
 }
 function turnFn(turn, list, type,name) {
     var title="";
-    (name==undefined)?title="所选":title=name;
+    if(type==1){
+        title="所选"
+    }else if(type==2){
+        title="所有"
+    }else{
+       title=name
+    }
     var isturn="";
     (turn=="turn_on")?isturn="开启":isturn="关停";
     var List = [];
@@ -236,20 +250,10 @@ function turnFn(turn, list, type,name) {
 }
 
 $(document).keyup(function (event) {
-    var active = 0;
-    var panel = $('#myTabContent').find(".tab-pane");
-    panel.each(function (index, obj) {
-        if ($(obj).hasClass('active')) {
-            active = index;
-        }
-    });
-
     if (event.keyCode == 13) {
-        if (active == 0) {
-            $("#submitprogram").trigger("click");
-        } else {
-            $("#submitprogram").trigger("click");
-        }
-
+         $("#submitprogram").trigger("click");
     }
+});
+$("#title").click(function () {
+     modeConfirm('turn_off', ["all"], 2)
 });

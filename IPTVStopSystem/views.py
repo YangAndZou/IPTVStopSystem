@@ -17,7 +17,6 @@ def login(request):
     elif request.method == 'POST':
         # session不为空，无需再次登录
         if request.session.get('username') is not None:
-            #return redirect('/index', {"user": request.user})
             return JsonResponse({"status": "ok"})
         else:
             username = request.POST.get('username')
@@ -30,9 +29,7 @@ def login(request):
                 now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                 user.last_login = now_time
                 user.save()
-                #return redirect('/index', {"user": request.user})
                 return JsonResponse({"status": "ok"})
-            #return render(request, 'login.html', {"login_error_info": "用户名或者密码错误！"})
             return JsonResponse({"status": "用户名或者密码错误！"})
 
 # 登录

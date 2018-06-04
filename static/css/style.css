@@ -361,8 +361,8 @@
     }
 }
 @media (min-width: 992px){
-    .md-per1-0{
-        width:10%;
+    .md-per1-1{
+        width:11%;
         display: inline-block;
     }
     .md-pre0-7{
@@ -370,6 +370,20 @@
         display: inline-block;
     }
     .md-per1-4{
+        width:14%;
+        display: inline-block;
+    }
+}
+@media (min-width: 768px){
+    .ms-pre0-7{
+        width:7%;
+        display: inline-block;
+    }
+    .ms-per1-3{
+        width:13%;
+        display: inline-block;
+    }
+    .ms-per1-4{
         width:14%;
         display: inline-block;
     }

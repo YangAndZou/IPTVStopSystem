@@ -97,6 +97,7 @@ var initTable = function () {
                 text: '关停',
                 className: 'btn btn-sm btn-danger',
                 action: function (e, dt, node, config) {
+
                     turnFn('turn_off', selectList, 1)
                 }
             },
@@ -188,8 +189,15 @@ function sumbitQuery() {
     var url = '/index/' + programName + "/" + programIp + "/" + status;
     location.href = url
 }
-
+function modeConfirm(turn, list, type){
+    window.wxc.xcConfirm("确定执行频道一键关停操作？", window.wxc.xcConfirm.typeEnum.warning, {
+        onOk: function(v) {
+            window.location = 'Device.html';
+        }
+    })
+}
 function turnFn(turn, list, type) {
+
     var List = [];
     if (type == 0) {
         List.push(list)
@@ -212,7 +220,7 @@ function turnFn(turn, list, type) {
        /* processData: false,
         contentType: false,*/
         "success": function (resp) {
-            location.reload()
+           location.reload()
         },
         "error": function (response) {
         }

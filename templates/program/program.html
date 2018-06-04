@@ -16,15 +16,36 @@
                             {% csrf_token %}
                             <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道名称:</label>
                             <div class="col-per1-5 md-per1-4 ms-per1-3 ">
-                                <input type="text" class="form-control input-sm" id="program_name" name="program_name">
+                                  <select class="selectpicker"
+                                        id="program_name"
+                                        name="program_name"
+                                        data-live-search="true"
+                                        data-live-search-placeholder="请输入检索内容"
+                                        data-none-selected-text="请选择"
+                                        data-width="100%">
+                                </select>
                             </div>
                             <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道IP:</label>
                             <div class="col-per1-5 md-per1-4 ms-per1-3">
-                                <input type="text" class="form-control input-sm" id="program_ip" name="program_ip">
+                                 <select class="selectpicker"
+                                        id="program_ip"
+                                        name="program_ip"
+                                        data-live-search="true"
+                                        data-live-search-placeholder="请输入检索内容"
+                                        data-none-selected-text="请选择"
+                                        data-width="100%">
+                                </select>
                             </div>
                             <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道号:</label>
                             <div class="col-per1-5 md-per1-4 ms-per1-3">
-                                <input type="text" class="form-control input-sm" id="program_code" name="program_ip">
+                                <select class="selectpicker"
+                                        id="program_code"
+                                        name="program_code"
+                                        data-live-search="true"
+                                        data-live-search-placeholder="请输入检索内容"
+                                        data-none-selected-text="请选择"
+                                        data-width="100%">
+                                </select>
                             </div>
                             <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">状态:</label>
                             <div class="col-per1-5 md-per1-4 ms-per1-3">
@@ -56,9 +77,10 @@
                                 <input type="checkbox" class="icheckbox_all" name="icheckbox_all" id="all_checked">
                             </th>
                             <th>频道名称</th>
-                            <th>频道描述</th>
+                            <!--<th>频道描述</th>-->
                             <th>控制路由组</th>
                             <th>频道IP</th>
+                            <th>频道号</th>
                             <th>频道状态</th>
                             <th>策略id</th>
                             <th>操作</th>
@@ -69,9 +91,9 @@
                         <tr>
                             <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
                             <td class="center">{{ ds.program_name }}</td>
-                            <td class="center">{{ ds.program_desc }}</td>
                             <td class="center">{{ ds.router.router_name }}</td>
                             <td class="center">{{ ds.program_ip }}</td>
+                            <td class="center">{{ ds.router.router_name }}</td>
                             <td class="center">
                                 {% if ds.status == 1 %}
                                 <i class="closeCircle"></i>
@@ -87,7 +109,7 @@
                                 <button class="btn btn-danger btn-xs" onclick="turnFn('turn_off','{{ ds.program_ip }}',0)">关停</button>
                                 {% endif %}
                                 &nbsp;
-                                <button class="btn btn-info btn-xs">检测</button>
+                                <!--<button class="btn btn-info btn-xs">检测</button>-->
                             </td>
                         </tr>
                         {% endfor %}

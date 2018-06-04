@@ -388,3 +388,9 @@
         display: inline-block;
     }
 }
+.dropdown-menu .form-control{
+    color:#444;
+}
+.bootstrap-select.btn-group .no-results{
+    color:#444;
+}

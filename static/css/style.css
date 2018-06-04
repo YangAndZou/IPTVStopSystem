@@ -345,3 +345,32 @@
     float: right;
     cursor: pointer;
 }
+@media (min-width: 1200px){
+    .col-per1-0{
+        width:10%;
+        display: inline-block;
+    }
+    .col-pre0-6{
+        width:6%;
+        display: inline-block;
+    }
+    .col-per1-5{
+        width:15%;
+        display: inline-block;
+
+    }
+}
+@media (min-width: 992px){
+    .md-per1-0{
+        width:10%;
+        display: inline-block;
+    }
+    .md-pre0-7{
+        width:7%;
+        display: inline-block;
+    }
+    .md-per1-4{
+        width:14%;
+        display: inline-block;
+    }
+}

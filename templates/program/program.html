@@ -14,16 +14,20 @@
                     <div class="query row">
                         <div class="form-group">
                             {% csrf_token %}
-                            <label  class="col-lg-1 col-md-1 col-sm-2 control-label">频道名称:</label>
-                            <div class="col-lg-2 col-md-2 col-sm-4">
+                            <label  class="col-pre0-6 md-pre0-7 control-label">频道名称:</label>
+                            <div class="col-per1-5 md-per1-4">
                                 <input type="text" class="form-control input-sm" id="program_name" name="program_name">
                             </div>
-                            <label  class="col-lg-1 col-md-1 col-sm-2 control-label">频道IP:</label>
-                            <div class="col-lg-2 col-md-2 col-sm-4">
+                            <label  class="col-pre0-6 md-pre0-7 control-label">频道IP:</label>
+                            <div class="col-per1-5 md-per1-4">
                                 <input type="text" class="form-control input-sm" id="program_ip" name="program_ip">
                             </div>
-                            <label  class="col-lg-1 col-md-1 col-sm-2 control-label">状态:</label>
-                            <div class="col-lg-2 col-md-2 col-sm-4">
+                            <label  class="col-pre0-6 md-pre0-7 control-label">频道号:</label>
+                            <div class="col-per1-5 md-per1-4">
+                                <input type="text" class="form-control input-sm" id="program_code" name="program_ip">
+                            </div>
+                            <label  class="col-pre0-6 md-pre0-7 control-label">状态:</label>
+                            <div class="col-per1-5 md-per1-4">
                                 <select class="selectpicker"
                                         id="status"
                                         name="status"
@@ -35,7 +39,7 @@
                                 </select>
                                 <!--<input type="text" class="form-control input-sm" id="status" name="status">-->
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="col-per1-0 md-per1-0">
                                 <button class="btn-primary btn btn-sm" type="submit"  id="submitprogram" name="" onclick="sumbitQuery()">查询</button>
                                 &nbsp;
                                 <button class="btn-info btn btn-sm" onclick="location.reload()" type="reset" name="">重置</button>
@@ -54,7 +58,7 @@
                             <th>频道名称</th>
                             <th>频道描述</th>
                             <th>控制路由组</th>
-                            <th>频道ip</th>
+                            <th>频道IP</th>
                             <th>频道状态</th>
                             <th>策略id</th>
                             <th>操作</th>

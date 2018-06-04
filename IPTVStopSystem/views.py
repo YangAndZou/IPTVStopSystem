@@ -55,3 +55,4 @@ def index(request):
 
 def redirect_to_index(request):
     return redirect('/index')
+

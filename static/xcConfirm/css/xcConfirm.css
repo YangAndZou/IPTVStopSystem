@@ -9,7 +9,7 @@
 .xcConfirm .popBox .txtBox{margin: 40px 100px; height: 100px; overflow: hidden;}
 .xcConfirm .popBox .txtBox .bigIcon{float: left; margin-right: 20px; width: 48px; height: 48px; background-image: url(../img/icons.png); background-repeat: no-repeat; background-position: 48px 0;}
 .xcConfirm .popBox .txtBox p{ height: 84px; margin-top: 16px; line-height: 26px; overflow-x: hidden; overflow-y: auto;}
-.xcConfirm .popBox .txtBox p input{width: 364px; height: 30px; border: solid 1px #eef0f1; font-size: 18px; margin-top: 6px;}
+.xcConfirm .popBox .txtBox p input{width: 364px; height: 30px; border: solid 1px #eef0f1; font-size: 18px; margin-top: 6px;color:#444}
 .xcConfirm .popBox .btnArea{border-top:1px solid rgb(83, 105, 159);}
 .xcConfirm .popBox .btnGroup{float: right;}
 .xcConfirm .popBox .btnGroup .sgBtn{margin-top: 14px; margin-right: 10px;}

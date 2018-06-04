@@ -182,42 +182,44 @@ function sumbitQuery() {
     var programName = 0;
     var programIp = 0;
     var status = 0;
-    var programCode=0;
+    var programNum = 0;
     $("#program_name").val() == '' ? programName = 0 : programName = $("#program_name").val();
     $("#program_ip").val() == '' ? programIp = 0 : programIp = $("#program_ip").val();
-     $("#program_code").val() == '' ? status = 0 : status = $("#status").val();
+    $("#program_num").val() == '' ? programNum = 0 : programNum = $("#program_num").val();
     $("#status").val() == '' ? status = 0 : status = $("#status").val();
-    var url = '/index/' + programName + "/" + programIp + "/" +programCode+"/"+ status;
+    var url = '/program/' + programName + "/" + programIp + "/" + programNum + "/" + status;
     location.href = url
 }
-function modeConfirm(turn, list, type,name){
-    var title="";
-    if(type==1){
-        title="所选"
-    }else if(type==2){
-        title="所有"
-    }else{
-       title=name
+
+function modeConfirm(turn, list, type, name) {
+    var title = "";
+    if (type == 1) {
+        title = "所选"
+    } else if (type == 2) {
+        title = "所有"
+    } else {
+        title = name
     }
-     var isturn="";
-    (turn=="turn_on")?isturn="开启":isturn="关停";
-    window.wxc.xcConfirm("确定执行"+title+"频道一键"+isturn+"操作？", window.wxc.xcConfirm.typeEnum.warning, {
-        onOk: function(v) {
-            turnFn(turn, list, type,name)
+    var isturn = "";
+    (turn == "turn_on") ? isturn = "开启" : isturn = "关停";
+    window.wxc.xcConfirm("确定执行" + title + "频道一键" + isturn + "操作？", window.wxc.xcConfirm.typeEnum.warning, {
+        onOk: function (v) {
+            turnFn(turn, list, type, name)
         }
     })
 }
-function turnFn(turn, list, type,name) {
-    var title="";
-    if(type==1){
-        title="所选"
-    }else if(type==2){
-        title="所有"
-    }else{
-       title=name
+
+function turnFn(turn, list, type, name) {
+    var title = "";
+    if (type == 1) {
+        title = "所选"
+    } else if (type == 2) {
+        title = "所有"
+    } else {
+        title = name
     }
-    var isturn="";
-    (turn=="turn_on")?isturn="开启":isturn="关停";
+    var isturn = "";
+    (turn == "turn_on") ? isturn = "开启" : isturn = "关停";
     var List = [];
     if (type == 0) {
         List.push(list)
@@ -225,9 +227,9 @@ function turnFn(turn, list, type,name) {
         List = list;
     }
     var formData = new FormData();
-    formData.append("mode",turn);
-    formData.append("program_ips",JSON.stringify(List));
-    formData.append("csrfmiddlewaretoken",token);
+    formData.append("mode", turn);
+    formData.append("program_ips", JSON.stringify(List));
+    formData.append("csrfmiddlewaretoken", token);
     $.ajax({
         url: "/program_change",
         type: "Post",
@@ -236,14 +238,14 @@ function turnFn(turn, list, type,name) {
             program_ips: JSON.stringify(List),
             csrfmiddlewaretoken: token
         },
-        dataType:'json',
-       /* processData: false,
-        contentType: false,*/
+        dataType: 'json',
+        /* processData: false,
+         contentType: false,*/
         "success": function (resp) {
-            if(resp.code=="200"){
-                window.wxc.xcConfirm(title+"频道一键"+isturn+"操作已提交审核！", window.wxc.xcConfirm.typeEnum.success);
+            if (resp.code == "200") {
+                window.wxc.xcConfirm(title + "频道一键" + isturn + "操作已提交审核！", window.wxc.xcConfirm.typeEnum.success);
             }
-         },
+        },
         "error": function (response) {
         }
     })
@@ -251,9 +253,9 @@ function turnFn(turn, list, type,name) {
 
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
-         $("#submitprogram").trigger("click");
+        $("#submitprogram").trigger("click");
     }
 });
 $("#title").click(function () {
-     modeConfirm('turn_off', ["all"], 2)
+    modeConfirm('turn_off', ["all"], 2)
 });

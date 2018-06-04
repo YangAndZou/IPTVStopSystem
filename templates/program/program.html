@@ -1,53 +1,65 @@
 {% extends 'index.html' %}
 {% block page-content %}
-{% load static %}
+    {% load static %}
     <div class="headTitle" id="title">直播一键关停</div>
     <div class="panel panel-default">
-        <div class="panel-body"  >
+        <div class="panel-body">
             <!--<ul id="myTab" class="nav nav-tabs">-->
-                <!--<li class="active"><a href="#programClose" data-toggle="tab">频道关停</a></li>-->
-                <!--<li><a href="#interfaceClose" data-toggle="tab">接口关停</a></li>-->
+            <!--<li class="active"><a href="#programClose" data-toggle="tab">频道关停</a></li>-->
+            <!--<li><a href="#interfaceClose" data-toggle="tab">接口关停</a></li>-->
 
             <!--</ul>-->
             <!--<div id="myTabContent" class="tab-content">-->
-                <!--<div class="tab-pane fade in active" id="programClose">-->
-         <div class="query row">
+            <!--<div class="tab-pane fade in active" id="programClose">-->
+            <div class="query row">
                 <div class="form-group">
                     {% csrf_token %}
-                    <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道名称:</label>
+                    <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道名称:</label>
                     <div class="col-per1-5 md-per1-4 ms-per1-3 ">
-                          <select class="selectpicker"
+                        <select class="selectpicker"
+                                multiple
                                 id="program_name"
                                 name="program_name"
                                 data-live-search="true"
                                 data-live-search-placeholder="请输入检索内容"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
+                            {% for ds in programs %}
+                                <option>{{ ds.program_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
-                    <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道IP:</label>
+                    <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道IP:</label>
                     <div class="col-per1-5 md-per1-4 ms-per1-3">
-                         <select class="selectpicker"
+                        <select class="selectpicker"
+                                multiple
                                 id="program_ip"
                                 name="program_ip"
                                 data-live-search="true"
                                 data-live-search-placeholder="请输入检索内容"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
+                            {% for ds in programs %}
+                                <option>{{ ds.program_ip }}</option>
+                            {% endfor %}
                         </select>
                     </div>
-                    <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道号:</label>
+                    <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道号:</label>
                     <div class="col-per1-5 md-per1-4 ms-per1-3">
                         <select class="selectpicker"
-                                id="program_code"
-                                name="program_code"
+                                multiple
+                                id="program_num"
+                                name="program_num"
                                 data-live-search="true"
                                 data-live-search-placeholder="请输入检索内容"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
+                            {% for ds in programs %}
+                                <option>{{ ds.program_num }}</option>
+                            {% endfor %}
                         </select>
                     </div>
-                    <label  class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">状态:</label>
+                    <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">状态:</label>
                     <div class="col-per1-5 md-per1-4 ms-per1-3">
                         <select class="selectpicker"
                                 id="status"
@@ -61,13 +73,15 @@
                         <!--<input type="text" class="form-control input-sm" id="status" name="status">-->
                     </div>
                     <div class="col-per1-0 md-per1-1 ms-per1-4">
-                        <button class="btn-primary btn btn-sm" type="submit"  id="submitprogram" name="" onclick="sumbitQuery()">查询</button>
+                        <button class="btn-primary btn btn-sm" type="submit" id="submitprogram" name=""
+                                onclick="sumbitQuery()">查询
+                        </button>
                         &nbsp;
                         <button class="btn-info btn btn-sm" onclick="location.reload()" type="reset" name="">重置</button>
                     </div>
                 </div>
             </div>
-         <table id="dataTableList"
+            <table id="dataTableList"
                    class="table table-striped  table-hover "
                    style="word-break:break-all;">
                 <thead>
@@ -78,50 +92,54 @@
                     </th>
                     <th>频道名称</th>
                     <!--<th>频道描述</th>-->
-                    <th>控制路由组</th>
+                    {#                    <th>控制路由组</th>#}
                     <th>频道IP</th>
                     <th>频道号</th>
                     <th>频道状态</th>
-                    <th>策略id</th>
+                    {#                    <th>策略id</th>#}
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for ds in programs %}
-                <tr>
-                    <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                    <td class="center">{{ ds.program_name }}</td>
-                    <td class="center">{{ ds.router.router_name }}</td>
-                    <td class="center">{{ ds.program_ip }}</td>
-                    <td class="center">{{ ds.router.router_name }}</td>
-                    <td class="center">
-                        {% if ds.status == 1 %}
-                        <i class="closeCircle"></i>
-                        {% elif ds.status == 2 %}
-                        <i class="openCircle"></i>
-                        {% endif %}
-                    </td>
-                    <td class="center">{{ ds.strategy }}</td>
-                    <td class="center">
-                        {% if ds.status == 1 %}
-                        <button class="btn btn-success btn-xs" onclick="turnFn('turn_on','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">开启</button>
-                        {% elif ds.status == 2 %}
-                        <button class="btn btn-danger btn-xs" onclick="turnFn('turn_off','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">关停</button>
-                        {% endif %}
-                        &nbsp;
-                        <!--<button class="btn btn-info btn-xs">检测</button>-->
-                    </td>
-                </tr>
+                    <tr>
+                        <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td class="center">{{ ds.program_name }}</td>
+                        {#                    <td class="center">{{ ds.router.router_name }}</td>#}
+                        <td class="center">{{ ds.program_ip }}</td>
+                        <td class="center">{{ ds.program_num }}</td>
+                        <td class="center">
+                            {% if ds.status == 1 %}
+                                <i class="closeCircle"></i>
+                            {% elif ds.status == 2 %}
+                                <i class="openCircle"></i>
+                            {% endif %}
+                        </td>
+                        {#                    <td class="center">{{ ds.strategy }}</td>#}
+                        <td class="center">
+                            {% if ds.status == 1 %}
+                                <button class="btn btn-success btn-xs"
+                                        onclick="turnFn('turn_on','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">开启
+                                </button>
+                            {% elif ds.status == 2 %}
+                                <button class="btn btn-danger btn-xs"
+                                        onclick="turnFn('turn_off','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">关停
+                                </button>
+                            {% endif %}
+                            &nbsp;
+                            <!--<button class="btn btn-info btn-xs">检测</button>-->
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
             <!--</div>-->
-        <!--</div>-->
+            <!--</div>-->
+        </div>
     </div>
-</div>
-<script>
-    var token='{{ csrf_token }}';
-</script>
+    <script>
+        var token = '{{ csrf_token }}';
+    </script>
     <script src="{% static 'js/program/program.js' %}"></script>
 {% endblock %}

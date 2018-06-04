@@ -3,9 +3,9 @@ import json
 
 from django.http import JsonResponse
 from django.shortcuts import render
-from IPTVStopSystem import utils
 from IPTVStopSystem.models import IPTVProgramOperationLog
 from IPTVStopSystem.models import IPTVProgram
+from IPTVStopSystem.models import IPTVProcessVerify
 
 
 def show_program(request, program_name, program_ip, program_num, status):
@@ -16,10 +16,11 @@ def show_program(request, program_name, program_ip, program_num, status):
             programs = programs.filter(program_name__contains=program_name)
         if program_ip != '0':
             programs = programs.filter(program_ip__contains=program_ip)
-        if program_num != '0':
-            start = program_num.split('-')[0]
-            end = program_num.split('-')[1]
-            programs = programs.filter(program_num__range=(start, end))
+        # TODO 等待前端完成program_num的传值
+        # if program_num != '0':
+        #     start = program_num.split('-')[0]
+        #     end = program_num.split('-')[1]
+        #     programs = programs.filter(program_num__range=(start, end))
         if status != '0':
             programs = programs.filter(status=status)
         return render(request, 'program/program.html', {'programs': programs})
@@ -32,21 +33,37 @@ def program_change(request):
             mode = request.POST.get('mode')
             # program_ips 接收的数据有两种格式： 当全选时，接收的数据为 ['all']，
             # 当部分选中时，接收的数据为['192.168...', '192.168...', ...]
+            # TODO 改成传频道名称
             program_ips = json.loads(request.POST.get('program_ips'))
-            programs = IPTVProgram.objects.all()
+            print(program_ips)
             if mode == 'turn_off':
-                utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017',
-                                   'rm -rf /home/transfar/oooooooooooooooooooooops')
-                if program_ips == [u'all']:
-                    programs.update(status=1)
-                programs.filter(program_ip__in=program_ips).update(status=1)
+                # 1 为关停
+                mode = 1
+                # utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017',
+                #                    'rm -rf /home/transfar/oooooooooooooooooooooops')
+                # if program_ips == [u'all']:
+                #     programs.update(status=1)
+                # programs.filter(program_ip__in=program_ips).update(status=1)
             elif mode == 'turn_on':
-                utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017',
-                                   'touch /home/transfar/oooooooooooooooooooooops')
-                if program_ips == [u'all']:
-                    programs.update(status=2)
-                programs.filter(program_ip__in=program_ips).update(status=2)
-            return JsonResponse({'msg': 'ok', 'code': "200"})
+                # 2 为恢复
+                mode = 2
+                # utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017',
+                #                    'touch /home/transfar/oooooooooooooooooooooops')
+                # if program_ips == [u'all']:
+                #     programs.update(status=2)
+                # programs.filter(program_ip__in=program_ips).update(status=2)
+            # 向管理员发起请求，但是不会重复发送
+            pv = IPTVProcessVerify.objects.filter(operation_target=program_ips, status=1)
+            if len(pv) > 0:
+                return JsonResponse({'error': '您提交的请求正在审核中，请耐心等待', 'code': '201'})
+            else:
+                IPTVProcessVerify.objects.create(
+                    operation_type=2,
+                    operation_target=program_ips,
+                    status=1,
+                    operation=mode
+                )
+                return JsonResponse({'success': '已提交请求！', 'code': '200'})
         except Exception as e:
             print(e)
             return JsonResponse({'msg': e, 'code': "201"})

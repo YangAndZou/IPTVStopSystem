@@ -31,20 +31,18 @@
                     </tr>
                     </thead>
                     <tbody>
-
-
+                    {% for ds in verifies  %}
                     <tr>
                         <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td class="center">1</td>
-                        <td class="center">1</td>
-                        <td class="center">12</td>
+                        <td>{{ ds.id }}</td>
+                        <td>{{ ds.operation_type }}</td>
+                        <td>{{ ds.operation_target }}</td>
                         <td class="center">
                             <button class="btn btn-violet btn-xs" onclick="auditTap()">审核</button>
                             <button class="btn btn-info btn-xs" onclick="retroveTap()">回退</button>
                         </td>
                     </tr>
-
-
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

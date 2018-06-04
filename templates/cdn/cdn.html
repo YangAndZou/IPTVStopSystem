@@ -1,122 +1,131 @@
 {% extends 'index.html' %}
 {% block page-content %}
-{% load static %}
-<div class="headTitle" id="title">区域CDN一键关停</div>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="query row">
-            <div class="form-group">
-                {% csrf_token %}
-                <label  class="col-lg-1 col-md-1 col-sm-2 control-label">平台:</label>
-                <div class="col-lg-2 col-md-2 col-sm-4">
-                    <!--<input type="text" class="form-control input-sm" id="system_name" name="system_name">-->
-                    <select class="selectpicker form-control"
+    {% load static %}
+    <div class="headTitle" id="title">区域CDN一键关停</div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="query row">
+                <div class="form-group">
+                    {% csrf_token %}
+                    <label class="col-lg-1 col-md-1 col-sm-2 control-label">平台:</label>
+                    <div class="col-lg-2 col-md-2 col-sm-4">
+                        <!--<input type="text" class="form-control input-sm" id="system_name" name="system_name">-->
+                        <select class="selectpicker form-control"
                                 id="platform"
                                 name="platform"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
-                            <option name="platform" >华为</option>
-                            <option name="platform" >中兴</option>
-                    </select>
-                </div>
-                <label  class="col-lg-1 col-md-1 col-sm-2 control-label">地市:</label>
-                <div class="col-lg-2 col-md-2 col-sm-4">
-                    <select class="selectpicker form-control"
+                            <option name="platform">全部</option>
+                            <option name="platform">华为</option>
+                            <option name="platform">中兴</option>
+                        </select>
+                    </div>
+                    <label class="col-lg-1 col-md-1 col-sm-2 control-label">地市:</label>
+                    <div class="col-lg-2 col-md-2 col-sm-4">
+                        <select class="selectpicker form-control"
+                                multiple
                                 id="city"
                                 name="city"
                                 data-live-search="true"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
-                            <option name="city" >长沙市  </option>
-                            <option name="city" >株洲市</option>
-                            <option name="city" >湘潭市</option>
-                            <option name="city" >衡阳市</option>
-                            <option name="city" >邵阳市</option>
-                            <option name="city" >岳阳市</option>
-                            <option name="city" >张家界市</option>
-                            <option name="city" >益阳市</option>
-                            <option name="city" >常德市</option>
-                            <option name="city" >娄底市</option>
-                            <option name="city" >郴州市</option>
-                            <option name="city" >永州市</option>
-                            <option name="city" >怀化市</option>
-                            <option name="city" >湘西土家族苗族自治州</option>
-                    </select>
-                    <!--<input type="text" class="form-control input-sm" id="router_ip" name="router_ip">-->
-                </div>
-                <label  class="col-lg-1 col-md-1 col-sm-2 control-label">POP点:</label>
-                <div class="col-lg-2 col-md-2 col-sm-4">
-                    <select class="selectpicker form-control"
+                            <option name="city">长沙市</option>
+                            <option name="city">株洲市</option>
+                            <option name="city">湘潭市</option>
+                            <option name="city">衡阳市</option>
+                            <option name="city">邵阳市</option>
+                            <option name="city">岳阳市</option>
+                            <option name="city">张家界市</option>
+                            <option name="city">益阳市</option>
+                            <option name="city">常德市</option>
+                            <option name="city">娄底市</option>
+                            <option name="city">郴州市</option>
+                            <option name="city">永州市</option>
+                            <option name="city">怀化市</option>
+                            <option name="city">湘西土家族苗族自治州</option>
+                        </select>
+                        <!--<input type="text" class="form-control input-sm" id="router_ip" name="router_ip">-->
+                    </div>
+                    <label class="col-lg-1 col-md-1 col-sm-2 control-label">POP点:</label>
+                    <div class="col-lg-2 col-md-2 col-sm-4">
+                        <select class="selectpicker form-control"
                                 id="pop"
                                 name="pop"
+                                multiple
                                 data-live-search="true"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
-                            <option name="pop" >长沙市  </option>
-                            <option name="pop" >株洲市</option>
-                            <option name="pop" >湘潭市</option>
-                            <option name="pop" >衡阳市</option>
-                            <option name="pop" >邵阳市</option>
-                            <option name="pop" >岳阳市</option>
-                            <option name="pop" >张家界市</option>
-                            <option name="pop" >益阳市</option>
-                            <option name="pop" >常德市</option>
-                            <option name="pop" >娄底市</option>
-                            <option name="pop" >郴州市</option>
-                            <option name="pop" >永州市</option>
-                            <option name="pop" >怀化市</option>
-                            <option name="pop" >湘西土家族苗族自治州</option>
-                    </select>
-                    <!--<input type="text" class="form-control input-sm" id="router_group" name="router_group">-->
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
-                    <button class="btn-primary btn btn-sm" type="submit"  id="submitEpg" name="" onclick="sumbitQuery()">查询</button>
-                    &nbsp;
-                    <button class="btn-info btn btn-sm" type="reset" name="" onclick="location.reload()">重置</button>
+                            <option name="pop">长沙市</option>
+                            <option name="pop">株洲市</option>
+                            <option name="pop">湘潭市</option>
+                            <option name="pop">衡阳市</option>
+                            <option name="pop">邵阳市</option>
+                            <option name="pop">岳阳市</option>
+                            <option name="pop">张家界市</option>
+                            <option name="pop">益阳市</option>
+                            <option name="pop">常德市</option>
+                            <option name="pop">娄底市</option>
+                            <option name="pop">郴州市</option>
+                            <option name="pop">永州市</option>
+                            <option name="pop">怀化市</option>
+                            <option name="pop">湘西土家族苗族自治州</option>
+                        </select>
+                        <!--<input type="text" class="form-control input-sm" id="router_group" name="router_group">-->
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <button class="btn-primary btn btn-sm" type="submit" id="submitEpg" name=""
+                                onclick="sumbitQuery()">查询
+                        </button>
+                        &nbsp;
+                        <button class="btn-info btn btn-sm" type="reset" name="" onclick="location.reload()">重置</button>
+                    </div>
                 </div>
             </div>
+            <table id="dataTableList"
+                   class="table table-striped  table-hover "
+                   style="word-break:break-all;">
+                <thead>
+                <tr>
+                    <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                    <th>所属地市</th>
+                    <th>节点名称</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ds in systems %}
+                    <tr>
+                        <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td class="center">{{ ds.system_name }}</td>
+                        <td class="center">{{ ds.router_ip }}</td>
+                        <!--<td class="center">{{ ds.system_manager }}</td>-->
+                        <!--<td class="center">{{ ds.system_manage_room }}</td>-->
+                        <!--<td class="center">{{ ds.update_time }}</td>-->
+                        <!--<td class="center">{{ ds.router_group.router_name }}</td>-->
+                        <td class="center">
+                            {% if ds.status == 1 %}
+                                <i class="closeCircle"></i>
+                            {% elif ds.status == 2 %}
+                                <i class="openCircle"></i>
+                            {% endif %}
+                        </td>
+                        <td class="center">
+                            {% if ds.status == 1 %}
+                                <button class="btn btn-success btn-xs"
+                                        onclick="turnFn('turn_on','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">恢复
+                                </button>
+                            {% elif ds.status == 2 %}
+                                <button class="btn btn-danger btn-xs"
+                                        onclick="turnFn('turn_off','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">关停
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <table id="dataTableList"
-               class="table table-striped  table-hover "
-               style="word-break:break-all;">
-            <thead>
-            <tr>
-                <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                <th>所属地市</th>
-                <th>节点名称</th>
-                <th>状态</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for ds in systems %}
-            <tr>
-                <td><input type ='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                <td class="center">{{ ds.system_name }}</td>
-                <td class="center">{{ ds.router_ip }}</td>
-                <!--<td class="center">{{ ds.system_manager }}</td>-->
-                <!--<td class="center">{{ ds.system_manage_room }}</td>-->
-                <!--<td class="center">{{ ds.update_time }}</td>-->
-                <!--<td class="center">{{ ds.router_group.router_name }}</td>-->
-                <td class="center">
-                    {% if ds.status == 1 %}
-                    <i class="closeCircle"></i>
-                    {% elif ds.status == 2 %}
-                    <i class="openCircle"></i>
-                    {% endif %}
-                </td>
-                <td class="center">
-                    {% if ds.status == 1 %}
-                    <button class="btn btn-success btn-xs" onclick="turnFn('turn_on','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">恢复</button>
-                    {% elif ds.status == 2 %}
-                    <button class="btn btn-danger btn-xs" onclick="turnFn('turn_off','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">关停</button>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
     </div>
-</div>
-<script src="{% static 'js/cdn/cdn.js' %}"></script>
+    <script src="{% static 'js/cdn/cdn.js' %}"></script>
 {% endblock %}

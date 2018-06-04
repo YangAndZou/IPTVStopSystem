@@ -313,14 +313,14 @@
     height: 16px;
     border-radius: 8px;
     display: inline-block;
-    background:#77B300
+    background: #1dff22
 }
 .closeCircle{
     width: 16px;
     height: 16px;
     border-radius: 8px;
     display: inline-block;
-    background: #CC0000
+    background: #B22222
 }
 .nav-tabs > li > a{
     color:#fff;

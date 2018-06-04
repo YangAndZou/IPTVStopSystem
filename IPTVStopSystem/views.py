@@ -48,7 +48,7 @@ def noperm(request):
 @login_required()
 def index(request):
     if request.user.username == 'admin':
-        return render(request, 'admin.html')
+        return redirect('/process_verify')
     else:
         return render(request, 'epg/epg.html')
 

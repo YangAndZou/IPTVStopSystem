@@ -1,4 +1,4 @@
-$(".itemTabContent").find("li").eq(1).addClass('active');
+$(".itemTabContent").find("li").eq(2).addClass('active');
 var oTable = null;
 $(function () {
     initTable();
@@ -95,14 +95,14 @@ var initTable = function () {
              },*/
             {
                 text: '关停',
-                className: 'btn btn-sm btn-danger',
+                className: 'btn btn-sm btn-danger btnClose',
                 action: function (e, dt, node, config) {
                     modeConfirm('turn_off', selectList, 1)
                 }
             },
             {
                 text: '恢复',
-                className: 'btn btn-sm btn-success',
+                className: 'btn btn-sm btn-success btnOpen',
                 action: function (e, dt, node, config) {
                     modeConfirm('turn_on', selectList, 1)
 
@@ -194,13 +194,18 @@ function modeConfirm(turn, list, type,name){
     }
      var isturn="";
     (turn=="turn_on")?isturn="开启":isturn="关停";
-    window.wxc.xcConfirm("确定执行"+title+"频道一键"+isturn+"操作？", window.wxc.xcConfirm.typeEnum.warning, {
+    // window.wxc.xcConfirm("确定执行"+title+"频道一键"+isturn+"操作？", window.wxc.xcConfirm.typeEnum.warning, {
+    //     onOk: function(v) {
+    //         turnFn(turn, list, type,name)
+    //     }
+    // })
+     window.wxc.xcConfirm("请输入"+title+"频道一键"+isturn+"的审核码：", window.wxc.xcConfirm.typeEnum.input, {
         onOk: function(v) {
-            turnFn(turn, list, type,name)
+            turnFn(turn, list,v, type,name)
         }
     })
 }
-function turnFn(turn, list, type,name) {
+function turnFn(turn, list,code, type,name) {
     var title="";
     if(type==1){
         title="所选"
@@ -220,6 +225,7 @@ function turnFn(turn, list, type,name) {
     var formData = new FormData();
     formData.append("mode",turn);
     formData.append("program_ips",JSON.stringify(List));
+    formData.append("code",code);
     formData.append("csrfmiddlewaretoken",token);
     $.ajax({
         url: "/cdn_change",
@@ -234,7 +240,8 @@ function turnFn(turn, list, type,name) {
         contentType: false,*/
         "success": function (resp) {
             if(resp.code=="200"){
-                window.wxc.xcConfirm(title+"频道一键"+isturn+"操作已提交审核！", window.wxc.xcConfirm.typeEnum.success);
+                window.wxc.xcConfirm(title+"频道一键"+isturn+"操作成功！", window.wxc.xcConfirm.typeEnum.success);
+                location.href="/cdn/0/0/0/";
             }else if(resp.code=="201"){
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.success);
             }

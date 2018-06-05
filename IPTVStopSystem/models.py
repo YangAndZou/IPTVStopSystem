@@ -79,8 +79,8 @@ class IPTVProcessVerify(models.Model):
         ('2', '未通过'),
         ('3', '已通过')
     )
-    operation_type = models.SmallIntegerField(choices=o, verbose_name='操作 1 关停 2 恢复')
-    process_type = models.SmallIntegerField(choices=t, verbose_name='操作类型 1:EPG关停 2:直播频道关停 3:CDN关停')
+    operation_type = models.SmallIntegerField(choices=o, verbose_name='操作类型 1 关停 2 恢复')
+    process_type = models.SmallIntegerField(choices=t, verbose_name='操作对象类型 1:EPG关停 2:直播频道关停 3:CDN关停')
     operation_target = models.CharField(max_length=256, verbose_name='操作对象')
     status = models.SmallIntegerField(choices=s, verbose_name='审核状态，1:审核中 2:未通过 3:已通过')
     suggestion = models.TextField(verbose_name='意见', null=True, blank=True)

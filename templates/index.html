@@ -19,9 +19,6 @@
     <script src="{% static 'dataTables/buttonsDataTables/buttons.colVis.js' %}"></script>
     <link rel="stylesheet" href="{% static 'xcConfirm/css/xcConfirm.css' %}">
     <script src="{% static 'xcConfirm/js/xcConfirm.js' %}"></script>
-    <script>
-        var token = '{{ csrf_token }}';
-    </script>
 </head>
 <body>
     <div class="container-box">
@@ -29,6 +26,9 @@
             <div class="navBar">
                 <h1>湖南电信天翼高清一键关停</h1>
                 <ul class="itemTabContent">
+                    <li>
+                        <a href="/process_verify">审核码设置</a>
+                    </li>
                     <li  >
                         <a href="/epg/0/0/0/">EPG关停</a>
                     </li>
@@ -38,12 +38,11 @@
                     <li>
                         <a href="/program/0/0/0/0">直播关停</a>
                     </li>
-                     <li style="display: none">
-                        <a href="/process_verify">流程审核</a>
-                    </li>
+
                 </ul>
                 <ul class="loginUser">
                     <li class="user"><i class="glyphicon glyphicon-user"></i> <span>{{ user }}</span></li>
+                    <input type="hidden" id="userLevel" value={{ user.is_superuser }}  >
                     <li class="exit"><a href="/logout"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a> </li>
                 </ul>
             </div>
@@ -55,3 +54,15 @@
 
 </body>
 </html>
+<script>
+    var token = '{{ csrf_token }}';
+    $(function () {
+        var userLevel=$("#userLevel").val();
+        if(userLevel=="False"){
+            $(".itemTabContent").find("li").eq(0).hide();
+        }else{
+              $(".btnClose").attr("disabled",true);
+              $(".btnOpen").attr("disabled",true);
+        }
+    })
+</script>

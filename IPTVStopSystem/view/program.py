@@ -34,8 +34,9 @@ def program_change(request):
             # program_ips 接收的数据有两种格式： 当全选时，接收的数据为 ['all']，
             # 当部分选中时，接收的数据为['192.168...', '192.168...', ...]
             # TODO 改成传频道名称
-            program_ips = json.loads(request.POST.get('program_names'))
-            print(program_ips)
+            program_names = json.loads(request.POST.get('program_names'))
+            print(program_names)
+            print(mode)
             if mode == 'turn_off':
                 # 1 为关停
                 mode = 1
@@ -43,15 +44,16 @@ def program_change(request):
                 # 2 为恢复
                 mode = 2
             # 向管理员发起请求，但是不会重复发送
-            pv = IPTVProcessVerify.objects.filter(operation_target=program_ips, status=1)
+            pv = IPTVProcessVerify.objects.filter(operation_target=program_names, status=1)
+            print(mode)
             if len(pv) > 0:
                 return JsonResponse({'error': '您提交的请求正在审核中，请耐心等待', 'code': '201'})
             else:
                 IPTVProcessVerify.objects.create(
-                    operation_type=2,
-                    operation_target=program_ips,
+                    process_type=2,
+                    operation_target=program_names,
                     status=1,
-                    operation=mode
+                    operation_type=mode
                 )
                 return JsonResponse({'success': '已提交请求！', 'code': '200'})
         except Exception as e:

@@ -77,9 +77,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'iptv',
         'USER': 'root',
-        'PASSWORD': 'Mysql123',
-        #'PASSWORD': '123456',
-        'HOST': '192.168.2.168',
+        # 'PASSWORD': 'Mysql123',
+        'PASSWORD': '123456',
+        # 'HOST': '192.168.2.168',
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
         },

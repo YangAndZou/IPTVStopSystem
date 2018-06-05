@@ -34,7 +34,7 @@ def program_change(request):
             # program_ips 接收的数据有两种格式： 当全选时，接收的数据为 ['all']，
             # 当部分选中时，接收的数据为['192.168...', '192.168...', ...]
             # TODO 改成传频道名称
-            program_ips = json.loads(request.POST.get('program_ips'))
+            program_ips = json.loads(request.POST.get('program_names'))
             print(program_ips)
             if mode == 'turn_off':
                 # 1 为关停

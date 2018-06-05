@@ -78,7 +78,11 @@ DATABASES = {
         'NAME': 'iptv',
         'USER': 'root',
         'PASSWORD': 'Mysql123',
+<<<<<<< HEAD
+        # 'PASSWORD': '123456',
+=======
         #'PASSWORD': '123456',
+>>>>>>> 640ac61a3ce9e2a8e6b34327bec6b5f218ad7567
         'HOST': '192.168.2.168',
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",

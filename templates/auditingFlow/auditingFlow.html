@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'index.html' %}
+{% block page-content %}
+{% load static %}
 <div class="headTitle">流程审核</div>
 <div class="panel panel-default">
     <!--<div id="title">全省EPG一键关停发起</div>-->
+    {% csrf_token %}
     <div class="panel-body">
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#auditAccount" data-toggle="tab">审核账号登录</a></li>
@@ -85,5 +82,8 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+<script>
+    var token = '{{ csrf_token }}';
+</script>
+<script src="{% static 'js/auditingFlow/auditingFlow.js' %}"></script>
+{% endblock %}

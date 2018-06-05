@@ -15,9 +15,9 @@
                                 name="platform"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
-                            <option name="platform">全部</option>
-                            <option name="platform">华为</option>
-                            <option name="platform">中兴</option>
+                            {% for ds in nodes %}
+                            <option>{{ ds.platform }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <label class="col-lg-1 col-md-1 col-sm-2 control-label">地市:</label>
@@ -29,19 +29,19 @@
                                 data-live-search="true"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
-                            <option name="city">长沙市</option>
-                            <option name="city">株洲市</option>
-                            <option name="city">湘潭市</option>
-                            <option name="city">衡阳市</option>
-                            <option name="city">邵阳市</option>
-                            <option name="city">岳阳市</option>
-                            <option name="city">张家界市</option>
-                            <option name="city">益阳市</option>
-                            <option name="city">常德市</option>
-                            <option name="city">娄底市</option>
-                            <option name="city">郴州市</option>
-                            <option name="city">永州市</option>
-                            <option name="city">怀化市</option>
+                            <option name="city">长沙</option>
+                            <option name="city">株洲</option>
+                            <option name="city">湘潭</option>
+                            <option name="city">衡阳</option>
+                            <option name="city">邵阳</option>
+                            <option name="city">岳阳</option>
+                            <option name="city">张家界</option>
+                            <option name="city">益阳</option>
+                            <option name="city">常德</option>
+                            <option name="city">娄底</option>
+                            <option name="city">郴州</option>
+                            <option name="city">永州</option>
+                            <option name="city">怀化</option>
                             <option name="city">湘西土家族苗族自治州</option>
                         </select>
                         <!--<input type="text" class="form-control input-sm" id="router_ip" name="router_ip">-->
@@ -55,20 +55,9 @@
                                 data-live-search="true"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
-                            <option name="pop">长沙市</option>
-                            <option name="pop">株洲市</option>
-                            <option name="pop">湘潭市</option>
-                            <option name="pop">衡阳市</option>
-                            <option name="pop">邵阳市</option>
-                            <option name="pop">岳阳市</option>
-                            <option name="pop">张家界市</option>
-                            <option name="pop">益阳市</option>
-                            <option name="pop">常德市</option>
-                            <option name="pop">娄底市</option>
-                            <option name="pop">郴州市</option>
-                            <option name="pop">永州市</option>
-                            <option name="pop">怀化市</option>
-                            <option name="pop">湘西土家族苗族自治州</option>
+                            {% for ds in nodes %}
+                            <option>{{ ds.node_name }}</option>
+                            {% endfor %}
                         </select>
                         <!--<input type="text" class="form-control input-sm" id="router_group" name="router_group">-->
                     </div>
@@ -77,7 +66,7 @@
                                 onclick="sumbitQuery()">查询
                         </button>
                         &nbsp;
-                        <button class="btn-info btn btn-sm" type="reset" name="" onclick="location.reload()">重置</button>
+                        <button class="btn-info btn btn-sm" type="reset" name="" onclick="reset()">重置</button>
                     </div>
                 </div>
             </div>
@@ -86,7 +75,7 @@
                    style="word-break:break-all;">
                 <thead>
                 <tr>
-                    <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                    <td><input type="checkbox" class="icheckbox_all" name="icheckbox_all"></td>
                     <th>所属地市</th>
                     <th>节点名称</th>
                     <th>状态</th>
@@ -94,15 +83,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for ds in systems %}
+                {% for ds in nodes %}
                     <tr>
                         <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
-                        <td class="center">{{ ds.system_name }}</td>
-                        <td class="center">{{ ds.router_ip }}</td>
-                        <!--<td class="center">{{ ds.system_manager }}</td>-->
-                        <!--<td class="center">{{ ds.system_manage_room }}</td>-->
-                        <!--<td class="center">{{ ds.update_time }}</td>-->
-                        <!--<td class="center">{{ ds.router_group.router_name }}</td>-->
+                        <td class="center">{{ ds.city }}</td>
+                        <td class="center">{{ ds.node_name }}</td>
                         <td class="center">
                             {% if ds.status == 1 %}
                                 <i class="closeCircle"></i>
@@ -113,11 +98,11 @@
                         <td class="center">
                             {% if ds.status == 1 %}
                                 <button class="btn btn-success btn-xs"
-                                        onclick="turnFn('turn_on','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">恢复
+                                        onclick="turnFn('turn_on','{{ ds.node_name }}',0,'{{ ds.node_name }}')">恢复
                                 </button>
                             {% elif ds.status == 2 %}
                                 <button class="btn btn-danger btn-xs"
-                                        onclick="turnFn('turn_off','{{ ds.program_ip }}',0,'{{ ds.program_name }}')">关停
+                                        onclick="turnFn('turn_off','{{ ds.node_name }}',0,'{{ ds.node_name }}')">关停
                                 </button>
                             {% endif %}
                         </td>
@@ -127,5 +112,5 @@
             </table>
         </div>
     </div>
-    <script src="{% static 'js/cdn/cdn.js' %}"></script>
+     <script src="{% static 'js/cdn/cdn.js' %}"></script>
 {% endblock %}

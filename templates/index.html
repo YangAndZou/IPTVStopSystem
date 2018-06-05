@@ -19,6 +19,9 @@
     <script src="{% static 'dataTables/buttonsDataTables/buttons.colVis.js' %}"></script>
     <link rel="stylesheet" href="{% static 'xcConfirm/css/xcConfirm.css' %}">
     <script src="{% static 'xcConfirm/js/xcConfirm.js' %}"></script>
+    <script>
+        var token = '{{ csrf_token }}';
+    </script>
 </head>
 <body>
     <div class="container-box">

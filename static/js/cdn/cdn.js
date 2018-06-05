@@ -112,18 +112,22 @@ var initTable = function () {
                 text: '操作日志',
                 className: 'btn btn-sm btn-warning',
                 action: function (e, dt, node, config) {
-                    location.href = "/program_logs"
+                    location.href = "/cdn_logs"
                 }
             }
         ],
         "drawCallback": function (settings) {
-            var ischeckAll = $("#all_checked").prop('checked');
-            $(":checkbox").prop("checked", ischeckAll);
+            var ischeckAll = $(settings.nTable).find(".icheckbox_all").prop('checked');
+            if(ischeckAll){
+                $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
+            }else{
+                $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
+            }
             for (var index = 0; index < $(settings.nTBody).find("tr").length; index++) {
                 if (selectList.length > 0 && selectList[0] != "all") {
                     for (var i = 0; i < selectList.length; i++) {
                         var dom = $($(settings.nTBody).find("tr")[index]).find("td");
-                        var text = dom.parents('tr').find('td').eq(4).text();
+                        var text = dom.parents('tr').find('td').eq(2).text();
                         var data = selectList[i];
                         if (text == data) {
                             dom.eq(0).find(":checkbox").prop("checked", true);
@@ -138,7 +142,11 @@ var initTable = function () {
     $('#dataTableList_wrapper').on("change", ".icheckbox_all", function () {
         //选择全选复选框按钮
         var ischeckAll = $(this).prop('checked');
-        $(":checkbox").prop("checked", ischeckAll);
+        if(ischeckAll){
+            $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
+        }else{
+            $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
+        }
         if (ischeckAll) {
             selectList = ["all"]
         } else {
@@ -149,10 +157,10 @@ var initTable = function () {
         //选择复选框按钮事件
         var ischeck = $(this).prop('checked');
         if (ischeck) {
-            selectList.push($(this).parents('tr').find('td').eq(4).text())
+            selectList.push($(this).parents('tr').find('td').eq(2).text())
         } else {
             for (var index = 0; index < selectList.length; index++) {
-                var filed = $(this).parents('tr').find('td').eq(4).text();
+                var filed = $(this).parents('tr').find('td').eq(2).text();
                 if (selectList[index] == filed) {
                     selectList.splice(index, 1)
                 }
@@ -214,7 +222,7 @@ function turnFn(turn, list, type,name) {
     formData.append("program_ips",JSON.stringify(List));
     formData.append("csrfmiddlewaretoken",token);
     $.ajax({
-        url: "/program_change",
+        url: "/cdn_change",
         type: "Post",
         data: {
             mode: turn,
@@ -237,14 +245,20 @@ function turnFn(turn, list, type,name) {
 
 
 function sumbitQuery(){
-    var systemName=0;
-    var routerIp=0;
-    var routerGroup=0;
-    $("#system_name").val()==''?systemName=0:systemName=$("#system_name").val();
-    $("#router_ip").val()==''?routerIp=0:routerIp=$("#router_ip").val();
-    $("#router_group").val()==''?routerGroup=0:routerGroup=$("#router_group").val();
-    var url='/epg/'+systemName+"/"+routerIp+"/"+routerGroup;
+    var platform=0;
+    var city=0;
+    var pop=0;
+    var platformDom=$("#platform").val();
+    var cityDom=$("#city").val();
+    var popDom=$("#pop").val();
+    platformDom==''|| platformDom==null|| platformDom==undefined?platform=0:platform=platformDom;
+    cityDom==''|| cityDom==null|| cityDom==undefined?city=0:city=cityDom;
+    popDom==''|| popDom==null|| popDom==undefined?pop=0:pop=popDom;
+    var url='/cdn/'+platform+"/"+city+"/"+pop;
     location.href=url
+}
+function reset() {
+    location.href="/cdn/0/0/0"
 }
 $(document).keyup(function(event){
     if(event.keyCode ==13){

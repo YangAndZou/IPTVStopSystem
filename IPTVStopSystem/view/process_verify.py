@@ -34,13 +34,13 @@ def process_verify(request):
                                            'rm -rf /home/transfar/oooooooooooooooooooooops')
                         if operation_target == [u'all']:
                             programs.update(status=1)
-                        programs.filter(program_ip__in=operation_target).update(status=1)
+                        programs.filter(program_name__in=operation_target).update(status=1)
                     elif operation_type == '恢复':
                         utils.ssh_paramiko('192.168.2.168', 'root', 'Trans@2017',
                                            'touch /home/transfar/oooooooooooooooooooooops')
                         if operation_target == [u'all']:
                             programs.update(status=2)
-                        programs.filter(program_ip__in=operation_target).update(status=2)
+                        programs.filter(program_name__in=operation_target).update(status=2)
                 # TODO 3 CDN
                 elif process_type == 'CDN关停':
                     pass

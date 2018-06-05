@@ -97,6 +97,7 @@ var initTable = function () {
                 text: '关停',
                 className: 'btn btn-sm btn-danger',
                 action: function (e, dt, node, config) {
+                    console.log(selectList)
                     modeConfirm('turn_off', selectList, 1)
                 }
             },
@@ -104,6 +105,7 @@ var initTable = function () {
                 text: '开启',
                 className: 'btn btn-sm btn-success',
                 action: function (e, dt, node, config) {
+                    console.log(selectList)
                     modeConfirm('turn_on', selectList, 1)
 
                 }
@@ -117,13 +119,19 @@ var initTable = function () {
             }
         ],
         "drawCallback": function (settings) {
-            var ischeckAll = $("#all_checked").prop('checked');
-            $(":checkbox").prop("checked", ischeckAll);
+            var ischeckAll = $(settings.nTable).find(".icheckbox_all").prop('checked');
+            if(ischeckAll){
+                $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
+            }else{
+                $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
+            }
+            // var ischeckAll = $("#all_checked").prop('checked');
+            // $(":checkbox").prop("checked", ischeckAll);
             for (var index = 0; index < $(settings.nTBody).find("tr").length; index++) {
                 if (selectList.length > 0 && selectList[0] != "all") {
                     for (var i = 0; i < selectList.length; i++) {
                         var dom = $($(settings.nTBody).find("tr")[index]).find("td");
-                        var text = dom.parents('tr').find('td').eq(4).text();
+                        var text = dom.parents('tr').find('td').eq(1).text();
                         var data = selectList[i];
                         if (text == data) {
                             dom.eq(0).find(":checkbox").prop("checked", true);
@@ -138,7 +146,12 @@ var initTable = function () {
     $('#dataTableList_wrapper').on("change", ".icheckbox_all", function () {
         //选择全选复选框按钮
         var ischeckAll = $(this).prop('checked');
-        $(":checkbox").prop("checked", ischeckAll);
+        // $(":checkbox").prop("checked", ischeckAll);
+        if(ischeckAll){
+            $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
+        }else{
+            $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
+        }
         if (ischeckAll) {
             selectList = ["all"]
         } else {
@@ -149,10 +162,10 @@ var initTable = function () {
         //选择复选框按钮事件
         var ischeck = $(this).prop('checked');
         if (ischeck) {
-            selectList.push($(this).parents('tr').find('td').eq(4).text())
+            selectList.push($(this).parents('tr').find('td').eq(1).text())
         } else {
             for (var index = 0; index < selectList.length; index++) {
-                var filed = $(this).parents('tr').find('td').eq(4).text();
+                var filed = $(this).parents('tr').find('td').eq(1).text();
                 if (selectList[index] == filed) {
                     selectList.splice(index, 1)
                 }
@@ -182,13 +195,24 @@ function sumbitQuery() {
     var programName = 0;
     var programIp = 0;
     var status = 0;
-    var programNum = 0;
-    $("#program_name").val() == '' ? programName = 0 : programName = $("#program_name").val();
-    $("#program_ip").val() == '' ? programIp = 0 : programIp = $("#program_ip").val();
-    $("#program_num").val() == '' ? programNum = 0 : programNum = $("#program_num").val();
-    $("#status").val() == '' ? status = 0 : status = $("#status").val();
-    var url = '/program/' + programName + "/" + programIp + "/" + programNum + "/" + status;
-    location.href = url
+    var programStartNum = 0;
+    var programEndNum = 0;
+    var programNameDom=$("#program_name").val();
+    var programIpDom=$("#program_ip").val();
+    var programNumStartDom=$("#program_num_start").val();
+    var programNumEndDom=$("#program_num_end").val();
+    var statusDom=$("#status").val();
+    if(parseInt(programNumStartDom) >parseInt(programNumEndDom) ){
+        window.wxc.xcConfirm("请填写正确的频道号范围！", window.wxc.xcConfirm.typeEnum.warning);
+        return false
+    }
+    programNameDom == ''|| programNameDom== null||programNameDom == undefined? programName = 0 : programName = programNameDom;
+    programIpDom == '' || programIpDom == null||programIpDom== undefined? programIp = 0 : programIp = programIpDom;
+    programNumStartDom == '' || programNumStartDom == null||programNumStartDom== undefined? programStartNum = 0 : programStartNum = programNumStartDom;
+    programNumEndDom == '' || programNumEndDom == null||programNumEndDom== undefined? programEndNum = 0 : programEndNum = programNumEndDom;
+    statusDom == ''||statusDom == null||statusDom == undefined ? status = 0 : status =statusDom;
+     var url = '/program/' + programName + "/" + programIp + "/" + programStartNum +"-"+ programNumEndDom+ "/" + status;
+     location.href = url
 }
 
 function modeConfirm(turn, list, type, name) {
@@ -235,7 +259,7 @@ function turnFn(turn, list, type, name) {
         type: "Post",
         data: {
             mode: turn,
-            program_ips: JSON.stringify(List),
+            program_names: JSON.stringify(List),
             csrfmiddlewaretoken: token
         },
         dataType: 'json',
@@ -250,7 +274,9 @@ function turnFn(turn, list, type, name) {
         }
     })
 }
-
+function reset() {
+    location.href="/program/0/0/0/0"
+}
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
         $("#submitprogram").trigger("click");

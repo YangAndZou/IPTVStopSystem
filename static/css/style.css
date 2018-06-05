@@ -396,3 +396,29 @@
 .bootstrap-select.btn-group .no-results{
     color:#444;
 }
+/*.numberRange .btn-group{*/
+    /*width:40% !important;*/
+/*}*/
+.numberRange {
+    text-align: center !important;
+}
+.query .form-group{
+    margin-bottom: 0;
+}
+ .epgContent{
+     text-align: center;
+     color:rgb(42, 159, 214);
+     width: 80%;
+     left: 10%;
+     top: 50%;
+     margin:-50px auto 0;
+     position: absolute;
+     padding:0;
+ }
+.epgContent button{
+    width: 500px;
+    height:138px;
+    line-height: 138px;
+    font-size: 25px;
+    /*background:url("../image/home_bg_value.png");*/
+}

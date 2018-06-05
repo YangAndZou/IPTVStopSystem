@@ -266,7 +266,7 @@ function auditTap(turn,list,type,name){
     }
     window.wxc.xcConfirm("确定提交一键关停操作？", window.wxc.xcConfirm.typeEnum.warning, {
         onOk: function(v) {
-            auditFn(list,type,name)
+            auditFn(turn,list,type,name)
         }
     })
 }
@@ -290,7 +290,7 @@ function auditFn(turn,list, type,name) {
     formData.append("program_ips",JSON.stringify(List));
     formData.append("csrfmiddlewaretoken",token);
     $.ajax({
-        url: "/program_change",
+        url: "/process_verify_change",
         type: "Post",
         data: {
             mode: turn,
@@ -321,7 +321,7 @@ function retroveTap(turn,list,type,name){
     }
     window.wxc.xcConfirm("回退意见输入框:", window.wxc.xcConfirm.typeEnum.input, {
         onOk: function(v) {
-            retroveFn(list,type,name,v)
+            retroveFn(turn,list,type,name,v)
         }
     })
 }
@@ -349,7 +349,7 @@ function retroveFn(turn,list, type,name,v) {
         url: "/program_change",
         type: "Post",
         data: {
-            mode: turn,
+            mode:turn,
             program_ips: JSON.stringify(List),
             csrfmiddlewaretoken: token
         },

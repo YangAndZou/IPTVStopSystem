@@ -269,7 +269,7 @@ function turnFn(turn, list, type, name) {
             if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作已提交审核！", window.wxc.xcConfirm.typeEnum.success);
             }else if(resp.code=="201"){
-                window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.success);
+                window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.warning);
             }
         },
         "error": function (response) {

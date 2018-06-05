@@ -44,6 +44,7 @@ urlpatterns = [
 
     # process verify
     url(r'^process_verify$', process_verify.show_process_verify),
+    url(r'^process_verify_change$', process_verify.process_verify),
 
 
 ]

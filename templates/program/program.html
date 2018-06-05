@@ -46,25 +46,9 @@
                     </div>
                     <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道号:</label>
                     <div class="col-per1-5 md-per1-4 ms-per1-3 numberRange">
-                        <select class="selectpicker"
-                                id="program_num_start"
-                                name="program_num"
-                                data-width="42%">
-                            <option selected>0</option>
-                            {% for ds in programs %}
-                                <option>{{ ds.program_num }}</option>
-                            {% endfor %}
-                        </select>
+                        <input type="number" id="program_num_start" name="program_num"  style="width: 42%">
                         -
-                        <select class="selectpicker"
-                                id="program_num_end"
-                                name="program_num"
-                                data-width="42%">
-                            <option selected>0</option>
-                            {% for ds in programs %}
-                            <option>{{ ds.program_num }}</option>
-                            {% endfor %}
-                        </select>
+                        <input type="number" id="program_num_end" name="program_num" style="width: 42%">
                     </div>
                     <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">状态:</label>
                     <div class="col-per1-5 md-per1-4 ms-per1-3">

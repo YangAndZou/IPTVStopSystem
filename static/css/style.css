@@ -207,9 +207,17 @@
 .query{
     padding:10px;
     margin: 0;
-    margin-bottom: 10px;
     border:1px solid rgb(83, 105, 159);
     background: rgba(2, 42, 93, 0.41);
+}
+.queryMore{
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    border: 1px dotted rgb(83, 105, 159);
+    border-top:0;
+    background: #000;
+    cursor: pointer;
 }
 .query .control-label{
     line-height: 30px;
@@ -432,6 +440,7 @@
   }
   .epgContent button{
       background:url("../image/bigbtn.png");
+      border:0;
   }
 .epgContent button,
 .codeContent input{
@@ -480,4 +489,47 @@ input[type="number"]{
     border: 1px solid #ccc;
     padding: 6px 12px;
     border-radius: 4px;
+}
+.dataTables_wrapper{
+    margin-top: 10px;
+}
+.programCxt{
+    position: relative;
+}
+.programCard{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.programCard li{
+    position: relative;
+    color:#444;
+    text-indent: 1em;
+    cursor: pointer;
+    padding: 3px 0;
+}
+.programCard li.active{
+    background: #337ab7;
+    color: #fff;
+
+}
+.programCard li span{
+    position: absolute;
+    display: inline-block;
+    right: 15px;
+    margin-top: 5px;
 }

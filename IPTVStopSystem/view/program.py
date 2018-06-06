@@ -43,8 +43,12 @@ def program_change(request):
             # program_ids 为列表
             program_ids = request.POST.get('program_ids')
             # 当全选时，前端传过来的为['all']，所以需要拿到所有id
-            if program_ids == ['all']:
+            if program_ids == '["all"]':
                 program_ids = [program.id for program in IPTVProgram.objects.all()]
+            program_ids = program_ids[1:-1]
+            program_list = program_ids.split(',')
+            print('---------------->', program_ids)
+            print('---------------->', program_list)
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'
@@ -52,14 +56,15 @@ def program_change(request):
                 mode = '恢复'
 
             # 插入日志
-            for program_id in program_ids:
+            for program_id in program_list:
+                program_id = int(program_id)
                 program_name = IPTVProgram.objects.get(id=program_id).program_name
                 IPTVProgramOperationLog.objects.create(program_id=program_id,
                                                        content='用户 {} 对 {} 频道执行 {} 操作'.
                                                        format(request.user.username, program_name, mode))
-            return JsonResponse({'success': '操作成功！'})
+            return JsonResponse({'success': '操作成功！','msg':'ok'})
         else:
-            return JsonResponse({'error': '请输入正确的授权码！'})
+            return JsonResponse({'error': '请输入正确的授权码！','msg':'error'})
 
 
 def program_turn_off(request):

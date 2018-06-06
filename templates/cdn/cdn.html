@@ -75,8 +75,9 @@
                    style="word-break:break-all;">
                 <thead>
                 <tr>
-                    <td><input type="checkbox" class="icheckbox_all" name="icheckbox_all"></td>
-                    <th>所属地市</th>
+                    <th><input type="checkbox" class="icheckbox_all" name="icheckbox_all"></th>
+                    <th>id</th>
+                    <th class="hidden">所属地市</th>
                     <th>节点名称</th>
                     <th>状态</th>
                     <th>操作</th>
@@ -86,6 +87,7 @@
                 {% for ds in nodes %}
                     <tr>
                         <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                        <td class="hidden">{{ ds.id }}</td>
                         <td class="center">{{ ds.city }}</td>
                         <td class="center">{{ ds.node_name }}</td>
                         <td class="center">

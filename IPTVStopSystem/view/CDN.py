@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse
 from IPTVStopSystem import utils
@@ -6,6 +7,7 @@ from IPTVStopSystem.models import IPTVCDNNode
 from IPTVStopSystem.models import IPTVCDNOperationLog
 
 
+@login_required()
 def show_cdn(request, platform, city, pop_node):
     nodes = IPTVCDNNode.objects.all()
     print(platform)
@@ -21,10 +23,12 @@ def show_cdn(request, platform, city, pop_node):
 
 
 # 显示操作记录
+@login_required()
 def show_log(request):
     logs = IPTVCDNOperationLog.objects.all()
-    return render(request, 'cdn/cdn_logs.html', {'cdn_logs': logs})
+    return render(request, 'cdn/cdn_logs.html', {'cdn_logs': logs}
 
 
+@login_required()
 def cdn_change(request):
     return HttpResponse('hello')

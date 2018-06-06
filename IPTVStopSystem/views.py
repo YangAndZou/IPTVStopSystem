@@ -1,13 +1,9 @@
 # coding=utf-8
 import time
-from django.contrib import auth, messages
+from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from models import IPTVProgram
-from models import IPTVProgramOperationLog
-import utils
 
 
 # 登录验证

@@ -4,7 +4,8 @@ $(function () {
 });
 function getCode() {
     var code=$("#code").val();
-    var reg=/^[A-Za-z0-9]{8}$/g;
+    var reg =/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+    // var reg=/^[A-Za-z0-9]{8}$/g;
     var flag=reg.test(code);
     if(code.length<8||code.length>8){
         window.wxc.xcConfirm("审核码必须是8位", window.wxc.xcConfirm.typeEnum.error)

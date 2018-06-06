@@ -6,7 +6,6 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from IPTVStopSystem.models import IPTVProgramOperationLog
 from IPTVStopSystem.models import IPTVProgram
-from IPTVStopSystem.models import IPTVProcessVerify
 from IPTVStopSystem.models import IPTVAuthCode
 
 
@@ -37,12 +36,22 @@ def program_change(request):
 
         if auth_code == auth_code_from_db:
             mode = request.POST.get('mode')
+            # program_ids 为列表
+            program_ids = request.POST.get('program_id')
 
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
-                return program_turn_off(request)
+                mode = '关停'
             elif mode == 'turn_on':
-                return program_turn_on(request)
+                mode = '恢复'
+
+            # 插入日志
+            for program_id in program_ids:
+                program_name = IPTVProgram.objects.get(id=program_id).program_name
+                IPTVProgramOperationLog.objects.create(program_id=program_id,
+                                                       content='用户 {} 对 {} 频道执行 {} 操作'.
+                                                       format(request.user.username, program_name, mode))
+            return JsonResponse({'success': '操作成功！'})
         else:
             return JsonResponse({'error': '请输入正确的授权码！'})
 

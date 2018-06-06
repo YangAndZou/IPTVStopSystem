@@ -148,26 +148,26 @@ function logout() {
 
 function sumbitQuery() {
     var programName = 0;
-    var programIp = 0;
+    var programType=0;
+    var programPlatform=0;
+    // var programIp = 0;
     var status = 0;
-    var programStartNum = 0;
-    var programEndNum = 0;
+    var programIpType=0;
     var programNameDom=$("#program_name").val();
-    var programIpDom=$("#program_ip").val();
-    var programNumStartDom=$("#program_num_start").val();
-    var programNumEndDom=$("#program_num_end").val();
+    var programTypeDom=$("#program_type").val();
+    var programPlatformDom=$("#program_platform").val();
+
+    // var programIpDom=$("#program_ip").val();
     var statusDom=$("#status").val();
-    if(parseInt(programNumStartDom) >parseInt(programNumEndDom) ){
-        window.wxc.xcConfirm("请填写正确的频道号范围！", window.wxc.xcConfirm.typeEnum.warning);
-        return false
-    }
+    var programIpTypeDom=$("#ip_type").val();
     programNameDom == ''|| programNameDom== null||programNameDom == undefined? programName = 0 : programName = programNameDom;
-    programIpDom == '' || programIpDom == null||programIpDom== undefined? programIp = 0 : programIp = programIpDom;
-    programNumStartDom == '' || programNumStartDom == null||programNumStartDom== undefined? programStartNum = 0 : programStartNum = programNumStartDom;
-    programNumEndDom == '' || programNumEndDom == null||programNumEndDom== undefined? programEndNum = 0 : programEndNum = programNumEndDom;
+    programTypeDom == ''|| programTypeDom== null||programTypeDom == undefined? programType = 0 : programType = programTypeDom;
+    programPlatformDom == ''|| programPlatformDom== null||programPlatformDom == undefined? programPlatform = 0 : programPlatform = programPlatformDom;
+    // programIpDom == '' || programIpDom == null||programIpDom== undefined? programIp = 0 : programIp = programIpDom;
     statusDom == ''||statusDom == null||statusDom == undefined ? status = 0 : status =statusDom;
-     var url = '/program/' + programName + "/" + programIp + "/" + programStartNum +"-"+ programNumEndDom+ "/" + status;
-     location.href = url
+    programIpTypeDom == ''||programIpTypeDom == null||programIpTypeDom == undefined ? programIpType = 0 : programIpType =programIpTypeDom;
+    var url = '/program/' + programName + "/" + programType + "/" + programPlatform + "/" + status+"/" +programPlatform;
+    location.href = url
 }
 
 function modeConfirm(turn, list, type, name) {
@@ -248,6 +248,52 @@ function selectListAllFn(){
     });
     return selectListAll
 }
+function programData(op) {
+    var value=op.value;
+    var list="";
+    var data=["aaa","bbb","ccc"];
+    for(var index=0;index<data.length;index++){
+        if(data[index]==value){
+            list+='<li onclick="activeTap(this)" class="active">'+data[index]+'</li>'
+        }else{
+            list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
+        }
+
+    }
+    var menu='<div class="programCard"> <ul class="programCard-menu">'+list+'</ul> </div>';
+    $(op).after(menu);
+   /* $.ajax({
+        url: "/program_change",
+        type: "Post",
+        data: {
+            program_name:value,
+        },
+        dataType: 'json',
+        "success": function (resp) {
+            var list="";
+            var data=resp.list;
+            for(var index=0;index<data.length;index++){
+                list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
+            }
+            var menu='<div class="programCard"> <ul class="programCard-menu">'+list+'</ul> </div>';
+                // <li><span class="glyphicon glyphicon-ok"></span></li>
+
+        },
+        "error": function (response) {
+        }
+    });*/
+}
+
+
+function activeTap(op) {
+    $(op).parent().find("li").removeClass("active");
+    $(op).hasClass("active")?$(op).removeClass("active"):$(op).addClass("active");
+    var value=$("#program_name").val();
+    $("#program_name").val($(op).text())
+}
+$(document).click(function () {
+    $(".programCard").remove()
+});
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
         $("#submitprogram").trigger("click");

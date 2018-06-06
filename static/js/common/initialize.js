@@ -23,6 +23,18 @@ $(function () {
     $(window).resize(function () {
         layout(layoutClass);
     });
+    $(".querySubmit").nextAll().hide();
+    var bottom="<i class=\"glyphicon glyphicon-triangle-bottom\"></i>展开查询更多";
+    var top="<i class=\"glyphicon glyphicon-triangle-top\"></i>收起查询";
+    $(".queryMore").html(bottom);
+    $(".queryMore").click(function () {
+        if($(this).find("i").hasClass("glyphicon-triangle-bottom")){
+            $(this).html(top)
+        }else{
+            $(this).html(bottom)
+        }
+        $(this).prev().find(".querySubmit").nextAll().toggle()
+    })
 });
 
 

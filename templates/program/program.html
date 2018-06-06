@@ -15,40 +15,49 @@
             <div class="form-group">
                 {% csrf_token %}
                 <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道名称:</label>
-                <div class="col-per1-5 md-per1-4 ms-per1-3 ">
-                    <select class="selectpicker"
-                            multiple
-                            id="program_name"
-                            name="program_name"
-                            data-live-search="true"
-                            data-live-search-placeholder="请输入检索内容"
-                            data-none-selected-text="请选择"
-                            data-width="100%">
-                        {% for ds in programs %}
-                        <option>{{ ds.program_name }}</option>
-                        {% endfor %}
-                    </select>
+                <div class="col-per1-5 md-per1-4 ms-per1-3 programCxt">
+                    <!--<select class="selectpicker"-->
+                            <!--multiple-->
+                            <!--id="program_name"-->
+                            <!--name="program_name"-->
+                            <!--data-live-search="true"-->
+                            <!--data-live-search-placeholder="请输入检索内容"-->
+                            <!--data-none-selected-text="请选择"-->
+                            <!--data-width="100%">-->
+                        <!--{% for ds in programs %}-->
+                        <!--<option>{{ ds.program_name }}</option>-->
+                        <!--{% endfor %}-->
+                    <!--</select>-->
+                    <input type="text" class="form-control" name="program_name" id="program_name" onkeyup="programData(this)">
                 </div>
-                <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道IP:</label>
+                <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道类型:</label>
                 <div class="col-per1-5 md-per1-4 ms-per1-3">
                     <select class="selectpicker"
-                            multiple
-                            id="program_ip"
-                            name="program_ip"
-                            data-live-search="true"
-                            data-live-search-placeholder="请输入检索内容"
+                            id="program_type"
+                            name="program_type"
                             data-none-selected-text="请选择"
                             data-width="100%">
-                        {% for ds in programs %}
-                        <option>{{ ds.program_ip }}</option>
-                        {% endfor %}
+                        <option value="0">全部</option>
+                        <option>高清</option>
+                        <option>央视</option>
+                        <option>省内</option>
+                        <option>卫视</option>
+                        <option>其它</option>
+                        <option>收费</option>
                     </select>
                 </div>
-                <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道号:</label>
-                <div class="col-per1-5 md-per1-4 ms-per1-3 numberRange">
-                    <input type="number" id="program_num_start" name="program_num" style="width: 42%">
-                    -
-                    <input type="number" id="program_num_end" name="program_num" style="width: 42%">
+                <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">平台:</label>
+                <div class="col-per1-5 md-per1-4 ms-per1-3">
+                    <select class="selectpicker"
+                            id="program_platform"
+                            name="program_platform"
+                            data-none-selected-text="请选择"
+                            data-width="100%">
+                        <option value="0">全部</option>
+                        <option>华为</option>
+                        <option>中兴</option>
+                        <option>旧版中兴</option>
+                    </select>
                 </div>
                 <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">状态:</label>
                 <div class="col-per1-5 md-per1-4 ms-per1-3">
@@ -63,15 +72,35 @@
                     </select>
                     <!--<input type="text" class="form-control input-sm" id="status" name="status">-->
                 </div>
-                <div class="col-per1-0 md-per1-1 ms-per1-4">
+                <!--<label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">频道号:</label>-->
+                <!--<div class="col-per1-5 md-per1-4 ms-per1-3 numberRange">-->
+                    <!--<input type="number" id="program_num_start" name="program_num" style="width: 42%">-->
+                    <!-- - -->
+                    <!--<input type="number" id="program_num_end" name="program_num" style="width: 42%">-->
+                <!--</div>-->
+                 <div class="col-per1-0 md-per1-1 ms-per1-4 querySubmit">
                     <button class="btn-primary btn btn-sm" type="submit" id="submitprogram" name=""
                             onclick="sumbitQuery()">查询
                     </button>
                     &nbsp;
                     <button class="btn-info btn btn-sm" onclick="reset()" type="reset" name="">重置</button>
                 </div>
+                 <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">IP类型:</label>
+                <div class="col-per1-5 md-per1-4 ms-per1-3">
+                    <select class="selectpicker"
+                            id="ip_type"
+                            name="ip_type"
+                            data-none-selected-text="请选择"
+                            data-width="100%">
+                        <option value="0">全部</option>
+                        <option>IPTV</option>
+                        <option>IPTV+</option>
+                    </select>
+                </div>
             </div>
-        </div>
+         </div>
+         <div class="queryMore"></div>
+
         <table id="dataTableList"
                class="table table-striped  table-hover "
                style="word-break:break-all;">

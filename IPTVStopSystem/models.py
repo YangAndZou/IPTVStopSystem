@@ -79,33 +79,6 @@ class IPTVCDNOperationLog(models.Model):
         verbose_name_plural = 'CDN操作日志表'
 
 
-class IPTVProcessVerify(models.Model):
-    o = (
-        ('1', '关停'),
-        ('2', '恢复')
-    )
-    t = (
-        ('1', 'EPG关停'),
-        ('2', '直播频道关停'),
-        ('3', 'CDN关停')
-    )
-    s = (
-        ('1', '审核中'),
-        ('2', '未通过'),
-        ('3', '已通过')
-    )
-    operation_type = models.SmallIntegerField(choices=o, verbose_name='操作类型 1 关停 2 恢复')
-    process_type = models.SmallIntegerField(choices=t, verbose_name='操作对象类型 1:EPG关停 2:直播频道关停 3:CDN关停')
-    operation_target = models.CharField(max_length=256, verbose_name='操作对象')
-    status = models.SmallIntegerField(choices=s, verbose_name='审核状态，1:审核中 2:未通过 3:已通过')
-    suggestion = models.TextField(verbose_name='意见', null=True, blank=True)
-
-    class Meta:
-        db_table = 'iptv_process_verify'
-        verbose_name = '流程审批表'
-        verbose_name_plural = '流程审批表'
-
-
 class IPTVAuthCode(models.Model):
     auth_code = models.CharField(max_length=256, verbose_name='授权码（加密）')
 
@@ -172,3 +145,28 @@ class IPTVAuthCode(models.Model):
 #         db_table = 'iptv_system'
 #         verbose_name = '路由系统表'
 #         verbose_name_plural = '路由系统表'
+# class IPTVProcessVerify(models.Model):
+#     o = (
+#         ('1', '关停'),
+#         ('2', '恢复')
+#     )
+#     t = (
+#         ('1', 'EPG关停'),
+#         ('2', '直播频道关停'),
+#         ('3', 'CDN关停')
+#     )
+#     s = (
+#         ('1', '审核中'),
+#         ('2', '未通过'),
+#         ('3', '已通过')
+#     )
+#     operation_type = models.SmallIntegerField(choices=o, verbose_name='操作类型 1 关停 2 恢复')
+#     process_type = models.SmallIntegerField(choices=t, verbose_name='操作对象类型 1:EPG关停 2:直播频道关停 3:CDN关停')
+#     operation_target = models.CharField(max_length=256, verbose_name='操作对象')
+#     status = models.SmallIntegerField(choices=s, verbose_name='审核状态，1:审核中 2:未通过 3:已通过')
+#     suggestion = models.TextField(verbose_name='意见', null=True, blank=True)
+#
+#     class Meta:
+#         db_table = 'iptv_process_verify'
+#         verbose_name = '流程审批表'
+#         verbose_name_plural = '流程审批表'

@@ -11,12 +11,3 @@ def show_epg(request):
 def epg_one_key(request):
     if request.method == 'POST':
         pass
-
-# # 显示操作记录
-# def show_log(request):
-#     logs = IPTVEPGOperationLog.objects.all()
-#     return render(request, 'epg/epg_logs.html', {'html': logs})
-#
-#
-# def epg_change(request):
-#     return HttpResponse('hello')

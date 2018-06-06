@@ -1,17 +1,18 @@
 # coding=utf-8
+import base64
 import json
 
 from django.http import JsonResponse
 from django.shortcuts import render
 from IPTVStopSystem.models import IPTVProgramOperationLog
 from IPTVStopSystem.models import IPTVProgram
-from IPTVStopSystem.models import IPTVProcessVerify
+from IPTVStopSystem.models import IPTVAuthCode
 
 
 def show_program(request, program_name, program_type, platform, status, program_ip_type):
     if request.method == 'GET':
         programs = IPTVProgram.objects.all()
-        # 以下为搜索功能，分别对应频道名，频道类型（收费，省内...），平台（中兴，华为...），状态，ip类型（iptv, iptv+）
+        # 以下为搜索功能，分别对应频道名，频道类型（收费，省内...），平台（中兴，华为...），状态，ip类型（iptv, iptv+）他们的值默认为0
         if program_name != '0':
             programs = programs.filter(program_name__contains=program_name)
         if program_type != '0':
@@ -28,38 +29,49 @@ def show_program(request, program_name, program_type, platform, status, program_
 # 关停 / 开启
 def program_change(request):
     if request.method == 'POST':
-        try:
+        # 取到前端传入的授权码
+        auth_code = request.POST.get('code')
+        # 取出数据库中的授权码(只有一个)
+        auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1))
+
+        if auth_code == auth_code_from_db:
             mode = request.POST.get('mode')
-            # program_ips 接收的数据有两种格式： 当全选时，接收的数据为 ['all']，
-            # 当部分选中时，接收的数据为['192.168...', '192.168...', ...]
-            # program_names = json.loads(request.POST.get('program_names'))
-            # print(program_names)
-            program_names = request.POST.get('program_names')
-            print(program_names)
+            # program_ids 为列表
+            program_ids = request.POST.get('program_id')
+
+            # 1 为关停 2 为恢复
             if mode == 'turn_off':
-                # 1 为关停
-                mode = 1
+                mode = '关停'
             elif mode == 'turn_on':
-                # 2 为恢复
-                mode = 2
-            # 向管理员发起请求，但是不会重复发送
-            pv = IPTVProcessVerify.objects.filter(operation_target=program_names, status=1)
-            if len(pv) > 0:
-                return JsonResponse({'error': '您提交的请求正在审核中，请耐心等待', 'code': '201'})
-            else:
-                IPTVProcessVerify.objects.create(
-                    process_type=2,
-                    operation_target=program_names,
-                    status=1,
-                    operation_type=mode
-                )
-                return JsonResponse({'success': '已提交请求！', 'code': '200'})
-        except Exception as e:
-            print(e)
-            return JsonResponse({'msg': e, 'code': "201"})
+                mode = '恢复'
+
+            # 插入日志
+            for program_id in program_ids:
+                program_name = IPTVProgram.objects.get(id=program_id).program_name
+                IPTVProgramOperationLog.objects.create(program_id=program_id,
+                                                       content='用户 {} 对 {} 频道执行 {} 操作'.
+                                                       format(request.user.username, program_name, mode))
+            return JsonResponse({'success': '操作成功！'})
+        else:
+            return JsonResponse({'error': '请输入正确的授权码！'})
 
 
-# 显示操作记录
+def program_turn_off(request):
+    return JsonResponse({'success': '关停成功'})
+
+
+def program_turn_on(request):
+    return JsonResponse({'success', '恢复成功'})
+
+
 def show_log(request):
     logs = IPTVProgramOperationLog.objects.all()
     return render(request, 'program/program_logs.html', {'program_logs': logs})
+
+
+# 搜索时的模糊匹配
+def approximate(request):
+    if request.method == 'POST':
+        name = request.POST.get('program_name')
+        search_names = IPTVProgram.objects.filter(program_name__contains=name)
+        return JsonResponse({'search_names': search_names})

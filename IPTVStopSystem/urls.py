@@ -33,6 +33,7 @@ urlpatterns = [
         program.show_program),
     url(r'^program_logs$', program.show_log),
     url(r'^program_change$', program.program_change),
+    url(r'^approximate$', program.approximate),
 
     # CDN
     url(r'^cdn_logs$', CDN.show_log),
@@ -40,12 +41,11 @@ urlpatterns = [
     # url(r'^cdn_change', CDN.cdn_change),
 
     # EPG
-    url(r'^epg', views.index),
+    url(r'^epg$', views.index),
     # url(r'^epg_change', EPG.epg_change),
 
     # process verify
     url(r'^process_verify$', process_verify.show_process_verify),
-    url(r'^process_verify_change$', process_verify.process_verify),
     url(r'^set_code$', process_verify.set_auth_code)
 
 ]

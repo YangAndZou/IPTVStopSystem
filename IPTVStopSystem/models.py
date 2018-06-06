@@ -11,28 +11,28 @@ class IPTVProgram(models.Model):
         ('1', '关停'),
         ('2', '正常')
     )
-    types = (
-        ('sn', '省内'),
-        ('gq', '高清'),
-        ('ys', '央视'),
-        ('ws', '卫视'),
-        ('qt', '其他'),
-        ('ff', '付费')
-    )
-    ip_types = (
-        ('iptv', 'iptv'),
-        ('iptv+', 'iptv+')
-    )
-    platform_type = (
-        ('huawei', '华为'),
-        ('ZTE', '中兴'),
-        ('oldZTE', '旧版中兴')
-    )
+    # types = (
+    #     ('sn', '省内'),
+    #     ('gq', '高清'),
+    #     ('ys', '央视'),
+    #     ('ws', '卫视'),
+    #     ('qt', '其他'),
+    #     ('ff', '付费')
+    # )
+    # ip_types = (
+    #     ('iptv', 'iptv'),
+    #     ('iptv+', 'iptv+')
+    # )
+    # platform_type = (
+    #     ('huawei', '华为'),
+    #     ('ZTE', '中兴'),
+    #     ('oldZTE', '旧版中兴')
+    # )
     program_name = models.CharField(max_length=128, verbose_name='频道名称')
-    program_type = models.CharField(max_length=30, choices=types, verbose_name='频道类型')
-    program_ip = models.CharField(max_length=128, verbose_name='频道ip')
-    program_ip_type = models.CharField(choices=ip_types, verbose_name='ip地址类型')
-    platform = models.CharField(choices=platform_type, max_length=30, verbose_name='平台类型')
+    program_type = models.CharField(max_length=30, verbose_name='频道类型')
+    program_ip = models.CharField(max_length=256, verbose_name='频道ip')
+    program_ip_type = models.CharField(verbose_name='ip地址类型', max_length=50)
+    platform = models.CharField(max_length=30, verbose_name='平台类型')
     status = models.SmallIntegerField(choices=program_status, verbose_name='频道状态 1 关停 2 正常')
 
     class Meta:

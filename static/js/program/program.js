@@ -261,22 +261,22 @@ function programData(op) {
         },
         dataType: 'json',
         "success": function (resp) {
-            if(resp!="undefined"){
-
-            }
-            console.log(resp)
             var list="";
-            var data=resp.list;
-           /* for(var index=0;index<data.length;index++){
-            if(data[index]==value){
-            list+='<li onclick="activeTap(this)" class="active">'+data[index]+'</li>'
-            }else{
-            list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
+            var data=resp.search_names;
+            if(data!="undefined"){
+                for(var index=0;index<data.length;index++){
+                    if(data[index]==value){
+                        list+='<li onclick="activeTap(this)" class="active">'+data[index]+'</li>'
+                    }else{
+                        list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
+                    }
+
+                }
+                var menu='<div class="programCard"> <ul class="programCard-menu">'+list+'</ul> </div>';
+                $(op).after(menu);
             }
 
-            }
-            var menu='<div class="programCard"> <ul class="programCard-menu">'+list+'</ul> </div>';
-            $(op).after(menu);*/
+
         },
         "error": function (response) {
         }

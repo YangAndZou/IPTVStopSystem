@@ -6,10 +6,10 @@
     <div class="codeContent">
         <div class="codeCard">
             <div class="codeTitle"><label for="code">审核码：</label> </div>
-            <input type="text" value=""  class="code" id="code" >
+            <input type="text" value={{ code }}  class="code" id="code" >
             <div class="cardFooter">
-                <button class="btn btn-primary" type="button">提交</button>
-                <button class="btn btn-info" type="reset">重置</button>
+                <button class="btn btn-primary" type="button" onclick="getCode()">提交</button>
+                <button class="btn btn-info" type="reset" onclick="reset()">重置</button>
             </div>
         </div>
     </div>

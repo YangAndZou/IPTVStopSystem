@@ -430,6 +430,9 @@
   .codeContent{
       top:40%;
   }
+  .epgContent button{
+      background:url("../image/bigbtn.png");
+  }
 .epgContent button,
 .codeContent input{
     width:100%;

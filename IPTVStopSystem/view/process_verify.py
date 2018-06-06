@@ -10,7 +10,7 @@ def show_process_verify(request):
     if request.user.is_superuser:
         # 仅显示需要审核的流程
         verifies = IPTVProcessVerify.objects.filter(status=1)
-        return render(request, 'auditingFlow/auditingFlow.html', {'verifies': verifies})
+        return render(request, 'process_verify/process_verify.html', {'verifies': verifies})
     else:
         return HttpResponse('搞咩呀!')
 

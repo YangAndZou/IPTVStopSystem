@@ -18,7 +18,6 @@ var initTable = function () {
         "bLengthChange": true,
         "bSort": false,
         "bStateSave": false,
-        //"bServerSide": true,
         "iDisplayStart": 0,
         "iDisplayLength": 10,
         "paging": true,
@@ -45,54 +44,10 @@ var initTable = function () {
                 "sLast": "尾页"
             }
         },
-//            "sAjaxSource": "/asset/hard/select/",
         "dom": 'Bfrtip',
-        /*'columnDefs': [{
-         targets:0,
-         data: null,
-         defaultContent:"<input type ='checkbox' name='test' class='icheckbox_minimal' value=''>",
-         }],*/
-
         "buttons": [
             'pageLength',
             'colvis',
-            /* {
-             text: '大区关停',
-             className: 'btn btn-sm btn-warning ',
-             action: function (e, dt, node, config) {
-             $("#regionDialog").modal('show')
-             }
-             },
-             {
-             text: '大区关停列表',
-             className: 'btn btn-sm btn-warning ',
-             action: function (e, dt, node, config) {
-             }
-             },
-             {
-             text: '操作日志',
-             className: 'btn btn-sm btn-violet',
-             action: function (e, dt, node, config) {
-             }
-             },*/
-            /*{
-             text: '区域边缘关停',
-             className: 'btn btn-sm btn-warning ',
-             action: function (e, dt, node, config) {
-             }
-             },
-             {
-             text: '区域边缘关停列表',
-             className: 'btn btn-sm btn-warning ',
-             action: function (e, dt, node, config) {
-             }
-             },
-             {
-             text: '操作日志',
-             className: 'btn btn-sm btn-success',
-             action: function (e, dt, node, config) {
-             }
-             },*/
             {
                 text: '关停',
                 className: 'btn btn-sm btn-danger btnClose',
@@ -128,7 +83,7 @@ var initTable = function () {
             // var ischeckAll = $("#all_checked").prop('checked');
             // $(":checkbox").prop("checked", ischeckAll);
             for (var index = 0; index < $(settings.nTBody).find("tr").length; index++) {
-                if (selectList.length > 0 && selectList[0] != "all") {
+                if (selectList.length > 0) {
                     for (var i = 0; i < selectList.length; i++) {
                         var dom = $($(settings.nTBody).find("tr")[index]).find("td");
                         var text = dom.parents('tr').find('td').eq(1).text();
@@ -153,7 +108,7 @@ var initTable = function () {
             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
         }
         if (ischeckAll) {
-            selectList = ["all"]
+            selectList = selectListAllFn()
         } else {
             selectList = []
         }
@@ -286,11 +241,18 @@ function turnFn(turn, list,code, type, name) {
 function reset() {
     location.href="/program/0/0/0/0"
 }
+function selectListAllFn(){
+    var selectListAll=[];
+    $("#program_name").find("option").each(function (index,obj) {
+        selectListAll.push($(obj).text())
+    });
+    return selectListAll
+}
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
         $("#submitprogram").trigger("click");
     }
 });
 $("#title").click(function () {
-    modeConfirm('turn_off', ["all"], 2)
+    modeConfirm('turn_off',selectListAllFn(), 2)
 });

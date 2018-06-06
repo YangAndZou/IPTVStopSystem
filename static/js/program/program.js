@@ -251,37 +251,36 @@ function selectListAllFn(){
 function programData(op) {
     var value=op.value;
     var list="";
-    var data=["aaa","bbb","ccc"];
-    for(var index=0;index<data.length;index++){
-        if(data[index]==value){
-            list+='<li onclick="activeTap(this)" class="active">'+data[index]+'</li>'
-        }else{
-            list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
-        }
-
-    }
-    var menu='<div class="programCard"> <ul class="programCard-menu">'+list+'</ul> </div>';
-    $(op).after(menu);
-   /* $.ajax({
-        url: "/program_change",
+    $(op).next().remove();
+    $.ajax({
+        url: "/approximate",
         type: "Post",
         data: {
             program_name:value,
+            csrfmiddlewaretoken: token
         },
         dataType: 'json',
         "success": function (resp) {
+            if(resp!="undefined"){
+                
+            }
+            console.log(resp)
             var list="";
             var data=resp.list;
-            for(var index=0;index<data.length;index++){
-                list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
+           /* for(var index=0;index<data.length;index++){
+            if(data[index]==value){
+            list+='<li onclick="activeTap(this)" class="active">'+data[index]+'</li>'
+            }else{
+            list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
+            }
+
             }
             var menu='<div class="programCard"> <ul class="programCard-menu">'+list+'</ul> </div>';
-                // <li><span class="glyphicon glyphicon-ok"></span></li>
-
+            $(op).after(menu);*/
         },
         "error": function (response) {
         }
-    });*/
+    });
 }
 
 

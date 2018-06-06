@@ -36,13 +36,14 @@ def program_change(request):
         # 取到前端传入的授权码
         auth_code = request.POST.get('code')
         # 取出数据库中的授权码(只有一个)
-        auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1))
-
+        auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1).auth_code)
         if auth_code == auth_code_from_db:
             mode = request.POST.get('mode')
             # program_ids 为列表
             program_ids = request.POST.get('program_ids')
-
+            # 当全选时，前端传过来的为['all']，所以需要拿到所有id
+            if program_ids == ['all']:
+                program_ids = [program.id for program in IPTVProgram.objects.all()]
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'

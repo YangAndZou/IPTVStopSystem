@@ -28,7 +28,8 @@ urlpatterns = [
     url(r'^$', views.redirect_to_index),
     url(r'^index$', views.index),
     # program
-    url(r'^program/(?P<program_name>[\s\S]*)/(?P<program_ip>[\s\S]*)/(?P<program_num>[\s\S]*)/(?P<status>[\s\S]*)$',
+    url(
+        r'^program/(?P<program_name>[\s\S]*)/(?P<program_type>[\s\S]*)/(?P<platform>[\s\S]*)/(?P<status>[\s\S]*)/(?P<ip_types>[\s\S]*)$',
         program.show_program),
     url(r'^program_logs$', program.show_log),
     url(r'^program_change$', program.program_change),
@@ -45,6 +46,6 @@ urlpatterns = [
     # process verify
     url(r'^process_verify$', process_verify.show_process_verify),
     url(r'^process_verify_change$', process_verify.process_verify),
-
+    url(r'^set_code$', process_verify.set_auth_code)
 
 ]

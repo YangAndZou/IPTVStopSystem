@@ -1,18 +1,32 @@
 # coding=utf-8
-from django.http import HttpResponse
+import base64
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from IPTVStopSystem import utils
 from IPTVStopSystem.models import IPTVProcessVerify
 from IPTVStopSystem.models import IPTVProgram
+from IPTVStopSystem.models import IPTVAuthCode
 
 
 def show_process_verify(request):
     if request.user.is_superuser:
-        # 仅显示需要审核的流程
-        verifies = IPTVProcessVerify.objects.filter(status=1)
-        return render(request, 'process_verify/process_verify.html', {'verifies': verifies})
+        auth_codes = IPTVAuthCode.objects.all()
+        if len(auth_codes) > 0:
+            code = base64.decodestring(auth_codes[0].auth_code)
+        else:
+            code = '123456789'
+        return render(request, 'auditingFlow/auditingFlow.html', {'code': code})
     else:
-        return HttpResponse('搞咩呀!')
+        return HttpResponse('您没有查看授权码的权限!')
+
+
+def set_auth_code(request):
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        secret_code = base64.encodestring(code)
+        IPTVAuthCode.objects.filter(id=1).update(auth_code=secret_code)
+        return JsonResponse({'msg': 'ok'})
+
 
 def process_verify(request):
     if request.method == 'POST':

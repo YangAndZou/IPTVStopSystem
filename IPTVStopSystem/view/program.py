@@ -74,4 +74,7 @@ def approximate(request):
     if request.method == 'POST':
         name = request.POST.get('program_name')
         search_names = IPTVProgram.objects.filter(program_name__contains=name)
-        return JsonResponse({'search_names': search_names})
+        if len(search_names) > 0:
+            return JsonResponse({'search_names': search_names})
+        else:
+            return JsonResponse({'search_names': 'undefined'})

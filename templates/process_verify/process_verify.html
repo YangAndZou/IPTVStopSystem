@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% block page-content %}
+{% load static %}
+<div class="headTitle">流程审核</div>
+<div class="panel panel-default">
+    <div class="codeContent">
+        <div class="codeCard">
+            <div class="codeTitle"><label for="code">审核码：</label> </div>
+            <input type="text" value=""  class="code" id="code" >
+            <div class="cardFooter">
+                <button class="btn btn-primary" type="button">提交</button>
+                <button class="btn btn-info" type="reset">重置</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/process_verify/process_verify.js' %}"></script>
+{% endblock %}

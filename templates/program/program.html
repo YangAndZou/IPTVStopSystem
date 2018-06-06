@@ -110,6 +110,7 @@
                     <span style="display: none">复选框</span>
                     <input type="checkbox" class="icheckbox_all" name="icheckbox_all" id="all_checked">
                 </th>
+                <th class="hidden">id</th>
                 <th>频道名称</th>
                 <th>频道类型</th>
                 <th>平台</th>
@@ -123,6 +124,7 @@
             {% for ds in programs %}
             <tr>
                 <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
+                <td class="hidden">{{ ds.id }}</td>
                 <td class="center">{{ ds.program_name }}</td>
                 <td class="center">{{ ds.program_type }}</td>
                 <td class="center">{{ ds.platform }}</td>
@@ -138,11 +140,11 @@
                 <td class="center">
                     {% if ds.status == 1 %}
                     <button class="btn btn-success btn-xs btnOpen"
-                            onclick="modeConfirm('turn_on','{{ ds.program_name }}',0,'{{ ds.program_name }}')">开启
+                            onclick="modeConfirm('turn_on','{{ ds.id }}',0,'{{ ds.program_name }}')">开启
                     </button>
                     {% elif ds.status == 2 %}
                     <button class="btn btn-danger btn-xs btnClose"
-                            onclick="modeConfirm('turn_off','{{ ds.program_name }}',0,'{{ ds.program_name }}')">关停
+                            onclick="modeConfirm('turn_off','{{ ds.id }}',0,'{{ ds.program_name }}')">关停
                     </button>
                     {% endif %}
                     &nbsp;

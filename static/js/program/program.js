@@ -224,12 +224,10 @@ function turnFn(turn, list,code, type, name) {
             csrfmiddlewaretoken: token
         },
         dataType: 'json',
-        /* processData: false,
-         contentType: false,*/
         "success": function (resp) {
             if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
-                location.href="/program/0/0/0/0"
+                location.href="/program/0/0/0/0/0"
             }else if(resp.code=="201"){
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.warning);
             }
@@ -239,7 +237,7 @@ function turnFn(turn, list,code, type, name) {
     })
 }
 function reset() {
-    location.href="/program/0/0/0/0"
+    location.href="/program/0/0/0/0/0"
 }
 function selectListAllFn(){
     var selectListAll=[];

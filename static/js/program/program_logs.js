@@ -3,7 +3,7 @@ $(".itemTabContent").find("li").eq(2).addClass('active');
 $(function(){
     initTable();
     $(".back").click(function () {
-        location.href="/program/0/0/0/0"
+        location.href="/program/0/0/0/0/0"
     })
 });
 var initTable = function () {

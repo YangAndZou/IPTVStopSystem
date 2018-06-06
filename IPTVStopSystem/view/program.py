@@ -34,6 +34,7 @@ def program_change(request):
     if request.method == 'POST':
         # 取到前端传入的授权码
         auth_code = request.POST.get('code')
+        print('------------------>', auth_code)
         # 取出数据库中的授权码(只有一个)
         auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1))
 

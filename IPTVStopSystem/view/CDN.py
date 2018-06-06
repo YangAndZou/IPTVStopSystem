@@ -26,7 +26,7 @@ def show_cdn(request, platform, city, pop_node):
 @login_required()
 def show_log(request):
     logs = IPTVCDNOperationLog.objects.all()
-    return render(request, 'cdn/cdn_logs.html', {'cdn_logs': logs}
+    return render(request, 'cdn/cdn_logs.html', {'cdn_logs': logs})
 
 
 @login_required()

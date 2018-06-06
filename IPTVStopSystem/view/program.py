@@ -8,7 +8,7 @@ from IPTVStopSystem.models import IPTVProgram
 from IPTVStopSystem.models import IPTVProcessVerify
 
 
-def show_program(request, program_name, program_type, platform, status, ip_types):
+def show_program(request, program_name, program_type, platform, status, program_ip_type):
     if request.method == 'GET':
         programs = IPTVProgram.objects.all()
         # 以下为搜索功能，分别对应频道名，频道类型（收费，省内...），平台（中兴，华为...），状态，ip类型（iptv, iptv+）
@@ -20,8 +20,8 @@ def show_program(request, program_name, program_type, platform, status, ip_types
             programs = programs.filter(platform=platform)
         if status != '0':
             programs = programs.filter(status=status)
-        if ip_types != '0':
-            programs = programs.filter(ip_types=ip_types)
+        if program_ip_type != '0':
+            programs = programs.filter(program_ip_type=program_ip_type)
         return render(request, 'program/program.html', {'programs': programs})
 
 

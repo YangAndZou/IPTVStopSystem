@@ -4,10 +4,11 @@ $(function () {
 });
 function getCode() {
     var code=$("#code").val();
-    var reg=/^[A-Za-z0-9]{8}$/g;
+    var reg =/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+    // var reg=/^[A-Za-z0-9]{8}$/g;
     var flag=reg.test(code);
     if(code.length<8||code.length>8){
-        window.wxc.xcConfirm("审核码必须是8位", window.wxc.xcConfirm.typeEnum.error)
+        window.wxc.xcConfirm("审核码必须是八位", window.wxc.xcConfirm.typeEnum.error)
     }else{
         if(flag){
             window.wxc.xcConfirm("确定要更改审核码？", window.wxc.xcConfirm.typeEnum.confirm, {
@@ -32,7 +33,7 @@ function getCode() {
                 }
             });
         }else{
-            window.wxc.xcConfirm("审核码格式必须只包含数字和字母", window.wxc.xcConfirm.typeEnum.error)
+            window.wxc.xcConfirm("审核码格式必须是八位数字和字母的组合", window.wxc.xcConfirm.typeEnum.error)
         }
     }
 

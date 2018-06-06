@@ -33,6 +33,7 @@ urlpatterns = [
         program.show_program),
     url(r'^program_logs$', program.show_log),
     url(r'^program_change$', program.program_change),
+    url(r'^approximate$', program.approximate),
 
     # CDN
     url(r'^cdn_logs$', CDN.show_log),

@@ -67,3 +67,11 @@ def program_turn_on(request):
 def show_log(request):
     logs = IPTVProgramOperationLog.objects.all()
     return render(request, 'program/program_logs.html', {'program_logs': logs})
+
+
+# 搜索时的模糊匹配
+def approximate(request):
+    if request.method == 'POST':
+        name = request.POST.get('program_name')
+        search_names = IPTVProgram.objects.filter(program_name__contains=name)
+        return JsonResponse({'search_names': search_names})

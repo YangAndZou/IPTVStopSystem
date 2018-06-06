@@ -28,6 +28,7 @@ def show_program(request, program_name, program_type, platform, status, program_
         return render(request, 'program/program.html', {'programs': programs})
 
 
+# TODO 从前端获取program_ids（一个列表）
 # 关停 / 开启
 @login_required()
 def program_change(request):
@@ -40,7 +41,7 @@ def program_change(request):
         if auth_code == auth_code_from_db:
             mode = request.POST.get('mode')
             # program_ids 为列表
-            program_ids = request.POST.get('program_id')
+            program_ids = request.POST.get('program_ids')
 
             # 1 为关停 2 为恢复
             if mode == 'turn_off':

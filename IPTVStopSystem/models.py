@@ -11,14 +11,29 @@ class IPTVProgram(models.Model):
         ('1', '关停'),
         ('2', '正常')
     )
+    types = (
+        ('sn', '省内'),
+        ('gq', '高清'),
+        ('ys', '央视'),
+        ('ws', '卫视'),
+        ('qt', '其他'),
+        ('ff', '付费')
+    )
+    ip_types = (
+        ('iptv', 'iptv'),
+        ('iptv+', 'iptv+')
+    )
+    platform_type = (
+        ('huawei', '华为'),
+        ('ZTE', '中兴'),
+        ('oldZTE', '旧版中兴')
+    )
     program_name = models.CharField(max_length=128, verbose_name='频道名称')
-    program_num = models.IntegerField(verbose_name='频道号')
+    program_type = models.CharField(max_length=30, choices=types, verbose_name='频道类型')
     program_ip = models.CharField(max_length=128, verbose_name='频道ip')
+    program_ip_type = models.CharField(choices=ip_types, verbose_name='ip地址类型')
+    platform = models.CharField(choices=platform_type, max_length=30, verbose_name='平台类型')
     status = models.SmallIntegerField(choices=program_status, verbose_name='频道状态 1 关停 2 正常')
-
-    # strategy = models.CharField(max_length=123)
-    # program_desc = models.CharField(max_length=256, verbose_name='频道描述', null=True, blank=True)
-    # router = models.ForeignKey(to="IPTVRouterGroup", verbose_name='控制路由组', related_name='iptv_program')
 
     class Meta:
         db_table = 'iptv_program'
@@ -90,6 +105,14 @@ class IPTVProcessVerify(models.Model):
         verbose_name = '流程审批表'
         verbose_name_plural = '流程审批表'
 
+
+class IPTVAuthCode(models.Model):
+    auth_code = models.CharField(max_length=256, verbose_name='授权码（加密）')
+
+    class Meta:
+        db_table = 'iptv_auth_code'
+        verbose_name = '授权码表'
+        verbose_name_plural = '授权码表'
 # class IPTVRouterGroup(models.Model):
 #     router_name = models.CharField(max_length=128, verbose_name='控制路由组名称')
 #     router_desc = models.CharField(max_length=256, verbose_name='控制路由组描述', null=True, blank=True)

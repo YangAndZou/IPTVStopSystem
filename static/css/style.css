@@ -432,6 +432,7 @@
   }
   .epgContent button{
       background:url("../image/bigbtn.png");
+      border:0;
   }
 .epgContent button,
 .codeContent input{

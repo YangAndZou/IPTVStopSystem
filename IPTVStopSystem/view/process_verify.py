@@ -10,14 +10,14 @@ from IPTVStopSystem.models import IPTVAuthCode
 
 def show_process_verify(request):
     if request.user.is_superuser:
+        return HttpResponse('您没有查看授权码的权限!')
+    else:
         auth_codes = IPTVAuthCode.objects.all()
         if len(auth_codes) > 0:
             code = base64.decodestring(auth_codes[0].auth_code)
         else:
             code = '123456789'
-        return render(request, 'auditingFlow/auditingFlow.html', {'code': code})
-    else:
-        return HttpResponse('您没有查看授权码的权限!')
+        return render(request, 'process_verify/process_verify.html', {'code': code})
 
 
 def set_auth_code(request):

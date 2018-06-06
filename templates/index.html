@@ -61,7 +61,7 @@
     var token = '{{ csrf_token }}';
     $(function () {
         var userLevel=$("#userLevel").val();
-        if(userLevel=="False"){
+        if(userLevel=="True"){
             $(".itemTabContent").find("li").eq(0).hide();
         }else{
               $(".btnClose").attr("disabled",true);

@@ -47,12 +47,8 @@ def noperm(request):
 # 主页
 @login_required()
 def index(request):
-    if request.user.username == 'admin':
-        return redirect('/process_verify')
-    else:
-        return render(request, 'epg/epg.html')
+    return render(request, 'epg/epg.html')
 
 
 def redirect_to_index(request):
     return redirect('/index')
-

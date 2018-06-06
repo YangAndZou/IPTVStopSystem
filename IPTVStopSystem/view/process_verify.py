@@ -1,5 +1,4 @@
 # coding=utf-8
-from django.http import HttpResponse
 from django.shortcuts import render
 from IPTVStopSystem import utils
 from IPTVStopSystem.models import IPTVProcessVerify
@@ -14,17 +13,14 @@ def show_process_verify(request):
     else:
         return HttpResponse('搞咩呀!')
 
-
 def process_verify(request):
     if request.method == 'POST':
         mode = request.POST.get('mode')
         process_id = request.POST.get('process_id')
-        print(process_id)
         process = IPTVProcessVerify.objects.filter(id=process_id)
         process_type = process[0].get_process_type_display()
         operation_type = process[0].get_operation_type_display()
         operation_target = process[0].operation_target
-        print(type(operation_target))
         programs = IPTVProgram.objects.all()
         # 是否通过审核
         if mode == 'pass':

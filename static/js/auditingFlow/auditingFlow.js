@@ -1,4 +1,4 @@
-$(".itemTabContent").find("li").hide().eq(3).show().addClass('active');
+$(".itemTabContent").find("li").eq(0).addClass('active');
 var oTable1 = null;
 var oTable2 = null;
 $(function () {

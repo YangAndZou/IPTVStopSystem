@@ -2,6 +2,7 @@
 import base64
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from IPTVStopSystem.models import IPTVProgramOperationLog
@@ -9,6 +10,7 @@ from IPTVStopSystem.models import IPTVProgram
 from IPTVStopSystem.models import IPTVAuthCode
 
 
+@login_required()
 def show_program(request, program_name, program_type, platform, status, program_ip_type):
     if request.method == 'GET':
         programs = IPTVProgram.objects.all()
@@ -27,6 +29,7 @@ def show_program(request, program_name, program_type, platform, status, program_
 
 
 # 关停 / 开启
+@login_required()
 def program_change(request):
     if request.method == 'POST':
         # 取到前端传入的授权码
@@ -64,12 +67,14 @@ def program_turn_on(request):
     return JsonResponse({'success', '恢复成功'})
 
 
+@login_required()
 def show_log(request):
     logs = IPTVProgramOperationLog.objects.all()
     return render(request, 'program/program_logs.html', {'program_logs': logs})
 
 
 # 搜索时的模糊匹配
+@login_required()
 def approximate(request):
     if request.method == 'POST':
         name = request.POST.get('program_name')

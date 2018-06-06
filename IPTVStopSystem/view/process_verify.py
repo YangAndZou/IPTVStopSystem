@@ -1,5 +1,7 @@
 # coding=utf-8
 import base64
+
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from IPTVStopSystem import utils
@@ -7,6 +9,7 @@ from IPTVStopSystem.models import IPTVProgram
 from IPTVStopSystem.models import IPTVAuthCode
 
 
+@login_required()
 def show_process_verify(request):
     if request.user.is_superuser:
         return HttpResponse('您没有查看授权码的权限!')
@@ -20,6 +23,7 @@ def show_process_verify(request):
         return render(request, 'process_verify/process_verify.html', {'code': code})
 
 
+@login_required()
 def set_auth_code(request):
     if request.method == 'POST':
         code = request.POST.get('code')

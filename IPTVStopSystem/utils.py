@@ -6,7 +6,7 @@ import paramiko
 
 
 # paramiko ssh 连接封装
-def ssh_paramiko(ip, port, username, passwd, cmd, sudo):
+def ssh_paramiko(ip, port, username, passwd, cmd, sudo=False):
     result = {}
     try:
         ssh = paramiko.SSHClient()

@@ -16,6 +16,7 @@ Including another URLconf
 import views
 from view import program
 from view import CDN
+from view import EPG
 from view import process_verify
 from django.conf.urls import url
 from django.contrib import admin
@@ -42,6 +43,7 @@ urlpatterns = [
 
     # EPG
     url(r'^epg$', views.index),
+    url(r'^epg_one_key$', EPG.epg_one_key),
     # url(r'^epg_change', EPG.epg_change),
 
     # process verify

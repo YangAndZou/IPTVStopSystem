@@ -42,7 +42,7 @@ def program_change(request):
             # program_ids 为列表
             program_ids = request.POST.get('program_ids')
             print('-------------------------->', program_ids)
-            # 当全选时，前端传过来的为['all']，所以需要拿到所有id
+            # 当全选时，前端传过来的为'"all"'，所以需要手动拿到所有id
             if program_ids == '"all"':
                 program_list = [program.id for program in IPTVProgram.objects.all()]
             else:

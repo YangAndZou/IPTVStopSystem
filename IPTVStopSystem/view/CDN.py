@@ -43,9 +43,9 @@ def cdn_change(request):
             port = '22'
             username = 'root'
             passwd = 'Trans@2017'
-            real_cmd = utils.huawei_cdn_shutdown_cmd()
-            real_cmd2 = utils.ZTE_cdn_pop_shutdown_cmd(90)
-            real_cmd3 = utils.ZTE_cdn_shutdown_cmd()
+            # real_cmd = utils.huawei_cdn_shutdown_cmd()
+            # real_cmd2 = utils.ZTE_cdn_pop_shutdown_cmd(90)
+            # real_cmd3 = utils.ZTE_cdn_shutdown_cmd()
             test_cmd = utils.test_create_code('cdn关停', '关停cdn')
             mode = request.POST.get('mode')
             node_ids = request.POST.get('node_ids')
@@ -55,6 +55,7 @@ def cdn_change(request):
             else:
                 node_ids = node_ids[1:-1]
                 node_list = node_ids.split(',')
+
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'
@@ -75,6 +76,7 @@ def cdn_change(request):
                 IPTVCDNOperationLog.objects.create(cdn_id=node_id,
                                                    content='用户 {} 对 {} 节点执行 {} 操作，执行命令 {}'.
                                                    format(request.user.username, node_name, mode, test_cmd))
+
             return JsonResponse({'code': '200', 'msg': 'CDN关停成功！'})
         else:
             return JsonResponse({'code': '201', 'msg': '请输入正确的授权码！'})

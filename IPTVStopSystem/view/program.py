@@ -1,7 +1,7 @@
 # coding=utf-8
 import base64
 import json
-
+from IPTVStopSystem import utils
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -35,7 +35,6 @@ def program_change(request):
     if request.method == 'POST':
         # 取到前端传入的授权码
         auth_code = request.POST.get('code')
-        print('------------------>', auth_code)
         # 取出数据库中的授权码(只有一个)
         auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1).auth_code)
         if auth_code == auth_code_from_db:
@@ -47,13 +46,16 @@ def program_change(request):
                 program_ids = [program.id for program in IPTVProgram.objects.all()]
             program_ids = program_ids[1:-1]
             program_list = program_ids.split(',')
-            print('---------------->', program_ids)
-            print('---------------->', program_list)
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'
+                utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017',
+                                   'cd /home/transfar;ls;rm -rf t1;rm -rf t2', False)
+
             elif mode == 'turn_on':
                 mode = '恢复'
+                utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017',
+                                   'cd /home/transfar;ls;touch t1;touch t2', False)
 
             # 插入日志
             for program_id in program_list:
@@ -62,9 +64,14 @@ def program_change(request):
                 IPTVProgramOperationLog.objects.create(program_id=program_id,
                                                        content='用户 {} 对 {} 频道执行 {} 操作'.
                                                        format(request.user.username, program_name, mode))
-            return JsonResponse({'success': '操作成功！','msg':'ok'})
+                if mode == '关停':
+                    IPTVProgram.objects.filter(id=program_id).update(status=1)
+                elif mode == '恢复':
+                    IPTVProgram.objects.filter(id=program_id).update(status=2)
+
+            return JsonResponse({'success': '操作成功！', 'msg': 'ok'})
         else:
-            return JsonResponse({'error': '请输入正确的授权码！','msg':'error'})
+            return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error'})
 
 
 def program_turn_off(request):

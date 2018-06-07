@@ -256,6 +256,20 @@ function sumbitQuery(){
     var url='/cdn/'+platform+"/"+city+"/"+pop;
     location.href=url
 }
+function queryLoad(getPathnameList){
+     for(var index=0;index<getPathnameList.length;index++){
+        var active=decodeURI(getPathnameList[index]);
+        var activeArr=active.split(',');
+        var query=$(".query").children().children('div').not(".querySubmit")[index];
+        var selectType=$(query).find('select');
+        if(active=="0"){
+            $(selectType).selectpicker('val',0)
+        }else{
+            $(selectType).selectpicker('val',activeArr)
+        }
+
+    }
+}
 function reset() {
     location.href="/cdn/0/0/0"
 }

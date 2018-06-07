@@ -56,7 +56,6 @@ function initTable() {
                 text: '关停',
                 className: 'btn btn-sm btn-danger btnClose',
                 action: function (e, dt, node, config) {
-                    console.log(selectList)
                     modeConfirm('turn_off', selectList, 1)
                 }
             },
@@ -64,7 +63,6 @@ function initTable() {
                 text: '开启',
                 className: 'btn btn-sm btn-success btnOpen',
                 action: function (e, dt, node, config) {
-                    console.log(selectList)
                     modeConfirm('turn_on', selectList, 1)
 
                 }
@@ -80,10 +78,11 @@ function initTable() {
         "drawCallback": function (settings) {
             var ischeckAll = $(settings.nTable).find(".icheckbox_all").prop('checked');
             if(ischeckAll){
-                $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
+                //$(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
             }else{
-                $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
+               // $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
             }
+            $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll);
             // var ischeckAll = $("#all_checked").prop('checked');
             // $(":checkbox").prop("checked", ischeckAll);
             for (var index = 0; index < $(settings.nTBody).find("tr").length; index++) {
@@ -105,21 +104,35 @@ function initTable() {
     $('#dataTableList_wrapper').on("change", ".icheckbox_all", function () {
         //选择全选复选框按钮
         var ischeckAll = $(this).prop('checked');
+
+        if(ischeckAll==true){
+            $("#dataTableList").find(".icheckbox_minimal").prop("checked",true);
+             selectList = selectListAllFn()
+        }else{
+             $("#dataTableList").find(".icheckbox_minimal").prop("checked", false);
+             selectList = []
+        }
         // $(":checkbox").prop("checked", ischeckAll);
-        if(ischeckAll){
+       /* if(ischeckAll){
             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
         }else{
             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
-        }
-        if (ischeckAll) {
-            selectList = selectListAllFn()
-        } else {
-            selectList = []
-        }
+        }*/
+        // $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll);
+        // if ($("#dataTableList").find(".icheckbox_minimal").prop("checked")==true) {
+        //     selectList = selectListAllFn()
+        // } else {
+        //     selectList = []
+        // }
+        //  console.log(ischeckAll,selectList)
     });
     $('#dataTableList_wrapper').on("change", ".icheckbox_minimal", function () {
         //选择复选框按钮事件
+        var allcheck=$('#dataTableList_wrapper').find('.icheckbox_all');
+        var isallcheck=allcheck.prop("checked");
+        if(isallcheck){allcheck.prop("checked",false)}
         var ischeck = $(this).prop('checked');
+
         if (ischeck) {
             selectList.push($(this).parents('tr').find('td').eq(1).text())
         } else {
@@ -211,15 +224,9 @@ function turnFn(turn, list,code, type, name) {
         listStr  = list;
     }
     var listNum=[];
-    console.log(listStr)
-    if(listStr!="all"){
-        for(var i=0;i<listStr.length;i++){
-            listNum.push(parseInt(listStr[i]))
-        }
-    }else{
-        listNum=listStr
+    for(var i=0;i<listStr.length;i++){
+        listNum.push(parseInt(listStr[i]))
     }
-
     $.ajax({
         url: "/program_change",
         type: "Post",
@@ -240,14 +247,13 @@ function turnFn(turn, list,code, type, name) {
             }else{
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.error);
             }
-
             // location.reload()
-            /*if (resp.code == "200") {
+            if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.href="/program/0/0/0/0/0"
             }else if(resp.code=="201"){
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.warning);
-            }*/
+            }
         },
         "error": function (response) {
         }
@@ -257,11 +263,12 @@ function reset() {
     location.href="/program/0/0/0/0/0"
 }
 function selectListAllFn(){
-   /* var selectListAll=[];
-    $("#program_name").find("option").each(function (index,obj) {
-        selectListAll.push($(obj).text())
-    });*/
-    return "all"
+    //一定要注意这里不能直接复制，否则会改变原来初始的值（关与引用类型和基本类型的概念）
+     var allList=[];
+    for(var index=0;index< programIds.length;index++){
+        allList.push(programIds[index])
+    }
+    return allList
 }
 function programData(op) {
     var value=op.value;
@@ -303,16 +310,7 @@ function activeTap(op) {
     var value=$("#program_name").val();
     $("#program_name").val($(op).text())
 }
-function getPathnameListFn(data){
-    var pathnameList=data;
-    for(var i = 0;i<pathnameList.length;i++) {
-        if (pathnameList[i] == '' || pathnameList[i] == null || typeof(pathnameList[i]) == undefined) {
-            pathnameList.splice(i, 1);
-            i = i - 1;
-        }
-    }
-    return pathnameList.splice(1)
-}
+
 function queryLoad(getPathnameList){
      for(var index=0;index<getPathnameList.length;index++){
         var active=getPathnameList[index];

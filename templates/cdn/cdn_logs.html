@@ -5,6 +5,21 @@
 <div class="panel panel-default">
     <div class="panel-heading">区域CDN一键关停查看日志 <span class="back"><i class="glyphicon glyphicon-share-alt"> </i>&nbsp;返回</span></div>
     <div class="panel-body">
+     <div class="query row">
+            <div class="form-group">
+                {% csrf_token %}
+                <label class="col-lg-1 col-md-1 col-sm-1 col-xs-1 control-label">操作时间:</label>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                    <input type="text" class="form-control" value="" id="operationTime">
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7"></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 querySubmit">
+                    <button  class="btn-primary btn btn-sm" type="submit" id="submitCdnLog" name=""
+                            onclick="sumbitQuery()">查询
+                    </button>
+                </div>
+            </div>
+        </div>
         <table id="dataTableList"
                class="table table-striped  table-hover "
                style="word-break:break-all;">

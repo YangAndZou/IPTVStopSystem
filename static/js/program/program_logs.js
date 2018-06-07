@@ -4,8 +4,14 @@ $(function(){
     initTable();
     $(".back").click(function () {
         location.href="/program/0/0/0/0/0"
-    })
+    });
+    daterangepickerFn("operationTime");
+    //初始化查询
+    var pathnameList=location.pathname.split("/");
+    var getPathnameList=getPathnameListFn(pathnameList);
+    queryLoad(getPathnameList)
 });
+
 var initTable = function () {
     if (oTable != null) {
         oTable.fnClearTable(0);
@@ -54,5 +60,20 @@ var initTable = function () {
 
     });
 };
+function sumbitQuery(){
+    var operationTime=0;
+    var operationTimeDom=$("#operationTime").val();
+    operationTimeDom==''|| operationTimeDom==null|| operationTimeDom==undefined?operationTime=0:operationTime=operationTimeDom;
+    var url='/program_logs/'+operationTime;
+    location.href=url
+}
+function queryLoad(getPathnameList){
+     $("#operationTime").val(getPathnameList.join("/"))
+}
+$(document).keyup(function (event) {
+    if (event.keyCode == 13) {
+        $("#submitprogramlog").trigger("click");
+    }
+});
 
 

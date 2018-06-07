@@ -5,6 +5,10 @@ $(function(){
     $(".back").click(function () {
         location.href="/cdn/0/0/0"
     })
+    daterangepickerFn("operationTime");
+    var pathnameList=location.pathname.split("/");
+    var getPathnameList=getPathnameListFn(pathnameList);
+    queryLoad(getPathnameList)
 });
 var initTable = function () {
     if (oTable != null) {
@@ -54,3 +58,18 @@ var initTable = function () {
 
     });
 };
+function sumbitQuery(){
+    var operationTime=0;
+    var operationTimeDom=$("#operationTime").val();
+    operationTimeDom==''|| operationTimeDom==null|| operationTimeDom==undefined?operationTime=0:operationTime=operationTimeDom;
+    var url='/cdn_logs/'+operationTime;
+    location.href=url
+}
+function queryLoad(getPathnameList){
+     $("#operationTime").val(getPathnameList.join("/"))
+}
+$(document).keyup(function (event) {
+    if (event.keyCode == 13) {
+        $("#submitCdnLog").trigger("click");
+    }
+});

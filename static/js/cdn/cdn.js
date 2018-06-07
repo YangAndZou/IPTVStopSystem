@@ -1,10 +1,14 @@
-$(".itemTabContent").find("li").eq(2).addClass('active');
+var selectList = [];
 var oTable = null;
 $(function () {
+    $(".itemTabContent").find("li").eq(2).addClass('active');
     initTable();
+    //初始化查询
+    var pathnameList=location.pathname.split("/");
+    var getPathnameList=getPathnameListFn(pathnameList);
+    queryLoad(getPathnameList)
 });
-var selectList = [];
-var initTable = function () {
+function initTable() {
     if (oTable != null) {
         oTable.fnClearTable(0);
         oTable.fnDraw(); //重新加载数据
@@ -168,21 +172,6 @@ var initTable = function () {
         }
     });
 };
-
-
-
-function sumbitQuery() {
-    var programName = 0;
-    var programIp = 0;
-    var status = 0;
-    var programCode=0;
-    $("#program_name").val() == '' ? programName = 0 : programName = $("#program_name").val();
-    $("#program_ip").val() == '' ? programIp = 0 : programIp = $("#program_ip").val();
-     $("#program_code").val() == '' ? status = 0 : status = $("#status").val();
-    $("#status").val() == '' ? status = 0 : status = $("#status").val();
-    var url = '/index/' + programName + "/" + programIp + "/" +programCode+"/"+ status;
-    location.href = url
-}
 function modeConfirm(turn, list, type,name){
     var title="";
     if(type==1){
@@ -254,9 +243,6 @@ function turnFn(turn, list,code, type,name) {
         }
     })
 }
-
-
-
 function sumbitQuery(){
     var platform=0;
     var city=0;

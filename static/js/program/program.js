@@ -1,10 +1,14 @@
-$(".itemTabContent").find("li").eq(3).addClass('active');
 var oTable = null;
-$(function () {
-    initTable();
-});
 var selectList = [];
-var initTable = function () {
+$(function () {
+    $(".itemTabContent").find("li").eq(3).addClass('active');
+    initTable();
+    //初始化查询
+    var pathnameList=location.pathname.split("/");
+    var getPathnameList=getPathnameListFn(pathnameList);
+    queryLoad(getPathnameList)
+});
+function initTable() {
     if (oTable != null) {
         oTable.fnClearTable(0);
         oTable.fnDraw(); //重新加载数据
@@ -128,7 +132,6 @@ var initTable = function () {
         }
     });
 };
-
 function logout() {
     $.ajax({
         url: "/logout",
@@ -145,7 +148,6 @@ function logout() {
         }
     })
 }
-
 function sumbitQuery() {
     var programName = 0;
     var programType=0;
@@ -169,7 +171,6 @@ function sumbitQuery() {
     var url = '/program/' + programName + "/" + programType + "/" + programPlatform + "/" + status+"/" +programIpTypeDom;
     location.href = url
 }
-
 function modeConfirm(turn, list, type, name) {
     var title = "";
     if (type == 1) {
@@ -192,7 +193,6 @@ function modeConfirm(turn, list, type, name) {
         }
     })
 }
-
 function turnFn(turn, list,code, type, name) {
     var title = "";
     if (type == 1) {
@@ -297,13 +297,43 @@ function programData(op) {
         }
     });
 }
-
-
 function activeTap(op) {
     $(op).parent().find("li").removeClass("active");
     $(op).hasClass("active")?$(op).removeClass("active"):$(op).addClass("active");
     var value=$("#program_name").val();
     $("#program_name").val($(op).text())
+}
+function getPathnameListFn(data){
+    var pathnameList=data;
+    for(var i = 0;i<pathnameList.length;i++) {
+        if (pathnameList[i] == '' || pathnameList[i] == null || typeof(pathnameList[i]) == undefined) {
+            pathnameList.splice(i, 1);
+            i = i - 1;
+        }
+    }
+    return pathnameList.splice(1)
+}
+function queryLoad(getPathnameList){
+     for(var index=0;index<getPathnameList.length;index++){
+        var active=getPathnameList[index];
+        var query=$(".query").children().children('div').not(".querySubmit")[index];
+        if(index==0){
+            var inputType=$(query).find('input');
+
+                if(active=="0"){
+                    $(inputType).val("")
+                }else{
+                    $(inputType).val(decodeURI(active))
+                }
+        }else{
+            var selectType=$(query).find('select');
+            if(active=="0"){
+                $(selectType).selectpicker('val',0)
+            }else{
+                $(selectType).selectpicker('val',decodeURI(active))
+            }
+        }
+    }
 }
 $(document).click(function () {
     $(".programCard").remove()

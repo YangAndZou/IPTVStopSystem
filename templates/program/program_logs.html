@@ -20,7 +20,7 @@
             <tr>
                 <td class="center">{{ ds.program.program_name }}</td>
                 <td class="center">{{ ds.content }}</td>
-                <td class="center">{{ ds.update_time }}</td>
+                <td class="center">{{ ds.update_time|date:"Y-m-d" }}</td>
             </tr>
             {% endfor %}
             </tbody>

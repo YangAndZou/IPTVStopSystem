@@ -38,11 +38,14 @@ def program_change(request):
         # 取出数据库中的授权码(只有一个)
         auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1).auth_code)
         if auth_code == auth_code_from_db:
+            ip = '192.168.2.168'
+            port = '22'
+            username = 'root'
+            passwd = 'Trans@2017'
             mode = request.POST.get('mode')
             # program_ids 为列表
             program_ids = request.POST.get('program_ids')
-            print('-------------------------->', program_ids)
-            # 当全选时，前端传过来的为['all']，所以需要拿到所有id
+            # 当全选时，前端传过来的为'"all"'，所以需要手动拿到所有id
             if program_ids == '"all"':
                 program_list = [program.id for program in IPTVProgram.objects.all()]
             else:
@@ -61,11 +64,11 @@ def program_change(request):
                 if mode == '关停':
                     IPTVProgram.objects.filter(id=program_id).update(status=1)
                     cmd = utils.test_rm_code(program_id, program_name)
-                    utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017', cmd, sudo=False)
+                    utils.ssh_paramiko(ip, port, username, passwd, cmd)
                 elif mode == '恢复':
                     IPTVProgram.objects.filter(id=program_id).update(status=2)
                     cmd = utils.test_create_code(program_id, program_name)
-                    utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017', cmd, sudo=False)
+                    utils.ssh_paramiko(ip, port, username, passwd, cmd)
 
                 # 插入日志
                 IPTVProgramOperationLog.objects.create(program_id=program_id,
@@ -77,17 +80,9 @@ def program_change(request):
             return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error'})
 
 
-def program_turn_off(request):
-    return JsonResponse({'success': '关停成功'})
-
-
-def program_turn_on(request):
-    return JsonResponse({'success', '恢复成功'})
-
-
 @login_required()
 def show_log(request):
-    logs = IPTVProgramOperationLog.objects.all()
+    logs = IPTVProgramOperationLog.objects.all().order_by('-id')
     return render(request, 'program/program_logs.html', {'program_logs': logs})
 
 

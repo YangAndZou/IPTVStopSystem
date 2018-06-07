@@ -77,17 +77,9 @@ def program_change(request):
             return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error'})
 
 
-def program_turn_off(request):
-    return JsonResponse({'success': '关停成功'})
-
-
-def program_turn_on(request):
-    return JsonResponse({'success', '恢复成功'})
-
-
 @login_required()
 def show_log(request):
-    logs = IPTVProgramOperationLog.objects.all()
+    logs = IPTVProgramOperationLog.objects.all().order_by('-id')
     return render(request, 'program/program_logs.html', {'program_logs': logs})
 
 

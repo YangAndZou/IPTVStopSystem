@@ -25,6 +25,13 @@ def ssh_paramiko(ip, port, username, passwd, cmd, sudo):
         return result
 
 
+def test_create_code(*args):
+    return 'cd /tmp/;ls;touch {};touch {}'.format(args[0], args[1])
+
+
+def test_rm_code(*args):
+    return 'cd /tmp/;ls;rm -rf {};rm -rf {}'.format(args[0], args[1])
+
 if __name__ == '__main__':
     # paramiko 使用
     # 方法一SSHClient

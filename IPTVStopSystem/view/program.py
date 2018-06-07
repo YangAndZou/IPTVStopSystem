@@ -41,33 +41,36 @@ def program_change(request):
             mode = request.POST.get('mode')
             # program_ids 为列表
             program_ids = request.POST.get('program_ids')
+            print('-------------------------->', program_ids)
             # 当全选时，前端传过来的为['all']，所以需要拿到所有id
-            if program_ids == '["all"]':
-                program_ids = [program.id for program in IPTVProgram.objects.all()]
-            program_ids = program_ids[1:-1]
-            program_list = program_ids.split(',')
+            if program_ids == '"all"':
+                program_list = [program.id for program in IPTVProgram.objects.all()]
+            else:
+                program_ids = program_ids[1:-1]
+                program_list = program_ids.split(',')
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'
-                utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017',
-                                   'cd /home/transfar;ls;rm -rf t1;rm -rf t2', False)
-
             elif mode == 'turn_on':
                 mode = '恢复'
-                utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017',
-                                   'cd /home/transfar;ls;touch t1;touch t2', False)
 
-            # 插入日志
             for program_id in program_list:
                 program_id = int(program_id)
                 program_name = IPTVProgram.objects.get(id=program_id).program_name
-                IPTVProgramOperationLog.objects.create(program_id=program_id,
-                                                       content='用户 {} 对 {} 频道执行 {} 操作'.
-                                                       format(request.user.username, program_name, mode))
+                cmd = ''
                 if mode == '关停':
                     IPTVProgram.objects.filter(id=program_id).update(status=1)
+                    cmd = utils.test_rm_code(program_id, program_name)
+                    utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017', cmd, sudo=False)
                 elif mode == '恢复':
                     IPTVProgram.objects.filter(id=program_id).update(status=2)
+                    cmd = utils.test_create_code(program_id, program_name)
+                    utils.ssh_paramiko('192.168.2.168', '22', 'root', 'Trans@2017', cmd, sudo=False)
+
+                # 插入日志
+                IPTVProgramOperationLog.objects.create(program_id=program_id,
+                                                       content='用户 {} 对 {} 频道执行 {} 操作，执行命令 {}'.
+                                                       format(request.user.username, program_name, mode, cmd))
 
             return JsonResponse({'success': '操作成功！', 'msg': 'ok'})
         else:

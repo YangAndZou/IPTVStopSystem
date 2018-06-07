@@ -204,33 +204,44 @@ function turnFn(turn, list,code, type, name) {
     }
     var isturn = "";
     (turn == "turn_on") ? isturn = "开启" : isturn = "关停";
-    var List = [];
+    var listStr = [];
     if (type == 0) {
-        List.push(list)
+        listStr .push(list)
     } else {
-        List = list;
+        listStr  = list;
     }
-    var formData = new FormData();
-    formData.append("mode", turn);
-    formData.append("program_ips", JSON.stringify(List));
-    formData.append("csrfmiddlewaretoken", token);
+    var listNum=[];
+    for(var i=0;i<listStr.length;i++){
+        listNum.push(parseInt(listStr[i]))
+    }
     $.ajax({
         url: "/program_change",
         type: "Post",
         data: {
             mode: turn,
-            program_names: JSON.stringify(List),
+            program_ids: JSON.stringify(listNum),
             code:code,
             csrfmiddlewaretoken: token
         },
         dataType: 'json',
         "success": function (resp) {
-            if (resp.code == "200") {
+            if(resp.msg=='ok'){
+                window.wxc.xcConfirm(resp.success, window.wxc.xcConfirm.typeEnum.success,{
+                    onOk: function (v) {
+                        location.reload()
+                    }
+                });
+            }else{
+                window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.error);
+            }
+
+            // location.reload()
+            /*if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.href="/program/0/0/0/0/0"
             }else if(resp.code=="201"){
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.warning);
-            }
+            }*/
         },
         "error": function (response) {
         }

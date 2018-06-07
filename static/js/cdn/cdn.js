@@ -216,23 +216,27 @@ function turnFn(turn, list,code, type,name) {
     }
     var isturn="";
     (turn=="turn_on")?isturn="开启":isturn="关停";
-    var List = [];
+     var listStr = [];
     if (type == 0) {
-        List.push(list)
+        listStr .push(list)
     } else {
-        List = list;
+        listStr  = list;
     }
-    var formData = new FormData();
-    formData.append("mode",turn);
-    formData.append("program_ips",JSON.stringify(List));
-    formData.append("code",code);
-    formData.append("csrfmiddlewaretoken",token);
+    var listNum=[];
+    for(var i=0;i<listStr.length;i++){
+        listNum.push(parseInt(listStr[i]))
+    }
+    // var formData = new FormData();
+    // formData.append("mode",turn);
+    // formData.append("program_ips",JSON.stringify(List));
+    // formData.append("code",code);
+    // formData.append("csrfmiddlewaretoken",token);
     $.ajax({
         url: "/cdn_change",
         type: "Post",
         data: {
             mode: turn,
-            program_ips: JSON.stringify(List),
+            program_ips: JSON.stringify(listNum),
             csrfmiddlewaretoken: token
         },
         dataType:'json',

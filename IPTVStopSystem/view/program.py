@@ -49,11 +49,8 @@ def program_change(request):
             # program_ids 为列表
             program_ids = request.POST.get('program_ids')
             # 当全选时，前端传过来的为'"all"'，所以需要手动拿到所有id
-            if program_ids == '"all"':
-                program_list = [program.id for program in IPTVProgram.objects.all()]
-            else:
-                program_ids = program_ids[1:-1]
-                program_list = program_ids.split(',')
+            program_ids = program_ids[1:-1]
+            program_list = program_ids.split(',')
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'
@@ -63,6 +60,7 @@ def program_change(request):
             for program_id in program_list:
                 program_id = int(program_id)
                 program_name = IPTVProgram.objects.get(id=program_id).program_name
+                program_ip = IPTVProgram.objects.get(id=program_id).program_ip
                 cmd = ''
                 if mode == '关停':
                     IPTVProgram.objects.filter(id=program_id).update(status=1)

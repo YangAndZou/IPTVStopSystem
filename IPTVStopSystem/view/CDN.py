@@ -50,11 +50,8 @@ def cdn_change(request):
             mode = request.POST.get('mode')
             node_ids = request.POST.get('node_ids')
 
-            if node_ids == '"all"':
-                node_list = [node.id for node in IPTVCDNNode.objects.all()]
-            else:
-                node_ids = node_ids[1:-1]
-                node_list = node_ids.split(',')
+            node_ids = node_ids[1:-1]
+            node_list = node_ids.split(',')
 
             # 1 为关停 2 为恢复
             if mode == 'turn_off':

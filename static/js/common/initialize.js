@@ -34,6 +34,9 @@ $(function () {
             $(this).html(bottom)
         }
         $(this).prev().find(".querySubmit").nextAll().toggle()
+    });
+    $(".loginMenu").click(function () {
+        $(this).next().toggle()
     })
 });
 

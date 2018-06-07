@@ -1,6 +1,10 @@
+body{
+    min-width: 960px;
+}
 .container-box{
     background: url("../image/bg.png") no-repeat;
     background-size: 100% 100%;
+    position: relative;
 }
 .container-box.login{
     background: url("../image/loginBg.png") no-repeat;
@@ -160,6 +164,7 @@
     cursor: pointer;
     /*font-weight: bold;*/
     line-height:40px;
+    position: relative;
 }
 .panel.panel-default{
     background: rgba(0, 0, 0, 0.2);
@@ -392,6 +397,7 @@
     }
 }
 @media (min-width: 768px){
+
     .ms-pre0-7{
         width:7%;
         display: inline-block;
@@ -409,6 +415,83 @@
          display: inline-block;
     }
 }
+@media (max-width: 768px){
+
+    .ms-pre0-7{
+        width:7%;
+        display: inline-block;
+    }
+    .ms-per1-3{
+        width:13%;
+        display: inline-block;
+    }
+    .ms-per1-4{
+        width:15%;
+        display: inline-block;
+    }
+     .ms-per3-7{
+         width:37%;
+         display: inline-block;
+    }
+}
+.loginMenu{
+    display: none;
+    float: right;
+    line-height: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin-top: 5px;
+    padding: 10px;
+    color:#509ff0;
+}
+
+@media (max-width: 1057px){
+
+    .loginMenu{
+        display:block;
+    }
+    .loginUser{
+        display: none;
+    }
+    .loginUser{
+        position: absolute;
+        top:45px;
+        right:10px;
+        padding: 10px;
+        background: #1f4168;
+        z-index: 100;
+        height: auto;
+        overflow: hidden;
+    }
+    .loginUser ul{
+         border:2px dashed #0682f5;
+        padding:10px;
+    }
+    .loginUser li,
+    .loginUser li.exit{
+        float: none;
+        padding: 0;
+        height:36px;
+        line-height: 36px;
+    }
+    .loginUser li.exit{
+        background: none;
+        text-align: left;
+    }
+    /*
+    .itemTabContent ul{
+        border:2px dashed #0682f5;
+        padding:10px;
+    }
+    .itemTabContent li{
+        float: none;
+        padding: 0;
+    }
+    .headMenu{
+        display:block;
+    }*/
+}
+
 .dropdown-menu .form-control{
     color:#444;
 }

@@ -166,7 +166,7 @@ function sumbitQuery() {
     // programIpDom == '' || programIpDom == null||programIpDom== undefined? programIp = 0 : programIp = programIpDom;
     statusDom == ''||statusDom == null||statusDom == undefined ? status = 0 : status =statusDom;
     programIpTypeDom == ''||programIpTypeDom == null||programIpTypeDom == undefined ? programIpType = 0 : programIpType =programIpTypeDom;
-    var url = '/program/' + programName + "/" + programType + "/" + programPlatform + "/" + status+"/" +programPlatform;
+    var url = '/program/' + programName + "/" + programType + "/" + programPlatform + "/" + status+"/" +programIpTypeDom;
     location.href = url
 }
 
@@ -211,9 +211,15 @@ function turnFn(turn, list,code, type, name) {
         listStr  = list;
     }
     var listNum=[];
-    for(var i=0;i<listStr.length;i++){
-        listNum.push(parseInt(listStr[i]))
+    console.log(listStr)
+    if(listStr!="all"){
+        for(var i=0;i<listStr.length;i++){
+            listNum.push(parseInt(listStr[i]))
+        }
+    }else{
+        listNum=listStr
     }
+
     $.ajax({
         url: "/program_change",
         type: "Post",
@@ -251,11 +257,11 @@ function reset() {
     location.href="/program/0/0/0/0/0"
 }
 function selectListAllFn(){
-    var selectListAll=[];
+   /* var selectListAll=[];
     $("#program_name").find("option").each(function (index,obj) {
         selectListAll.push($(obj).text())
-    });
-    return selectListAll
+    });*/
+    return "all"
 }
 function programData(op) {
     var value=op.value;

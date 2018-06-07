@@ -31,7 +31,7 @@ urlpatterns = [
     # program
     url(r'^program/(?P<program_name>[\s\S]*)/(?P<program_type>[\s\S]*)/(?P<platform>[\s\S]*)/(?P<status>[\s\S]*)/(?P<program_ip_type>[\s\S]*)$',
         program.show_program),
-    url(r'^program_logs$', program.show_log),
+    url(r'^program_logs/(?P<start_time>[\s\S]*)/(?P<end_time>[\s\S]*)$', program.show_log),
     url(r'^program_change$', program.program_change),
     url(r'^approximate$', program.approximate),
 

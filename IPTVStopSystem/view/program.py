@@ -50,7 +50,7 @@ def program_change(request):
                 mode = '关停'
             elif mode == 'turn_on':
                 mode = '恢复'
-            json.
+
             # 插入日志
             for program_id in program_ids:
                 program_name = IPTVProgram.objects.get(id=program_id).program_name

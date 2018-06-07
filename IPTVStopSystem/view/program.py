@@ -25,7 +25,9 @@ def show_program(request, program_name, program_type, platform, status, program_
             programs = programs.filter(status=status)
         if program_ip_type != '0':
             programs = programs.filter(program_ip_type=program_ip_type)
-        return render(request, 'program/program.html', {'programs': programs})
+
+        program_ids = [program.id for program in programs]
+        return render(request, 'program/program.html', {'programs': programs, 'program_ids': program_ids})
 
 
 # TODO 从前端获取program_ids（一个列表）

@@ -116,7 +116,7 @@ function initTable() {
                 text: '操作日志',
                 className: 'btn btn-sm btn-warning',
                 action: function (e, dt, node, config) {
-                    location.href = "/cdn_logs"
+                    location.href = "/cdn_logs/0/0"
                 }
             }
         ],
@@ -152,7 +152,7 @@ function initTable() {
             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
         }
         if (ischeckAll) {
-            selectList = ["all"]
+            selectList = selectListAllFn()
         } else {
             selectList = []
         }
@@ -255,6 +255,15 @@ function sumbitQuery(){
     popDom==''|| popDom==null|| popDom==undefined?pop=0:pop=popDom;
     var url='/cdn/'+platform+"/"+city+"/"+pop;
     location.href=url
+}
+function selectListAllFn(){
+    //一定要注意这里不能直接复制，否则会改变原来初始的值（关与引用类型和基本类型的概念）
+     var allList=[];
+
+    for(var index=0;index< nodesIds.length;index++){
+        allList.push(nodesIds[index])
+    }
+    return allList
 }
 function queryLoad(getPathnameList){
      for(var index=0;index<getPathnameList.length;index++){

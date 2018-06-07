@@ -71,7 +71,7 @@ function initTable() {
                 text: '操作日志',
                 className: 'btn btn-sm btn-warning',
                 action: function (e, dt, node, config) {
-                    location.href = "/program_logs"
+                    location.href = "/program_logs/0/0"
                 }
             }
         ],

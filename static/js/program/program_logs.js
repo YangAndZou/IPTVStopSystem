@@ -68,7 +68,12 @@ function sumbitQuery(){
     location.href=url
 }
 function queryLoad(getPathnameList){
-     $("#operationTime").val(getPathnameList.join("/"))
+     if(getPathnameList[0]!="0"&&getPathnameList[1]!="0"){
+         $("#operationTime").val(getPathnameList.join("/"))
+     }else{
+         $("#operationTime").val('')
+     }
+
 }
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {

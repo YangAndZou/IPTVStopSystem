@@ -1,6 +1,7 @@
 var oTable=null;
-$(".itemTabContent").find("li").eq(2).addClass('active');
+
 $(function(){
+    $(".itemTabContent").find("li").eq(3).addClass('active');
     initTable();
     $(".back").click(function () {
         location.href="/program/0/0/0/0/0"

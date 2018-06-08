@@ -1,5 +1,7 @@
-$(".itemTabContent").find("li").eq(1).addClass('active')
 var selectList=[];
+$(function () {
+    $(".itemTabContent").find("li").eq(1).addClass('active');
+});
 function modeConfirm(turn, list){
      var isturn="";
     (turn=="turn_on")?isturn="开启":isturn="关停";
@@ -10,7 +12,18 @@ function modeConfirm(turn, list){
     // })
      window.wxc.xcConfirm("确定输入全省EPG一键"+isturn+"操作的审核码:", window.wxc.xcConfirm.typeEnum.input, {
         onOk: function(v) {
-            turnFn(turn, list,v)
+            var reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,16}$/;
+            var flag = reg.test(v);
+            if (v.length < 8 || v.length > 16) {
+                window.wxc.xcConfirm("审核码长度为8-16", window.wxc.xcConfirm.typeEnum.error)
+            } else {
+                if (flag) {
+                     turnFn(turn, list,v)
+                } else {
+                    window.wxc.xcConfirm("审核码格式必须是8-16位的数字和字母组合", window.wxc.xcConfirm.typeEnum.error)
+                }
+            }
+
         }
     })
 }
@@ -39,5 +52,5 @@ function turnFn(turn, list,code) {
     })
 }
 $("#title").click(function () {
-     modeConfirm('turn_off', ["all"])
+     modeConfirm('turn_off')
 });

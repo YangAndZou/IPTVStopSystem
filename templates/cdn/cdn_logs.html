@@ -26,6 +26,7 @@
             <thead>
             <tr>
                 <th>系统名称</th>
+                <th class="hidden">id</th>
                 <th>操作内容</th>
                 <th>操作时间</th>
             </tr>
@@ -34,6 +35,7 @@
             {% for ds in cdn_logs %}
             <tr>
                 <td class="center">{{ ds.system.system_name }}</td>
+                <td class="hidden">{{ ds.id }}</td>
                 <td class="center">{{ ds.content }}</td>
                 <td class="center">{{ ds.update_time }}</td>
             </tr>

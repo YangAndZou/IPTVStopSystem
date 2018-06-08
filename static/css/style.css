@@ -557,7 +557,7 @@ body{
     margin: 0 auto;
 }
 .epgCard{
-    box-shadow:0 0 500px rgba(6, 130, 245, 0.5);
+    box-shadow:0 0 100px rgba(6, 130, 245, 0.5);
 }
 .codeCard .codeTitle{
     font-size: 20px;
@@ -618,4 +618,7 @@ input[type="number"]{
     display: inline-block;
     right: 15px;
     margin-top: 5px;
+}
+.dt-button-collection button:nth-child(2){
+    display: none !important;
 }

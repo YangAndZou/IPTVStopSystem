@@ -75,7 +75,10 @@
                    style="word-break:break-all;">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" class="icheckbox_all" name="icheckbox_all"></th>
+                    <th>
+                        <span style="display: none">复选框</span>
+                        <input type="checkbox" class="icheckbox_all" name="icheckbox_all">
+                    </th>
                     <th class="hidden">id</th>
                     <th >所属地市</th>
                     <th>节点名称</th>
@@ -115,7 +118,7 @@
         </div>
     </div>
     <script>
-        var nodesIds=JSON.parse('{{ nodes_ids }}');
+        var nodesIds=JSON.parse('{{ node_ids }}');
     </script>
      <script src="{% static 'js/cdn/cdn.js' %}"></script>
 {% endblock %}

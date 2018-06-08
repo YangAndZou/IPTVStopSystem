@@ -77,11 +77,11 @@ function initTable() {
         ],
         "drawCallback": function (settings) {
             var ischeckAll = $(settings.nTable).find(".icheckbox_all").prop('checked');
-            if(ischeckAll){
+            //if(ischeckAll){
                 //$(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
-            }else{
+            //}else{
                // $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
-            }
+           // }
             $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll);
             // var ischeckAll = $("#all_checked").prop('checked');
             // $(":checkbox").prop("checked", ischeckAll);
@@ -132,7 +132,6 @@ function initTable() {
         var isallcheck=allcheck.prop("checked");
         if(isallcheck){allcheck.prop("checked",false)}
         var ischeck = $(this).prop('checked');
-
         if (ischeck) {
             selectList.push($(this).parents('tr').find('td').eq(1).text())
         } else {
@@ -145,22 +144,6 @@ function initTable() {
         }
     });
 };
-function logout() {
-    $.ajax({
-        url: "/logout",
-        type: "Post",
-        dataType: "json",
-        cache: false,
-        processData: false,
-        contentType: false,
-        "success": function (resp) {
-            window.wxc.xcConfirm("登出成功", window.wxc.xcConfirm.typeEnum.info);
-        },
-        "error": function (response) {
-
-        }
-    })
-}
 function sumbitQuery() {
     var programName = 0;
     var programType=0;
@@ -202,7 +185,18 @@ function modeConfirm(turn, list, type, name) {
     // })
      window.wxc.xcConfirm("请输入" + title + "频道一键" + isturn + "操作的审核码：", window.wxc.xcConfirm.typeEnum.input, {
         onOk: function (v) {
-            turnFn(turn, list,v, type, name)
+            var reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,16}$/;
+            var flag = reg.test(v);
+            if (v.length < 8 || v.length > 16) {
+                window.wxc.xcConfirm("审核码长度为8-16", window.wxc.xcConfirm.typeEnum.error)
+            } else {
+                if (flag) {
+                    turnFn(turn, list,v, type, name)
+                } else {
+                    window.wxc.xcConfirm("审核码格式必须是8-16位的数字和字母组合", window.wxc.xcConfirm.typeEnum.error)
+                }
+            }
+
         }
     })
 }
@@ -247,7 +241,6 @@ function turnFn(turn, list,code, type, name) {
             }else{
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.error);
             }
-            // location.reload()
             if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.href="/program/0/0/0/0/0"

@@ -1,6 +1,7 @@
 # coding=utf-8
 import base64
 
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse
@@ -12,9 +13,6 @@ from IPTVStopSystem.models import IPTVCDNOperationLog
 @login_required()
 def show_cdn(request, platform, city, pop_node):
     nodes = IPTVCDNNode.objects.all()
-    print(platform)
-    print(city)
-    print(pop_node)
     if platform != '0':
         nodes.filter(platform=platform)
     if city != '0':
@@ -26,8 +24,15 @@ def show_cdn(request, platform, city, pop_node):
 
 # 显示操作记录
 @login_required()
-def show_log(request):
+def show_log(request, start_time, end_time):
     logs = IPTVCDNOperationLog.objects.all().order_by('-id')
+    if len(start_time) > 7 and len(end_time) > 7:
+        # 由于得到的datetime没有带时间，所以时间为00:00:00，即2018-06-07 00:00:00，
+        # 所以需要将天数加 1 天
+        real_end_time = datetime.datetime.strptime(end_time, '%Y-%m-%d')
+        real_end_time += datetime.timedelta(days=1)
+        real_end_time = real_end_time.strftime('%Y-%m-%d')
+        logs = logs.filter(update_time__range=(start_time, real_end_time))
     return render(request, 'cdn/cdn_logs.html', {'cdn_logs': logs})
 
 

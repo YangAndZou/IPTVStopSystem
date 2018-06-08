@@ -73,9 +73,11 @@ def program_change(request):
                 cmd = ''
                 if mode == '关停':
                     IPTVProgram.objects.filter(id=program_id).update(status=1)
+                    cmd = utils.test_create_code(program_ip, 'YoYo')
                     queue.put(program_ip)
                 elif mode == '恢复':
                     IPTVProgram.objects.filter(id=program_id).update(status=2)
+                    cmd = utils.test_rm_code(program_ip, 'YoYo')
                     queue.put(program_ip)
                 queue.join()
 

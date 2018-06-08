@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^logout$', views.logout),
     url(r'^$', views.redirect_to_index),
     url(r'^index$', views.index),
+
     # program
     url(r'^program/(?P<program_name>[\s\S]*)/(?P<program_type>[\s\S]*)/(?P<platform>[\s\S]*)/(?P<status>[\s\S]*)/(?P<program_ip_type>[\s\S]*)$',
         program.show_program),

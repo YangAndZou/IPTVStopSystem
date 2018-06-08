@@ -6,6 +6,19 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 
+class IPTVEPG(models.Model):
+    s = (
+        ('1', '关停'),
+        ('2', '开启')
+    )
+    status = models.SmallIntegerField(choices=s, verbose_name='EPG状态')
+
+    class Meta:
+        db_table = 'iptv_epg'
+        verbose_name = 'EPG表'
+        verbose_name_plural = 'EPG表'
+
+
 class IPTVProgram(models.Model):
     program_status = (
         ('1', '关停'),

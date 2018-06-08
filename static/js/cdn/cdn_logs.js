@@ -1,10 +1,10 @@
 var oTable=null;
-$(".itemTabContent").find("li").eq(1).addClass('active');
 $(function(){
+    $(".itemTabContent").find("li").eq(2).addClass('active');
     initTable();
     $(".back").click(function () {
         location.href="/cdn/0/0/0"
-    })
+    });
     daterangepickerFn("operationTime");
     var pathnameList=location.pathname.split("/");
     var getPathnameList=getPathnameListFn(pathnameList);
@@ -66,7 +66,11 @@ function sumbitQuery(){
     location.href=url
 }
 function queryLoad(getPathnameList){
-     $("#operationTime").val(getPathnameList.join("/"))
+     if(getPathnameList[0]!="0"&&getPathnameList[1]!="0"){
+         $("#operationTime").val(getPathnameList.join("/"))
+     }else{
+         $("#operationTime").val('')
+     }
 }
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {

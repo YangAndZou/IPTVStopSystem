@@ -19,8 +19,9 @@ def show_cdn(request, platform, city, pop_node):
     if city != '0':
         nodes = nodes.filter(city=city)
     if pop_node != '0':
-        nodes = nodes.filter(node_name__contains=pop_node)
-    return render(request, 'cdn/cdn.html', {'nodes': nodes})
+        nodes.filter(node_name__contains=pop_node)
+    node_ids = [node.id for node in nodes]
+    return render(request, 'cdn/cdn.html', {'nodes': nodes, 'node_ids': node_ids})
 
 
 # 显示操作记录

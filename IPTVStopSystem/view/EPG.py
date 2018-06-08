@@ -11,7 +11,12 @@ from IPTVStopSystem.models import IPTVEPG
 
 @login_required()
 def show_epg(request):
+    epg = IPTVEPG.objects.all()
+    # 初始化epg状态为2（开启）
+    if len(epg) == 0:
+        IPTVEPG.objects.create(status=2)
     status = IPTVEPG.objects.all()[0].status
+    print('zzzzzzzzzzzzzzzzz', status)
     return render(request, 'epg/epg.html', {'status': status})
 
 
@@ -22,11 +27,6 @@ def epg_one_key(request):
         auth_code = request.POST.get('code')
         # 取出数据库中的授权码(只有一个)
         auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1).auth_code)
-
-        epg = IPTVEPG.objects.all()
-        # 初始化epg状态为2（开启）
-        if len(epg) == 0:
-            IPTVEPG.objects.create(status=2)
         if auth_code == auth_code_from_db:
             mode = request.POST.get('mode')
             ip = '192.168.2.168'

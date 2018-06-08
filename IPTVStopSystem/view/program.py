@@ -3,6 +3,8 @@ import base64
 import json
 
 import datetime
+from Queue import Queue
+from threading import Thread
 
 from IPTVStopSystem import utils
 from django.contrib.auth.decorators import login_required
@@ -11,6 +13,9 @@ from django.shortcuts import render
 from IPTVStopSystem.models import IPTVProgramOperationLog
 from IPTVStopSystem.models import IPTVProgram
 from IPTVStopSystem.models import IPTVAuthCode
+
+num_threads = 3
+queue = Queue()
 
 
 @login_required()
@@ -33,7 +38,6 @@ def show_program(request, program_name, program_type, platform, status, program_
         return render(request, 'program/program.html', {'programs': programs, 'program_ids': program_ids})
 
 
-# TODO 从前端获取program_ids（一个列表）
 # 关停 / 开启
 @login_required()
 def program_change(request):
@@ -48,32 +52,34 @@ def program_change(request):
             username = 'root'
             passwd = 'Trans@2017'
             mode = request.POST.get('mode')
-            # program_ids 为列表
+            # program_ids 为字符串，格式为 '['1','2',]'
             program_ids = request.POST.get('program_ids')
-            # 当全选时，前端传过来的为'"all"'，所以需要手动拿到所有id
-            if program_ids == '"all"':
-                program_list = [program.id for program in IPTVProgram.objects.all()]
-            else:
-                program_ids = program_ids[1:-1]
-                program_list = program_ids.split(',')
+            program_ids = program_ids[1:-1]
+            program_list = program_ids.split(',')
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'
             elif mode == 'turn_on':
                 mode = '恢复'
 
+            worker = Thread(target=shutdown, args=(queue, ip, port, username, passwd))
+            worker.setDaemon(True)  # to avoid zombies thread
+            worker.start()
+
             for program_id in program_list:
                 program_id = int(program_id)
                 program_name = IPTVProgram.objects.get(id=program_id).program_name
+                program_ip = IPTVProgram.objects.get(id=program_id).program_ip
                 cmd = ''
                 if mode == '关停':
                     IPTVProgram.objects.filter(id=program_id).update(status=1)
-                    cmd = utils.test_rm_code(program_id, program_name)
-                    utils.ssh_paramiko(ip, port, username, passwd, cmd)
+                    cmd = utils.test_create_code(program_ip, 'YoYo')
+                    queue.put(program_ip)
                 elif mode == '恢复':
                     IPTVProgram.objects.filter(id=program_id).update(status=2)
-                    cmd = utils.test_create_code(program_id, program_name)
-                    utils.ssh_paramiko(ip, port, username, passwd, cmd)
+                    cmd = utils.test_rm_code(program_ip, 'YoYo')
+                    queue.put(program_ip)
+                queue.join()
 
                 # 插入日志
                 IPTVProgramOperationLog.objects.create(program_id=program_id,
@@ -83,6 +89,15 @@ def program_change(request):
             return JsonResponse({'success': '操作成功！', 'msg': 'ok'})
         else:
             return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error'})
+
+
+@login_required()
+def shutdown(queue, ip, port, username, passwd):
+    while True:
+        program_ip = queue.get()
+        cmd = utils.test_create_code(program_ip, 'YoYo')
+        utils.ssh_paramiko(ip, port, username, passwd, cmd)
+        queue.task_done()
 
 
 @login_required()

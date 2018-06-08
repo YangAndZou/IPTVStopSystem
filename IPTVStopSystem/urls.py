@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^logout$', views.logout),
     url(r'^$', views.redirect_to_index),
     url(r'^index$', views.index),
+
     # program
     url(r'^program/(?P<program_name>[\s\S]*)/(?P<program_type>[\s\S]*)/(?P<platform>[\s\S]*)/(?P<status>[\s\S]*)/(?P<program_ip_type>[\s\S]*)$',
         program.show_program),
@@ -36,7 +37,7 @@ urlpatterns = [
     url(r'^approximate$', program.approximate),
 
     # CDN
-    url(r'^cdn_logs$', CDN.show_log),
+    url(r'^cdn_logs/(?P<start_time>[\s\S]*)/(?P<end_time>[\s\S]*)$', CDN.show_log),
     url(r'^cdn/(?P<platform>[\s\S]*)/(?P<city>[\s\S]*)/(?P<pop_node>[\s\S]*)$', CDN.show_cdn),
     url(r'^cdn_change$', CDN.cdn_change),
 

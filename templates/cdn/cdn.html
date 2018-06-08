@@ -15,9 +15,10 @@
                                 name="platform"
                                 data-none-selected-text="请选择"
                                 data-width="100%">
-                            {% for ds in nodes %}
-                            <option>{{ ds.platform }}</option>
-                            {% endfor %}
+                            <option value="0">全部</option>
+                            <option>华为</option>
+                            <option>中兴</option>
+                            <option>旧版中兴</option>
                         </select>
                     </div>
                     <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">地市:</label>

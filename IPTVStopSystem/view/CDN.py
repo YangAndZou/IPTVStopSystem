@@ -2,6 +2,8 @@
 import base64
 
 import datetime
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse
@@ -13,13 +15,14 @@ from IPTVStopSystem.models import IPTVCDNOperationLog
 @login_required()
 def show_cdn(request, platform, city, pop_node):
     nodes = IPTVCDNNode.objects.all()
-    print(city)
     if platform != '0':
         nodes = nodes.filter(platform=platform)
     if city != '0':
-        nodes = nodes.filter(city=city)
+        cities = city.split(',')
+        nodes = nodes.filter(city__in=cities)
     if pop_node != '0':
-        nodes.filter(node_name__contains=pop_node)
+        pop_node = pop_node.split(',')
+        nodes = nodes.filter(node_name__in=pop_node)
     node_ids = [node.id for node in nodes]
     return render(request, 'cdn/cdn.html', {'nodes': nodes, 'node_ids': node_ids})
 

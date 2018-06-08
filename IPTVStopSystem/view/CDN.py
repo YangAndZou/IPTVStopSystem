@@ -13,12 +13,13 @@ from IPTVStopSystem.models import IPTVCDNOperationLog
 @login_required()
 def show_cdn(request, platform, city, pop_node):
     nodes = IPTVCDNNode.objects.all()
+    print(city)
     if platform != '0':
-        nodes.filter(platform=platform)
+        nodes = nodes.filter(platform=platform)
     if city != '0':
-        nodes.filter(city__contains=city)
+        nodes = nodes.filter(city=city)
     if pop_node != '0':
-        nodes.filter(node_name__contains=pop_node)
+        nodes = nodes.filter(node_name__contains=pop_node)
     return render(request, 'cdn/cdn.html', {'nodes': nodes})
 
 

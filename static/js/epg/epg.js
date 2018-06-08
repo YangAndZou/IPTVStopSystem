@@ -27,7 +27,7 @@ function turnFn(turn,code) {
     (turn=="turn_on")?isturn="开启":isturn="关停";
     var List = [];
     $.ajax({
-        url: "/epg_one_key",
+        url: "/epg_change",
         type: "Post",
         data: {
             mode: turn,

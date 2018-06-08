@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^login$', views.login),
     url(r'^logout$', views.logout),
     url(r'^$', views.redirect_to_index),
-    url(r'^index$', views.index),
+    url(r'^index$', EPG.show_epg),
 
     # program
     url(r'^program/(?P<program_name>[\s\S]*)/(?P<program_type>[\s\S]*)/(?P<platform>[\s\S]*)/(?P<status>[\s\S]*)/(?P<program_ip_type>[\s\S]*)$',
@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^cdn_change$', CDN.cdn_change),
 
     # EPG
-    url(r'^epg$', views.index),
+    url(r'^epg$', EPG.show_epg),
     url(r'^epg_one_key$', EPG.epg_one_key),
 
     # process verify

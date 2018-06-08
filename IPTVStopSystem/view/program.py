@@ -38,8 +38,8 @@ def show_program(request, program_name, program_type, platform, status, program_
         return render(request, 'program/program.html', {'programs': programs, 'program_ids': program_ids})
 
 
-# 关停 / 开启
 @login_required()
+# 关停 / 开启
 def program_change(request):
     if request.method == 'POST':
         # 取到前端传入的授权码
@@ -91,7 +91,6 @@ def program_change(request):
             return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error'})
 
 
-@login_required()
 def shutdown(queue, ip, port, username, passwd):
     while True:
         program_ip = queue.get()

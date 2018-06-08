@@ -16,7 +16,6 @@ def show_epg(request):
     if len(epg) == 0:
         IPTVEPG.objects.create(status=2)
     status = IPTVEPG.objects.all()[0].status
-    print('zzzzzzzzzzzzzzzzz', status)
     return render(request, 'epg/epg.html', {'status': status})
 
 

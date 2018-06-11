@@ -18,7 +18,7 @@ def show_process_verify(request):
         if len(auth_codes) > 0:
             code = base64.decodestring(auth_codes[0].auth_code)
         else:
-            code = base64.encodestring('123456789')
+            code = base64.encodestring('q12345678')
             IPTVAuthCode.objects.create(auth_code=code)
         return render(request, 'process_verify/process_verify.html', {'code': code})
 

@@ -6,14 +6,7 @@
     <div class="epgContent">
         <div class="epgCard">
             <button class="btn btn-primary btnClose" onclick="modeConfirm({{ status }})">
-            全省EPG一键
-                {% if status == 1 %}
-                    <span>开启</span>
-                {% elif status == 2 %}
-                    <span>关停</span>
-                {% endif %}
-                发起
-
+            EPG一键{% if status == 1 %}<span>开启</span>{% elif status == 2 %}<span>关停</span>{% endif %}
             </button>
         </div>
      </div>

@@ -1,7 +1,7 @@
 # coding=utf-8
 import base64
-import datetime
 import time
+import datetime
 
 from IPTVStopSystem import utils
 from django.contrib.auth.decorators import login_required
@@ -11,12 +11,13 @@ from IPTVStopSystem.models import IPTVProgramOperationLog
 from IPTVStopSystem.models import IPTVProgram
 from IPTVStopSystem.models import IPTVAuthCode
 from IPTVStopSystem import optimizations
+from IPTVStopSystem import settings
 
 
 @login_required()
 def show_program(request, program_name, program_type, platform, status, program_ip_type):
     if request.method == 'GET':
-        programs = IPTVProgram.objects.all()
+        programs = IPTVProgram.objects.all().order_by('id')
         # 以下为搜索功能，分别对应频道名，频道类型（收费，省内...），平台（中兴，华为...），状态，ip类型（iptv, iptv+）他们的值默认为0
         if program_name != '0':
             programs = programs.filter(program_name__contains=program_name)
@@ -31,69 +32,6 @@ def show_program(request, program_name, program_type, platform, status, program_
 
         program_ids = [program.id for program in programs]
         return render(request, 'program/program.html', {'programs': programs, 'program_ids': program_ids})
-
-
-# 关停 / 开启
-@login_required()
-def program_change(request):
-    if request.method == 'POST':
-        start = datetime.datetime.now()
-        # 取到前端传入的授权码
-        auth_code = request.POST.get('code')
-        # 取出数据库中的授权码(只有一个)
-        auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1).auth_code)
-        if auth_code == auth_code_from_db:
-            ip = '192.168.2.168'
-            port = '22'
-            username = 'root'
-            passwd = 'Trans@2017'
-            mode = request.POST.get('mode')
-            # program_ids 为字符串，格式为 '['1','2',]'
-            program_ids = request.POST.get('program_ids')
-            program_ids = program_ids[1:-1]
-            program_list = program_ids.split(',')
-            # 1 为关停 2 为恢复
-            if mode == 'turn_off':
-                mode = '关停'
-            elif mode == 'turn_on':
-                mode = '恢复'
-
-            ssh = utils.SSH2(ip, port, username, passwd)
-            ssh.run(range(1, 200))
-
-            print('运行中时间---------====》', datetime.datetime.now())
-
-            ips = []
-            for program_id in program_list:
-                program_id = int(program_id)
-                program_name = IPTVProgram.objects.get(id=program_id).program_name
-                program_ip = IPTVProgram.objects.get(id=program_id).program_ip
-                ips.append(program_ip)
-                cmd = ''
-                if mode == '关停':
-                    IPTVProgram.objects.filter(id=program_id).update(status=1)
-                elif mode == '恢复':
-                    IPTVProgram.objects.filter(id=program_id).update(status=2)
-                # 插入日志
-                IPTVProgramOperationLog.objects.create(program_id=program_id,
-                                                       content='用户 {} 对 {} 频道执行 {} 操作，执行命令 {}'.
-                                                       format(request.user.username, program_name, mode, cmd))
-
-            ssh.close_ssh()
-            end = datetime.datetime.now()
-            print('运行时间---------====》', end - start)
-
-            return JsonResponse({'success': '操作成功！', 'msg': 'ok'})
-        else:
-            return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error'})
-
-
-def shutdown(queue, ip, port, username, passwd):
-    while True:
-        program_ip = queue.get()
-        cmd = utils.test_create_code(program_ip, 'YoYo')
-        utils.ssh_paramiko(ip, port, username, passwd, cmd)
-        queue.task_done()
 
 
 @login_required()
@@ -128,16 +66,16 @@ def approximate(request):
 @login_required()
 def program_change(request):
     if request.method == 'POST':
-        f1_start = time.time()
+        start = time.time()
         # 取到前端传入的授权码
         auth_code = request.POST.get('code')
         # 取出数据库中的授权码(只有一个)
         auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1).auth_code)
         if auth_code == auth_code_from_db:
-            ip = '192.168.2.168'
-            port = 22
-            username = 'root'
-            passwd = 'Trans@2017'
+            ip = settings.IPTV_IP
+            port = settings.IPTV_PORT
+            username = settings.IPTV_USERNAME
+            passwd = settings.IPTV_PASSWD
 
             mode = request.POST.get('mode')
             # program_ids 为字符串，格式为 '['1','2',]'
@@ -151,31 +89,37 @@ def program_change(request):
             elif mode == 'turn_on':
                 mode = '恢复'
 
-            ips = []
+            cmd = ''
+            work_manager = optimizations.WorkManager(ip, port, username, passwd, 4)
             for program_id in program_list:
                 program_id = int(program_id)
                 program_name = IPTVProgram.objects.get(id=program_id).program_name
                 program_ip = IPTVProgram.objects.get(id=program_id).program_ip
-                ips.append(program_ip)
-                cmd = ''
+
                 if mode == '关停':
                     IPTVProgram.objects.filter(id=program_id).update(status=1)
-                    cmd = utils.test_create_code(program_ip, program_ip)
+                    cmd = utils.test_create_code(program_ip)
                 elif mode == '恢复':
                     IPTVProgram.objects.filter(id=program_id).update(status=2)
-                    cmd = utils.test_rm_code(program_ip, program_ip)
+                    cmd = utils.test_rm_code(program_ip)
+
+                work_manager.add_job(ssh_paramiko(work_manager.ssh, cmd))
                 # 插入日志
-                # IPTVProgramOperationLog.objects.create(program_id=program_id,
-                #                                        content='用户 {} 对 {} 频道执行 {} 操作，执行命令 {}'.
-                #                                        format(request.user.username, program_name, mode, cmd))
-            f1_end = time.time()
-            print('load time--------->', f1_end - f1_start)
-            print(ips)
-            start = time.time()
-            work_manager = optimizations.WorkManager(ip, port, username, passwd, ips, 100)
+                IPTVProgramOperationLog.objects.create(program_id=program_id,
+                                                       content='用户 {} 对 {} 频道执行 {} 操作，执行命令 {}'.
+                                                       format(request.user.username, program_name, mode, cmd))
             work_manager.wait_allcomplete()
             end = time.time()
             print('run time--------->', end - start)
-            return JsonResponse({'success': '操作成功！', 'msg': 'ok'})
+            return JsonResponse({'success': '操作成功！', 'msg': 'ok', 'code': '200'})
         else:
-            return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error'})
+            return JsonResponse({'error': '请输入正确的授权码！', 'msg': 'error', 'code': '201'})
+
+
+# paramiko ssh 连接封装
+def ssh_paramiko(ssh, cmd):
+    try:
+        # 当执行多条命令时，需要让get_pty=True，执行多条命令的格式为"cd /home;ls;cat z"
+        stdin, stdout, stderr = ssh.exec_command(cmd, get_pty=True)
+    except Exception as e:
+        print('%s Error,\n' % e)

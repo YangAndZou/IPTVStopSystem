@@ -72,14 +72,19 @@ WSGI_APPLICATION = 'IPTVStopSystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+DB_NAME = 'iptv'
+DB_USERNAME = 'root'
+DB_PASSWD = 'Mysql123'
+DB_HOST = '192.168.2.168'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'iptv',
-        'USER': 'root',
-        'PASSWORD': 'Mysql123',
+        'NAME': DB_NAME,
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWD,
         # 'PASSWORD': '123456',
-        'HOST': '192.168.2.168',
+        'HOST': DB_HOST,
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
         },

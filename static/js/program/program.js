@@ -4,10 +4,11 @@ $(function () {
     $(".itemTabContent").find("li").eq(3).addClass('active');
     initTable();
     //初始化查询
-    var pathnameList=location.pathname.split("/");
-    var getPathnameList=getPathnameListFn(pathnameList);
+    var pathnameList = location.pathname.split("/");
+    var getPathnameList = getPathnameListFn(pathnameList);
     queryLoad(getPathnameList)
 });
+
 function initTable() {
     if (oTable != null) {
         oTable.fnClearTable(0);
@@ -15,7 +16,7 @@ function initTable() {
         oTable.fnDestroy();
     }
     oTable = $('#dataTableList').dataTable({
-        "aLengthMenu": [10, 20, 50, 100], //更改显示记录数选项
+        "aLengthMenu": [10, 20, 20, 50, 100], //更改显示记录数选项
         "bProcessing": true,
         "bJQueryUI": false,
         "bFilter": false,
@@ -78,10 +79,10 @@ function initTable() {
         "drawCallback": function (settings) {
             var ischeckAll = $(settings.nTable).find(".icheckbox_all").prop('checked');
             //if(ischeckAll){
-                //$(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
+            //$(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
             //}else{
-               // $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
-           // }
+            // $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
+            // }
             $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll);
             // var ischeckAll = $("#all_checked").prop('checked');
             // $(":checkbox").prop("checked", ischeckAll);
@@ -105,19 +106,19 @@ function initTable() {
         //选择全选复选框按钮
         var ischeckAll = $(this).prop('checked');
 
-        if(ischeckAll==true){
-            $("#dataTableList").find(".icheckbox_minimal").prop("checked",true);
-             selectList = selectListAllFn()
-        }else{
-             $("#dataTableList").find(".icheckbox_minimal").prop("checked", false);
-             selectList = []
+        if (ischeckAll == true) {
+            $("#dataTableList").find(".icheckbox_minimal").prop("checked", true);
+            selectList = selectListAllFn()
+        } else {
+            $("#dataTableList").find(".icheckbox_minimal").prop("checked", false);
+            selectList = []
         }
         // $(":checkbox").prop("checked", ischeckAll);
-       /* if(ischeckAll){
-            $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
-        }else{
-            $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
-        }*/
+        /* if(ischeckAll){
+             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
+         }else{
+             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
+         }*/
         // $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll);
         // if ($("#dataTableList").find(".icheckbox_minimal").prop("checked")==true) {
         //     selectList = selectListAllFn()
@@ -128,9 +129,11 @@ function initTable() {
     });
     $('#dataTableList_wrapper').on("change", ".icheckbox_minimal", function () {
         //选择复选框按钮事件
-        var allcheck=$('#dataTableList_wrapper').find('.icheckbox_all');
-        var isallcheck=allcheck.prop("checked");
-        if(isallcheck){allcheck.prop("checked",false)}
+        var allcheck = $('#dataTableList_wrapper').find('.icheckbox_all');
+        var isallcheck = allcheck.prop("checked");
+        if (isallcheck) {
+            allcheck.prop("checked", false)
+        }
         var ischeck = $(this).prop('checked');
         if (ischeck) {
             selectList.push($(this).parents('tr').find('td').eq(1).text())
@@ -144,29 +147,31 @@ function initTable() {
         }
     });
 };
+
 function sumbitQuery() {
     var programName = 0;
-    var programType=0;
-    var programPlatform=0;
+    var programType = 0;
+    var programPlatform = 0;
     // var programIp = 0;
     var status = 0;
-    var programIpType=0;
-    var programNameDom=$("#program_name").val();
-    var programTypeDom=$("#program_type").val();
-    var programPlatformDom=$("#program_platform").val();
+    var programIpType = 0;
+    var programNameDom = $("#program_name").val();
+    var programTypeDom = $("#program_type").val();
+    var programPlatformDom = $("#program_platform").val();
 
     // var programIpDom=$("#program_ip").val();
-    var statusDom=$("#status").val();
-    var programIpTypeDom=$("#ip_type").val();
-    programNameDom == ''|| programNameDom== null||programNameDom == undefined? programName = 0 : programName = programNameDom;
-    programTypeDom == ''|| programTypeDom== null||programTypeDom == undefined? programType = 0 : programType = programTypeDom;
-    programPlatformDom == ''|| programPlatformDom== null||programPlatformDom == undefined? programPlatform = 0 : programPlatform = programPlatformDom;
+    var statusDom = $("#status").val();
+    var programIpTypeDom = $("#ip_type").val();
+    programNameDom == '' || programNameDom == null || programNameDom == undefined ? programName = 0 : programName = programNameDom;
+    programTypeDom == '' || programTypeDom == null || programTypeDom == undefined ? programType = 0 : programType = programTypeDom;
+    programPlatformDom == '' || programPlatformDom == null || programPlatformDom == undefined ? programPlatform = 0 : programPlatform = programPlatformDom;
     // programIpDom == '' || programIpDom == null||programIpDom== undefined? programIp = 0 : programIp = programIpDom;
-    statusDom == ''||statusDom == null||statusDom == undefined ? status = 0 : status =statusDom;
-    programIpTypeDom == ''||programIpTypeDom == null||programIpTypeDom == undefined ? programIpType = 0 : programIpType =programIpTypeDom;
-    var url = '/program/' + programName + "/" + programType + "/" + programPlatform + "/" + status+"/" +programIpTypeDom;
+    statusDom == '' || statusDom == null || statusDom == undefined ? status = 0 : status = statusDom;
+    programIpTypeDom == '' || programIpTypeDom == null || programIpTypeDom == undefined ? programIpType = 0 : programIpType = programIpTypeDom;
+    var url = '/program/' + programName + "/" + programType + "/" + programPlatform + "/" + status + "/" + programIpTypeDom;
     location.href = url
 }
+
 function modeConfirm(turn, list, type, name) {
     var title = "";
     if (type == 1) {
@@ -183,7 +188,7 @@ function modeConfirm(turn, list, type, name) {
     //         turnFn(turn, list,v, type, name)
     //     }
     // })
-     window.wxc.xcConfirm("请输入" + title + "频道一键" + isturn + "操作的审核码：", window.wxc.xcConfirm.typeEnum.input, {
+    window.wxc.xcConfirm("请输入" + title + "频道一键" + isturn + "操作的审核码：", window.wxc.xcConfirm.typeEnum.input, {
         onOk: function (v) {
             var reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,16}$/;
             var flag = reg.test(v);
@@ -191,7 +196,7 @@ function modeConfirm(turn, list, type, name) {
                 window.wxc.xcConfirm("审核码长度为8-16", window.wxc.xcConfirm.typeEnum.error)
             } else {
                 if (flag) {
-                    turnFn(turn, list,v, type, name)
+                    turnFn(turn, list, v, type, name)
                 } else {
                     window.wxc.xcConfirm("审核码格式必须是8-16位的数字和字母组合", window.wxc.xcConfirm.typeEnum.error)
                 }
@@ -200,7 +205,8 @@ function modeConfirm(turn, list, type, name) {
         }
     })
 }
-function turnFn(turn, list,code, type, name) {
+
+function turnFn(turn, list, code, type, name) {
     var title = "";
     if (type == 1) {
         title = "所选"
@@ -213,12 +219,12 @@ function turnFn(turn, list,code, type, name) {
     (turn == "turn_on") ? isturn = "开启" : isturn = "关停";
     var listStr = [];
     if (type == 0) {
-        listStr .push(list)
+        listStr.push(list)
     } else {
-        listStr  = list;
+        listStr = list;
     }
-    var listNum=[];
-    for(var i=0;i<listStr.length;i++){
+    var listNum = [];
+    for (var i = 0; i < listStr.length; i++) {
         listNum.push(parseInt(listStr[i]))
     }
     loadOpen();
@@ -228,66 +234,69 @@ function turnFn(turn, list,code, type, name) {
         data: {
             mode: turn,
             program_ids: JSON.stringify(listNum),
-            code:code,
+            code: code,
             csrfmiddlewaretoken: token
         },
         dataType: 'json',
         "success": function (resp) {
             loadClose();
-             if(resp.msg=='ok'){
+            if (resp.msg == 'ok') {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.reload()
-            }else{
+            } else {
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.error);
             }
-           /* if (resp.code == "200") {
-                window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
-                location.href="/program/0/0/0/0/0"
-            }else if(resp.code=="201"){
-                window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.warning);
-            }*/
+            /* if (resp.code == "200") {
+                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
+                 location.href="/program/0/0/0/0/0"
+             }else if(resp.code=="201"){
+                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.warning);
+             }*/
         },
         "error": function (response) {
-             loadClose();
+            loadClose();
         }
     })
 }
+
 function reset() {
-    location.href="/program/0/0/0/0/0"
+    location.href = "/program/0/0/0/0/0"
 }
-function selectListAllFn(){
+
+function selectListAllFn() {
     //一定要注意这里不能直接复制，否则会改变原来初始的值（关与引用类型和基本类型的概念）
-     var allList=[];
-    for(var index=0;index< programIds.length;index++){
+    var allList = [];
+    for (var index = 0; index < programIds.length; index++) {
         allList.push(programIds[index])
     }
     return allList
 }
+
 function programData(op) {
-    var value=op.value;
-    var list="";
+    var value = op.value;
+    var list = "";
     $(op).next().remove();
     $.ajax({
         url: "/approximate",
         type: "Post",
         data: {
-            program_name:value,
+            program_name: value,
             csrfmiddlewaretoken: token
         },
         dataType: 'json',
         "success": function (resp) {
-            var list="";
-            var data=resp.search_names;
-            if(data!="undefined"){
-                for(var index=0;index<data.length;index++){
-                    if(data[index]==value){
-                        list+='<li onclick="activeTap(this)" class="active">'+data[index]+'</li>'
-                    }else{
-                        list+='<li onclick="activeTap(this)">'+data[index]+'</li>'
+            var list = "";
+            var data = resp.search_names;
+            if (data != "undefined") {
+                for (var index = 0; index < data.length; index++) {
+                    if (data[index] == value) {
+                        list += '<li onclick="activeTap(this)" class="active">' + data[index] + '</li>'
+                    } else {
+                        list += '<li onclick="activeTap(this)">' + data[index] + '</li>'
                     }
 
                 }
-                var menu='<div class="programCard"> <ul class="programCard-menu">'+list+'</ul> </div>';
+                var menu = '<div class="programCard"> <ul class="programCard-menu">' + list + '</ul> </div>';
                 $(op).after(menu);
             }
 
@@ -297,35 +306,37 @@ function programData(op) {
         }
     });
 }
+
 function activeTap(op) {
     $(op).parent().find("li").removeClass("active");
-    $(op).hasClass("active")?$(op).removeClass("active"):$(op).addClass("active");
-    var value=$("#program_name").val();
+    $(op).hasClass("active") ? $(op).removeClass("active") : $(op).addClass("active");
+    var value = $("#program_name").val();
     $("#program_name").val($(op).text())
 }
 
-function queryLoad(getPathnameList){
-     for(var index=0;index<getPathnameList.length;index++){
-        var active=getPathnameList[index];
-        var query=$(".query").children().children('div').not(".querySubmit")[index];
-        if(index==0){
-            var inputType=$(query).find('input');
+function queryLoad(getPathnameList) {
+    for (var index = 0; index < getPathnameList.length; index++) {
+        var active = getPathnameList[index];
+        var query = $(".query").children().children('div').not(".querySubmit")[index];
+        if (index == 0) {
+            var inputType = $(query).find('input');
 
-                if(active=="0"){
-                    $(inputType).val("")
-                }else{
-                    $(inputType).val(decodeURI(active))
-                }
-        }else{
-            var selectType=$(query).find('select');
-            if(active=="0"){
-                $(selectType).selectpicker('val',0)
-            }else{
-                $(selectType).selectpicker('val',decodeURI(active))
+            if (active == "0") {
+                $(inputType).val("")
+            } else {
+                $(inputType).val(decodeURI(active))
+            }
+        } else {
+            var selectType = $(query).find('select');
+            if (active == "0") {
+                $(selectType).selectpicker('val', 0)
+            } else {
+                $(selectType).selectpicker('val', decodeURI(active))
             }
         }
     }
 }
+
 $(document).click(function () {
     $(".programCard").remove()
 });
@@ -335,5 +346,5 @@ $(document).keyup(function (event) {
     }
 });
 $("#title").click(function () {
-    modeConfirm('turn_off',selectListAllFn(), 2)
+    modeConfirm('turn_off', selectListAllFn(), 2)
 });

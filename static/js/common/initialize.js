@@ -257,3 +257,9 @@ function daterangepickerFn(dom){
     $("#"+dom+" span").html(start.subtract(1, 'hours').format('YYYY-MM-DD') + '~' + end.format('YYYY-MM-DD'));
     });
 }
+function loadOpen(){
+    $(".load").show()
+}
+function loadClose(){
+    $(".load").hide()
+}

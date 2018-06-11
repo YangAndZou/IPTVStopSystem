@@ -2,7 +2,13 @@ var selectList=[];
 $(function () {
     $(".itemTabContent").find("li").eq(1).addClass('active');
 });
-function modeConfirm(turn){
+function modeConfirm(index){
+     var turn='';
+     if(index==1){
+         turn="turn_on"
+     }else if(index==2){
+         turn="turn_off"
+     }
      var isturn="";
     (turn=="turn_on")?isturn="开启":isturn="关停";
      window.wxc.xcConfirm("确定输入全省EPG一键"+isturn+"操作的审核码:", window.wxc.xcConfirm.typeEnum.input, {
@@ -13,7 +19,7 @@ function modeConfirm(turn){
                 window.wxc.xcConfirm("审核码长度为8-16", window.wxc.xcConfirm.typeEnum.error)
             } else {
                 if (flag) {
-                     turnFn(turn,v)
+                     turnFn(turn,isturn,v)
                 } else {
                     window.wxc.xcConfirm("审核码格式必须是8-16位的数字和字母组合", window.wxc.xcConfirm.typeEnum.error)
                 }
@@ -22,16 +28,15 @@ function modeConfirm(turn){
         }
     })
 }
-function turnFn(turn,code) {
-    var isturn="";
-    (turn=="turn_on")?isturn="开启":isturn="关停";
-    var List = [];
+function turnFn(turn,isturn,code) {
+
     $.ajax({
-        url: "/epg_change",
+        url: "/epg_one_key",
         type: "Post",
         data: {
             mode: turn,
-            code:code
+            code:code,
+            csrfmiddlewaretoken: token
         },
         dataType:'json',
         "success": function (resp) {
@@ -43,6 +48,3 @@ function turnFn(turn,code) {
         }
     })
 }
-$("#title").click(function () {
-     modeConfirm('turn_off')
-});

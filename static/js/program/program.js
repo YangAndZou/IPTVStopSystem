@@ -221,6 +221,7 @@ function turnFn(turn, list,code, type, name) {
     for(var i=0;i<listStr.length;i++){
         listNum.push(parseInt(listStr[i]))
     }
+    loadOpen();
     $.ajax({
         url: "/program_change",
         type: "Post",
@@ -232,15 +233,18 @@ function turnFn(turn, list,code, type, name) {
         },
         dataType: 'json',
         "success": function (resp) {
-            if(resp.msg=='ok'){
+         /*   if(resp.msg=='ok'){
                 window.wxc.xcConfirm(resp.success, window.wxc.xcConfirm.typeEnum.success,{
                     onOk: function (v) {
+                        loadClose();
                         location.reload()
                     }
                 });
             }else{
+                loadClose();
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.error);
-            }
+            }*/
+          loadClose();
             if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.href="/program/0/0/0/0/0"
@@ -249,6 +253,7 @@ function turnFn(turn, list,code, type, name) {
             }
         },
         "error": function (response) {
+             loadClose();
         }
     })
 }

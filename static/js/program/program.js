@@ -233,24 +233,19 @@ function turnFn(turn, list,code, type, name) {
         },
         dataType: 'json',
         "success": function (resp) {
-         /*   if(resp.msg=='ok'){
-                window.wxc.xcConfirm(resp.success, window.wxc.xcConfirm.typeEnum.success,{
-                    onOk: function (v) {
-                        loadClose();
-                        location.reload()
-                    }
-                });
+            loadClose();
+             if(resp.msg=='ok'){
+                window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
+                location.reload()
             }else{
-                loadClose();
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.error);
-            }*/
-          loadClose();
-            if (resp.code == "200") {
+            }
+           /* if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.href="/program/0/0/0/0/0"
             }else if(resp.code=="201"){
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.warning);
-            }
+            }*/
         },
         "error": function (response) {
              loadClose();

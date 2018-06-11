@@ -29,7 +29,7 @@ function modeConfirm(index){
     })
 }
 function turnFn(turn,isturn,code) {
-
+    loadOpen();
     $.ajax({
         url: "/epg_one_key",
         type: "Post",
@@ -40,11 +40,15 @@ function turnFn(turn,isturn,code) {
         },
         dataType:'json',
         "success": function (resp) {
+            loadClose();
             if(resp.code=="200"){
                 window.wxc.xcConfirm("EPG一键"+isturn+"操作成功", window.wxc.xcConfirm.typeEnum.success);
+                location.reload()
             }
          },
         "error": function (response) {
+             loadClose();
+             window.wxc.xcConfirm("EPG一键"+isturn+"操作成功", window.wxc.xcConfirm.typeEnum.error);
         }
     })
 }

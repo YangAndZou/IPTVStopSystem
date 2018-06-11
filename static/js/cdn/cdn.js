@@ -179,6 +179,7 @@ function turnFn(turn, list, code, type, name) {
     for (var i = 0; i < listStr.length; i++) {
         listNum.push(parseInt(listStr[i]))
     }
+    loadOpen();
     $.ajax({
         url: "/cdn_change",
         type: "Post",
@@ -189,14 +190,16 @@ function turnFn(turn, list, code, type, name) {
         },
         dataType: 'json',
         success: function (resp) {
+             loadClose();
             if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
-                location.href = "/cdn/0/0/0/";
+                location.reload();
             } else if (resp.code == "201") {
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.success);
             }
         },
         "error": function (response) {
+             loadClose();
         }
     })
 }

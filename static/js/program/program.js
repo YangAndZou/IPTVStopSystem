@@ -201,7 +201,6 @@ function modeConfirm(turn, list, type, name) {
                     window.wxc.xcConfirm("审核码格式必须是8-16位的数字和字母组合", window.wxc.xcConfirm.typeEnum.error)
                 }
             }
-
         }
     })
 }
@@ -343,8 +342,14 @@ $(document).click(function () {
 });
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
-        $("#submitprogram").trigger("click");
+        var dom=$(document).find(".xcConfirm").html();
+        if (dom == undefined||dom==null||dom == '') {
+            $("#submitprogram").trigger("click");
+        } else {
+            $(".sgBtn").trigger("click");
+        }
     }
+
 });
 $("#title").click(function () {
     modeConfirm('turn_off', selectListAllFn(), 2)

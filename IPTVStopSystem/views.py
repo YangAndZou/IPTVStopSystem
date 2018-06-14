@@ -22,6 +22,16 @@ def login(request):
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
+            rand = request.POST.get('rand')
+            try:
+                check_code = request.session['check_code']
+            except:
+                check_code = ''
+            # 注销session
+            request.session['check_code'] = ''
+            if check_code != rand:
+                if request.method == "POST":
+                    return redirect('/', {"login_error_info": "验证码错误！"})
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)

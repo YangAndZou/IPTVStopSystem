@@ -249,7 +249,13 @@ function reset() {
 
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
-        $("#submitEpg").trigger("click");
+        var dom=$(document).find(".xcConfirm").html();
+        if (dom == undefined||dom==null||dom == '') {
+            $("#submitCDN").trigger("click");
+        } else {
+            $(".sgBtn").trigger("click");
+        }
     }
+
 });
 

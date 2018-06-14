@@ -38,6 +38,11 @@ function login(form) {
         }
     });
 }
+$(document).keyup(function (event) {
+    if (event.keyCode == 13) {
+        login(document.forms['login'])
+    }
+});
 
 function refershVerifyCode(){
         $("#rand").val('');

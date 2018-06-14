@@ -52,3 +52,10 @@ function turnFn(turn, isturn, code) {
         }
     })
 }
+
+$(document).keyup(function (event) {
+    if (event.keyCode == 13) {
+        $(".sgBtn").trigger("click");
+    }
+
+});

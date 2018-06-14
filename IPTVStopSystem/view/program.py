@@ -2,7 +2,7 @@
 import base64
 import time
 import datetime
-
+import json
 from IPTVStopSystem import utils
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -29,7 +29,6 @@ def show_program(request, program_name, program_type, platform, status, program_
             programs = programs.filter(status=status)
         if program_ip_type != '0':
             programs = programs.filter(program_ip_type=program_ip_type)
-
         program_ids = [program.id for program in programs]
         return render(request, 'program/program.html', {'programs': programs, 'program_ids': program_ids})
 
@@ -76,13 +75,15 @@ def program_change(request):
             port = settings.IPTV_PORT
             username = settings.IPTV_USERNAME
             passwd = settings.IPTV_PASSWD
-
             mode = request.POST.get('mode')
-            # program_ids 为字符串，格式为 '['1','2',]'
             program_ids = request.POST.get('program_ids')
+            program_list2 = json.loads(program_ids)
+            program = request.POST.get('program_list')
+            print(program)
+            print(type(program_list2))
+            print('program',program_list2)
             program_ids = program_ids[1:-1]
             program_list = program_ids.split(',')
-
             # 1 为关停 2 为恢复
             if mode == 'turn_off':
                 mode = '关停'

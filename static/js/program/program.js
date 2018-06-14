@@ -233,9 +233,10 @@ function turnFn(turn, list, code, type, name) {
         type: "Post",
         data: {
             mode: turn,
-            program_ids: JSON.stringify(listNum),
+            program_ids:JSON.stringify(listNum),
             code: code,
-            csrfmiddlewaretoken: token
+            csrfmiddlewaretoken: token,
+            program_list:[1,2,3]
         },
         dataType: 'json',
         "success": function (resp) {

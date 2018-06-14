@@ -60,7 +60,6 @@ class Work(threading.Thread):
             try:
                 do, args = self.work_queue.get(block=False)  # 任务异步出队，Queue内部实现了同步机制
                 do(args)
-                print('110')
                 self.work_queue.task_done()  # 通知系统任务完成
             except Exception as e:
                 print(e)

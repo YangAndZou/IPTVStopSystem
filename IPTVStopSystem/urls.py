@@ -24,6 +24,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
+    url(r'^verfiyCode$', views.create_code_img),
     url(r'^login$', views.login),
     url(r'^logout$', views.logout),
     url(r'^$', views.redirect_to_index),

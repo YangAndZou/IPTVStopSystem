@@ -19,7 +19,6 @@ body{
     color:#2A9FD6;
     font-size: 36px;
     text-indent: 1em;
-
 }
 .login-body{
     position: relative;
@@ -28,7 +27,7 @@ body{
     width: 20%;
     height: 40%;
     position: absolute;
-    top: 35%;
+    top: 30%;
     left: 39%;
 
 }
@@ -39,46 +38,56 @@ body{
 .loginForm input{
     border-radius: 2em;
     background: transparent;
-    border:0
+    border:2px solid #128fe9;
 }
 .loginForm .form-group{
-    background: transparent;
-    border:2px solid #128fe9;
-    border-radius: 2em;
     position: relative;
 }
-.loginForm input::-webkit-input-placeholder {
-    color: #888;
-    font-size: 16px;
-    letter-spacing:5px;
-    text-align: center;
-    font-family:'宋体';
+.loginForm .form-group img{
+    position: absolute;
+    top:0;
+    right: 0;
+    cursor: pointer;
+    width:30%;
+    height: 34px;
+    line-height: 34px
+}
+.loginForm input.rand{
+    width:65%;
 }
 .loginForm input{
     color:#fff;
 }
 .loginForm button.btn{
     color:#fff;
+    border-radius: 2em;
+}
+.loginForm input::-webkit-input-placeholder {
+    color: #888;
+    font-size: 16px;
+    letter-spacing:5px;
+    font-family:'宋体';
+    text-align: center;
 }
 .loginForm input:-moz-placeholder {
     color: #fff;
     font-size: 16px;
     letter-spacing:5px;
-    text-align: center;
     font-family:'宋体';
+    text-align: center;
 }
 .loginForm input::-moz-placeholder {
     color: #888;
     font-size: 16px;
     letter-spacing:5px;
-    text-align: center;
+    text-align: left;
     font-family:'宋体';
+    text-align: center;
 }
 .loginForm input:-ms-input-placeholder {
     color: #888;
     font-size: 16px;
     letter-spacing:5px;
-    text-align: center;
     font-family:'宋体';
 }
 .loginForm button{

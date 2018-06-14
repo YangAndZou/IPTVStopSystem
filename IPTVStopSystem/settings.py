@@ -24,7 +24,7 @@ SECRET_KEY = 'kw=yf24p-1s-uk-(#w^s-#ywf+6fgy+2wi*__9==v%9w9v4tvw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -72,14 +72,18 @@ WSGI_APPLICATION = 'IPTVStopSystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+DB_NAME = 'iptv'
+DB_USERNAME = 'root'
+DB_PASSWD = 'Mysql123'
+DB_HSOT = '192.168.2.168'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'iptv',
-        'USER': 'root',
-        'PASSWORD': 'Mysql123',
-        # 'PASSWORD': '123456',
-        'HOST': '192.168.2.168',
+        'NAME': DB_NAME,
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWD,
+        'HOST': DB_HSOT,
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
         },
@@ -107,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'UTC'
 

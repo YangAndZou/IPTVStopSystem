@@ -1,27 +1,48 @@
 # coding=utf-8
-import socket
-import string
-from threading import Thread
-
 import paramiko
-from Queue import Queue
 
 
+# 测试用例, 在连接服务器的 /tmp/ 目录下创建一个以传入的参数命名的空文件
 def test_create_code(*args):
     return 'cd /tmp/;touch {}'.format(args[0])
 
 
+# 测试用例, 在连接服务器的 /tmp/ 目录下删除一个以传入的参数命名的空文件
 def test_rm_code(*args):
     return 'cd /tmp/;rm -rf {}'.format(args[0])
 
 
-def epg_shutdown_cmd(*args):
+# EPG一键关停 , 是连续的操作
+def epg_shutdown_cmd_continuous():
     return 'interface GigabitEthernet3/0/2;shutdown;interface GigabitEthernet6/0/2;shutdown;interface gei_2/25;shutdown'
 
 
-def program_shutdown_cmd(*args):
+# EPG一键关停, 根据传入的参数返回对应的值
+def epg_shutdown_cmd_split(*args):
+    if args[0] == 'NE40E 124.232.139.1':
+        return 'interface GigabitEthernet3/0/2;shutdown'
+    elif args[0] == 'NE40E 124.232.139.2':
+        return 'interface GigabitEthernet6/0/2;shutdown'
+    elif args[0] == '124.232.230.1' or args[0] == '124.232.230.2':
+        return 'interface gei_2/25;shutdown'
+
+
+def program_shutdown_cmd_both(*args):
     return 'acl number 3991;rule 200 deny ip source 10.255.0.0 0.0.255.255 destination {} 0.0.0.0;' \
            'rule 205 deny ip source 10.255.0.0 0.0.255.255 destination {} 0.0.0.0'.format(args[0], args[1])
+
+
+# 根据传入的check( ip 地址) 返回对应指令
+def program_shutdown_cmd_split(check, *args):
+    if check == '124.232.139.4':
+        return 'acl number 3991;rule 200 deny ip source 10.255.0.0 0.0.255.255 destination {} 0.0.0.0'.format(args[0])
+    elif check == '124.232.139.63':
+        return 'acl number 3991;rule 205 deny ip source 10.255.0.0 0.0.255.255 destination {} 0.0.0.0'.format(args[0])
+
+
+# 广告关停,需传入 ip
+def advert_shutdown_cmd(*args):
+    return 'Ip route-static {} 32 null0'.format(args[0])
 
 
 def huawei_cdn_shutdown_cmd():
@@ -53,38 +74,3 @@ def ssh_paramiko(ip, port, username, passwd, cmd, sudo=False):
     except Exception as e:
         print('%s Error,  %s\n' % (ip, e))
         return result
-
-
-if __name__ == '__main__':
-    # # paramiko 使用
-    # # 方法一SSHClient
-    # ssh = paramiko.SSHClient()
-    # # 允许连接不在know_hosts文件中的主机
-    # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    # ssh.connect('192.168.2.167', 22, 'root')
-    #
-    # # 方法二Transport
-    # t = paramiko.Transport(('192.168.2.168', '22'), )
-    # t.connect(username='root', password='123')
-    # # 连接远程主机需要提供密钥
-    # t.connect(username='root', password='123', hostkey='zz')
-    # # paramiko.transport对象也支持以socket的方式进行连接
-    # # 用socket连接
-    # tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # tcpsock.settimeout(5)
-    # tcpsock.connect(('192.168.2.167', 22), )
-    # ssh = paramiko.Transport(tcpsock)
-    # ssh.connect(username='root', password='12')
-    # sftpConnect = paramiko.SFTPClient.from_transport(ssh)
-    #
-    # # 日志输出文件
-    # # paramiko.util.log_to_file('/tmp/sshout')
-    #
-    # ssh_paramiko("45.76.22.112", "root", "password", "ls")
-
-    print(
-        'acl number 3991;rule 200 deny ip source 10.255.0.0 0.0.255.255 destination {} 0.0.0.0;rule 205 deny ip source 10.255.0.0 0.0.255.255 destination {} 0.0.0.0')
-    print('acl number 3991;rule 200 deny ip '
-          'source 10.255.0.0 0.0.255.255 destination {} '
-          '0.0.0.0;rule 205 deny ip source 10.255.0.0 0.0.255.255 '
-          'destination {} 0.0.0.0')

@@ -1,5 +1,6 @@
 # coding=utf-8
 import base64
+import paramiko
 import time
 import datetime
 
@@ -89,6 +90,26 @@ def program_change(request):
             elif mode == 'turn_on':
                 mode = '恢复'
 
+            # ips_cmd = []
+            # for id in program_list:
+            #     ip = IPTVProgram.objects.get(id=id).program_ip
+            #     cmd = 'touch {}'.format(ip)
+            #     ips_cmd.append(cmd)
+            # print(len(program_list))
+            # print(len(ips_cmd))
+            # cd_cmd = 'cd /tmp/;'
+            # cmd = ';'.join(ips_cmd)
+            # cmd = cd_cmd + cmd
+            # print(cmd)
+            # ssh = paramiko.SSHClient()
+            # # 用于允许连接不在known_hosts名单中的主机
+            # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            # ssh.connect(hostname=ip, port=port, username=username, password=passwd, timeout=5)
+            # # 当执行多条命令时，需要让get_pty=True，执行多条命令的格式为"cd /home;ls;cat z"
+            # stdin, stdout, stderr = ssh.exec_command(cmd, get_pty=True)
+            # end = time.time()
+            # print('run time', end - start)
+            cmds = []
             cmd = ''
             work_manager = optimizations.WorkManager(ip, port, username, passwd, 4)
             for program_id in program_list:
@@ -102,12 +123,17 @@ def program_change(request):
                 elif mode == '恢复':
                     IPTVProgram.objects.filter(id=program_id).update(status=2)
                     cmd = utils.test_rm_code(program_ip)
-
-                work_manager.add_job(ssh_paramiko(work_manager.ssh, cmd))
+                # print(cmd)
+                cmds.append(cmd)
                 # 插入日志
                 IPTVProgramOperationLog.objects.create(program_id=program_id,
                                                        content='用户 {} 对 {} 频道执行 {} 操作，执行命令 {}'.
                                                        format(request.user.username, program_name, mode, cmd))
+            count = len(cmds) / 10 if len(cmds) % 10 == 0 else (len(cmds) / 10) + 1
+            for i in range(count):
+                run_cmds = cmds[10 * i: (i + 1) * 10]
+                run_cmd = ';'.join(run_cmds)
+                work_manager.add_job(ssh_paramiko(work_manager.ssh, run_cmd))
             work_manager.wait_allcomplete()
             end = time.time()
             print('run time--------->', end - start)

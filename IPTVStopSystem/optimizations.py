@@ -58,9 +58,11 @@ class Work(threading.Thread):
         # 死循环，从而让创建的线程在一定条件下关闭退出
         while True:
             try:
-                do, args = self.work_queue.get(block=False)  # 任务异步出队，Queue内部实现了同步机制
+                # 任务异步出队，Queue内部实现了同步机制
+                do, args = self.work_queue.get(block=False)
                 do(args)
-                self.work_queue.task_done()  # 通知系统任务完成
+                # 通知系统任务完成
+                self.work_queue.task_done()
             except Exception as e:
                 print(e)
                 break

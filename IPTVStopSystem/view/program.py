@@ -1,5 +1,7 @@
 # coding=utf-8
 import base64
+import json
+
 import paramiko
 import time
 import datetime
@@ -79,10 +81,11 @@ def program_change(request):
             passwd = settings.IPTV_PASSWD
 
             mode = request.POST.get('mode')
-            # program_ids 为字符串，格式为 '['1','2',]', 所以需要做字符串处理
+            # program_ids 为json格式的字符串，格式为 '['1','2',]', 所以需要做字符串处理
             program_ids = request.POST.get('program_ids')
-            program_ids = program_ids[1:-1]
-            program_list = program_ids.split(',')
+            program_list = json.loads(program_ids)
+            # program_ids = program_ids[1:-1]
+            # program_list = program_ids.split(',')
 
             # 将Mode改成中文,便于日志记录
             if mode == 'turn_off':

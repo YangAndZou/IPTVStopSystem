@@ -1,11 +1,12 @@
 $(function () {
-
+    refershVerifyCode();
 });
 
 function login(form) {
     var username=form.username.value;
     var password=form.password.value;
     var token=form.csrfmiddlewaretoken.value;
+    var rand=form.rand.value;
     if(username==""){
         window.wxc.xcConfirm("请输入正确用户名", window.wxc.xcConfirm.typeEnum.warning);
         return false
@@ -19,6 +20,7 @@ function login(form) {
         data:{
             username:username,
             password:password,
+            rand:rand,
             csrfmiddlewaretoken:token
         },
         dataType:'json',
@@ -35,4 +37,11 @@ function login(form) {
 
         }
     });
+}
+
+function refershVerifyCode(){
+        $("#rand").val('');
+        var currentTimes = (new Date()).getTime();
+        var verfiyCodeUrl  = "/verfiyCode?k=" + currentTimes;
+        $("#verfiyCodeImg").attr("src" , verfiyCodeUrl);
 }

@@ -1,4 +1,0 @@
-#!/bin/bash
-import compileall
-compileall.compile_dir('/home/zoulf/mycode/IPTVStopSystem/
-

@@ -15,11 +15,10 @@ def show_process_verify(request):
         return HttpResponse('您没有查看授权码的权限!')
     else:
         auth_codes = IPTVAuthCode.objects.all()
-        if len(auth_codes) > 0:
-            code = base64.decodestring(auth_codes[0].auth_code)
-        else:
+        if len(auth_codes) == 0:
             code = base64.encodestring('q12345678')
             IPTVAuthCode.objects.create(auth_code=code)
+        code = base64.decodestring(auth_codes[0].auth_code)
         return render(request, 'process_verify/process_verify.html', {'code': code})
 
 
@@ -30,6 +29,7 @@ def set_auth_code(request):
         secret_code = base64.encodestring(code)
         IPTVAuthCode.objects.filter(id=1).update(auth_code=secret_code)
         return JsonResponse({'msg': 'ok'})
+
 #
 # def process_verify(request):
 #     if request.method == 'POST':

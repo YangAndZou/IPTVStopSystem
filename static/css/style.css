@@ -30,15 +30,23 @@ body{
     position: absolute;
     top: 35%;
     left: 39%;
+
 }
+/*
 .loginForm input,.loginForm button{
     border-radius: 2em;
-}
+}*/
 .loginForm input{
+    border-radius: 2em;
+    background: transparent;
+    border:0
+}
+.loginForm .form-group{
     background: transparent;
     border:2px solid #128fe9;
+    border-radius: 2em;
+    position: relative;
 }
-
 .loginForm input::-webkit-input-placeholder {
     color: #888;
     font-size: 16px;

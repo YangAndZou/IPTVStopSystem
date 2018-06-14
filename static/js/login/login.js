@@ -2,11 +2,11 @@ $(function () {
     refershVerifyCode();
 });
 
-function login(form) {
+function loginFn(form) {
     var username=form.username.value;
     var password=form.password.value;
     var token=form.csrfmiddlewaretoken.value;
-    var rand=form.rand.value;
+    var rand=form.rand.value==''?0:form.rand.value;
     if(username==""){
         window.wxc.xcConfirm("请输入正确用户名", window.wxc.xcConfirm.typeEnum.warning);
         return false
@@ -40,7 +40,7 @@ function login(form) {
 }
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
-        login(document.forms['login'])
+        loginFn(document.forms['login'])
     }
 });
 

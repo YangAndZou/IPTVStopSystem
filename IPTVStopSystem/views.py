@@ -27,13 +27,13 @@ def login(request):
                 check_code = request.session['check_code']
             except:
                 check_code = ''
-            # 注销session
-            request.session['check_code'] = ''
             if check_code != rand:
                 if request.method == "POST":
-                    return redirect('/', {"login_error_info": "验证码错误！"})
+                    #return redirect('/', {"login_error_info": "验证码错误！"})
+                    return JsonResponse({"status":"验证码错误"})
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
+                request.session['check_code'] = ''
                 auth.login(request, user)
                 # 存储session
                 request.session['username'] = username

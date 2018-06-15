@@ -29,8 +29,7 @@ def login(request):
                 check_code = ''
             if check_code != rand:
                 if request.method == "POST":
-                    #return redirect('/', {"login_error_info": "验证码错误！"})
-                    return JsonResponse({"status":"验证码错误"})
+                    return JsonResponse({"status": "验证码错误"})
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 request.session['check_code'] = ''
@@ -55,14 +54,12 @@ def noperm(request):
     return render(request, 'noperm.html', {"user": request.user})
 
 
-# 主页
 @login_required()
-def index(request):
-    return render(request, 'epg/epg.html')
-
-
 def redirect_to_index(request):
-    return redirect('/index')
+    if request.user.is_superuser:
+        return redirect('/index')
+    else:
+        return redirect('/process_verify')
 
 
 def create_code_img(request):

@@ -14,11 +14,8 @@ def show_process_verify(request):
     if request.user.is_superuser:
         return HttpResponse('您没有查看授权码的权限!')
     else:
-        auth_codes = IPTVAuthCode.objects.all()
-        if len(auth_codes) == 0:
-            code = base64.encodestring('q12345678')
-            IPTVAuthCode.objects.create(auth_code=code)
-        code = base64.decodestring(auth_codes[0].auth_code)
+        auth_codes = IPTVAuthCode.objects.first().auth_code
+        code = base64.decodestring(auth_codes)
         return render(request, 'process_verify/process_verify.html', {'code': code})
 
 

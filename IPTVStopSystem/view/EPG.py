@@ -12,9 +12,13 @@ from IPTVStopSystem.models import IPTVEPG
 @login_required()
 def show_epg(request):
     epg = IPTVEPG.objects.all()
-    auth_codes = IPTVAuthCode.objects.all()
-    if len(auth_codes) == 0:
-        IPTVAuthCode.objects.create(auth_code='q1234567')
+    while True:
+        auth_codes = IPTVAuthCode.objects.all()
+        if len(auth_codes) == 0:
+            code = base64.encodestring('q1234567')
+            IPTVAuthCode.objects.create(auth_code=code)
+        else:
+            break
     # 初始化epg状态为2（开启）
     if len(epg) == 0:
         IPTVEPG.objects.create(status=2)

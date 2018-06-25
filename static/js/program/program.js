@@ -234,16 +234,19 @@ function turnFn(turn, list, code, type, name) {
             mode: turn,
             program_ids:JSON.stringify(listNum),
             code: code,
-            csrfmiddlewaretoken: token,
-            program_list:[1,2,3]
+            csrfmiddlewaretoken: token
         },
         dataType: 'json',
         "success": function (resp) {
-            loadClose();
             if (resp.msg == 'ok') {
-                window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
-                location.reload()
+                 setTimeout(function () {
+                     loadClose();
+                     window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
+                     location.reload()
+                },1000)
+
             } else {
+                 loadClose();
                 window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.error);
             }
             /* if (resp.code == "200") {

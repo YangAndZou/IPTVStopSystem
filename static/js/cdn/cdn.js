@@ -185,7 +185,8 @@ function turnFn(turn, list, code, type, name) {
         type: "Post",
         data: {
             mode: turn,
-            program_ips: JSON.stringify(listNum),
+            code:code,
+            node_ids: JSON.stringify(listNum),
             csrfmiddlewaretoken: token
         },
         dataType: 'json',
@@ -195,7 +196,7 @@ function turnFn(turn, list, code, type, name) {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.reload();
             } else if (resp.code == "201") {
-                window.wxc.xcConfirm(resp.error, window.wxc.xcConfirm.typeEnum.success);
+                window.wxc.xcConfirm(resp.msg, window.wxc.xcConfirm.typeEnum.success);
             }
         },
         "error": function (response) {

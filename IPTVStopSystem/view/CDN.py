@@ -45,6 +45,9 @@ def cdn_change(request):
         auth_code = request.POST.get('code')
         # 取出数据库中的授权码(只有一个)
         auth_code_from_db = base64.decodestring(IPTVAuthCode.objects.get(id=1).auth_code)
+        print('---------------')
+        print(auth_code)
+        print(auth_code_from_db)
         if auth_code == auth_code_from_db:
             ip = settings.IPTV_IP
             port = settings.IPTV_PORT
@@ -53,6 +56,8 @@ def cdn_change(request):
 
             mode = request.POST.get('mode')
             node_ids = request.POST.get('node_ids')
+            print('------------ ')
+            print(node_ids)
             node_list = json.loads(node_ids)
 
             # 1 为关停 2 为恢复
@@ -94,8 +99,8 @@ def cdn_change(request):
                 # 多线程处理队列
             work_manager.wait_allcomplete()
             return JsonResponse({'success': '操作成功！', 'msg': 'ok', 'code': '200'})
-    else:
-        return JsonResponse({'code': '201', 'msg': '请输入正确的授权码！'})
+        else:
+            return JsonResponse({'code': '201', 'msg': '请输入正确的授权码！'})
 
 
 # paramiko ssh 操作封装

@@ -74,8 +74,8 @@ WSGI_APPLICATION = 'IPTVStopSystem.wsgi.application'
 
 DB_NAME = 'iptv'
 DB_USERNAME = 'root'
-DB_PASSWD = '123456'
-DB_HSOT = '127.0.0.1'
+DB_PASSWD = 'Mysql123'
+DB_HSOT = '192.168.2.168'
 
 DATABASES = {
     'default': {

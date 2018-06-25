@@ -190,7 +190,7 @@ function turnFn(turn, list, code, type, name) {
         },
         dataType: 'json',
         success: function (resp) {
-             loadClose();
+            loadClose();
             if (resp.code == "200") {
                 window.wxc.xcConfirm(title + "频道一键" + isturn + "操作成功！", window.wxc.xcConfirm.typeEnum.success);
                 location.reload();
@@ -199,7 +199,7 @@ function turnFn(turn, list, code, type, name) {
             }
         },
         "error": function (response) {
-             loadClose();
+            loadClose();
         }
     })
 }
@@ -207,14 +207,14 @@ function turnFn(turn, list, code, type, name) {
 function sumbitQuery() {
     var platform = 0;
     var city = 0;
-    var pop = 0;
+    //var pop = 0;
     var platformDom = $("#platform").val();
     var cityDom = $("#city").val();
-    var popDom = $("#pop").val();
+    //var popDom = $("#pop").val();
     platformDom == '' || platformDom == null || platformDom == undefined ? platform = 0 : platform = platformDom;
     cityDom == '' || cityDom == null || cityDom == undefined ? city = 0 : city = cityDom;
-    popDom == '' || popDom == null || popDom == undefined ? pop = 0 : pop = popDom;
-    var url = '/cdn/' + platform + "/" + city + "/" + pop;
+    //popDom == '' || popDom == null || popDom == undefined ? pop = 0 : pop = popDom;
+    var url = '/cdn/' + platform + "/" + city + "/";
     location.href = url
 }
 
@@ -244,13 +244,13 @@ function queryLoad(getPathnameList) {
 }
 
 function reset() {
-    location.href = "/cdn/0/0/0"
+    location.href = "/cdn/0/0/"
 }
 
 $(document).keyup(function (event) {
     if (event.keyCode == 13) {
-        var dom=$(document).find(".xcConfirm").html();
-        if (dom == undefined||dom==null||dom == '') {
+        var dom = $(document).find(".xcConfirm").html();
+        if (dom == undefined || dom == null || dom == '') {
             $("#submitCDN").trigger("click");
         } else {
             $(".sgBtn").trigger("click");

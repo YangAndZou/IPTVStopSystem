@@ -41,7 +41,7 @@ class IPTVProgram(models.Model):
     #     ('ZTE', '中兴'),
     #     ('oldZTE', '旧版中兴')
     # )
-    program_num = models.IntegerField(verbose_name='频道号')
+    program_num = models.CharField(verbose_name='频道号', max_length=128, null=True)
     program_name = models.CharField(max_length=128, verbose_name='频道名称', null=True)
     program_type = models.CharField(max_length=30, verbose_name='频道类型', null=True)
     program_ip = models.CharField(max_length=256, verbose_name='频道ip', null=True)
@@ -63,10 +63,11 @@ class IPTVCDNNode(models.Model):
         ('1', '关停'),
         ('2', '正常')
     )
-    platform = models.CharField(max_length=50, verbose_name='平台(中兴 / 华为)')
     city = models.CharField(max_length=128, verbose_name='所属地市')
-    node_name = models.CharField(max_length=128, verbose_name='节点名称')
+    ip = models.CharField(max_length=128, verbose_name='ip')
+    device_name = models.CharField(max_length=64, verbose_name='设备名')
     status = models.SmallIntegerField(choices=s, verbose_name='状态')
+    paltform = models.CharField(max_length=64, verbose_name='平台')
 
     class Meta:
         db_table = 'iptv_cdn_node'

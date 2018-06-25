@@ -3,7 +3,7 @@ $(function(){
     $(".itemTabContent").find("li").eq(2).addClass('active');
     initTable();
     $(".back").click(function () {
-        location.href="/cdn/0/0/0"
+        location.href="/cdn/0/0/"
     });
     daterangepickerFn("operationTime");
     var pathnameList=location.pathname.split("/");

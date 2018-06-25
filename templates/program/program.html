@@ -95,8 +95,9 @@
                             data-none-selected-text="请选择"
                             data-width="100%">
                         <option value="0">全部</option>
-                        <option>IPTV</option>
                         <option>IPTV+</option>
+                        <option>IPTV标清</option>
+                        <option>IPTV高清</option>
                     </select>
                 </div>
             </div>
@@ -116,6 +117,7 @@
                 <th>频道名称</th>
                 <th>频道类型</th>
                 <th>平台</th>
+                <th>IPTV type</th>
                 <th>频道IP</th>
                 <!--<th>频道号</th>-->
                 <th>频道状态</th>
@@ -130,6 +132,7 @@
                 <td class="center">{{ ds.program_name }}</td>
                 <td class="center">{{ ds.program_type }}</td>
                 <td class="center">{{ ds.platform }}</td>
+                <td class="center">{{ ds.program_ip_type }}</td>
                 <td class="center">{{ ds.program_ip }}</td>
                 <!--<td class="center">{{ ds.program_num }}</td>-->
                 <td class="center">

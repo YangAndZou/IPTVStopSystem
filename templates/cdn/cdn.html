@@ -16,11 +16,25 @@
                                 data-none-selected-text="请选择"
                                 data-width="100%">
                             <option value="0">全部</option>
-                            <option>华为</option>
-                            <option>中兴</option>
-                            <option>旧版中兴</option>
+                            <option>华为IPTV+ CDN</option>
+                            <option>中兴IPTV+ CDN</option>
+                            <option>长沙IPTV</option>
+                            <option>株洲IPTV</option>
+                            <option>湘潭IPTV</option>
+                            <option>衡阳IPTV</option>
+                            <option>岳阳IPTV</option>
+                            <option>邵阳IPTV</option>
+                            <option>娄底IPTV</option>
+                            <option>益阳IPTV</option>
+                            <option>常德IPTV</option>
+                            <option>湘西IPTV</option>
+                            <option>怀化IPTV</option>
+                            <option>永州IPTV</option>
+                            <option>郴州IPTV</option>
+                            <option>张家界IPTV</option>
                         </select>
                     </div>
+
                     <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">地市:</label>
                     <div class="col-per1-5 md-per1-4 ms-per1-3">
                         <select class="selectpicker form-control"
@@ -43,25 +57,26 @@
                             <option name="city">郴州</option>
                             <option name="city">永州</option>
                             <option name="city">怀化</option>
-                            <option name="city">湘西土家族苗族自治州</option>
+                            <option name="city">湘西</option>
                         </select>
                         <!--<input type="text" class="form-control input-sm" id="router_ip" name="router_ip">-->
                     </div>
-                    <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">POP点:</label>
-                    <div class="col-per1-5 md-per1-4 ms-per1-3">
-                        <select class="selectpicker form-control"
-                                id="pop"
-                                name="pop"
-                                multiple
-                                data-live-search="true"
-                                data-none-selected-text="请选择"
-                                data-width="100%">
-                            {% for ds in nodes %}
-                            <option>{{ ds.node_name }}</option>
-                            {% endfor %}
-                        </select>
-                        <!--<input type="text" class="form-control input-sm" id="router_group" name="router_group">-->
-                    </div>
+
+                    {#                    <label class="col-pre0-6 md-pre0-7 ms-per0-7 control-label">POP点:</label>#}
+                    {#                    <div class="col-per1-5 md-per1-4 ms-per1-3">#}
+                    {#                        <select class="selectpicker form-control"#}
+                    {#                                id="pop"#}
+                    {#                                name="pop"#}
+                    {#                                multiple#}
+                    {#                                data-live-search="true"#}
+                    {#                                data-none-selected-text="请选择"#}
+                    {#                                data-width="100%">#}
+                    {#                            {% for ds in nodes %}#}
+                    {#                            <option>{{ ds.node_name }}</option>#}
+                    {#                            {% endfor %}#}
+                    {#                        </select>#}
+                    {#                        <!--<input type="text" class="form-control input-sm" id="router_group" name="router_group">-->#}
+                    {#                    </div>#}
                     <div class="col-per3-7 md-per3-7 ms-per3-7 querySubmit">
                         <button class="btn-primary btn btn-sm" type="submit" id="submitCDN" name=""
                                 onclick="sumbitQuery()">查询
@@ -81,8 +96,10 @@
                         <input type="checkbox" class="icheckbox_all" name="icheckbox_all">
                     </th>
                     <th class="hidden">id</th>
-                    <th >所属地市</th>
-                    <th>节点名称</th>
+                    <th>所属地市</th>
+                    <th>平台</th>
+                    <th>设备名</th>
+                    <th>IP</th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -93,7 +110,9 @@
                         <td><input type='checkbox' name='test' class='icheckbox_minimal' value=''></td>
                         <td class="hidden">{{ ds.id }}</td>
                         <td class="center">{{ ds.city }}</td>
-                        <td class="center">{{ ds.node_name }}</td>
+                        <td class="center">{{ ds.paltform }}</td>
+                        <td class="center">{{ ds.device_name }}</td>
+                        <td class="center">{{ ds.ip }}</td>
                         <td class="center">
                             {% if ds.status == 1 %}
                                 <i class="closeCircle"></i>
@@ -119,7 +138,7 @@
         </div>
     </div>
     <script>
-        var nodesIds=JSON.parse('{{ node_ids }}');
+        var nodesIds = JSON.parse('{{ node_ids }}');
     </script>
-     <script src="{% static 'js/cdn/cdn.js' %}"></script>
+    <script src="{% static 'js/cdn/cdn.js' %}"></script>
 {% endblock %}

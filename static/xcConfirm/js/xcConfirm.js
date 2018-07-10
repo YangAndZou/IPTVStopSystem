@@ -12,7 +12,7 @@
  */
 (function($){
 	window.wxc = window.wxc || {};
-	window.wxc.xcConfirm = function(popHtml, type, options) {
+	window.wxc.xcConfirm = function(popHtml, type, options,dom) {
 	    var btnType = window.wxc.xcConfirm.btnEnum;
 		var eventType = window.wxc.xcConfirm.eventEnum;
 		var popType = {
@@ -52,6 +52,7 @@
 				btn: btnType.ok
 			}
 		};
+		var popId = creatPopId();//弹窗索引
 		var itype = type ? type instanceof Object ? type : popType[type] || {} : {};//格式化输入的参数:弹窗类型
 		var config = $.extend(true, {
 			//属性
@@ -70,7 +71,7 @@
 		var $icon = icon ? $("<div>").addClass("bigIcon").css("backgroundPosition",icon) : "";
 		var btn = config.btn;//按钮组生成参数
 		
-		var popId = creatPopId();//弹窗索引
+
 		
 		var $box = $("<div>").addClass("xcConfirm");//弹窗插件容器
 		var $layer = $("<div>").addClass("xc_layer");//遮罩层
@@ -178,12 +179,18 @@
 
 		//重生popId,防止id重复
 		function creatPopId(){
-			var i = "pop_" + (new Date()).getTime()+parseInt(Math.random()*100000);//弹窗索引
+			var i=null;
+			if(dom==undefined){
+				i = "pop_" + (new Date()).getTime()+parseInt(Math.random()*100000);//弹窗索引
+			}else{
+				i=dom;
+			}
 			if($("#" + i).length > 0){
 				return creatPopId();
 			}else{
 				return i;
 			}
+
 		}
 	};
 	

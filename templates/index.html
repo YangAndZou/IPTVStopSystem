@@ -67,7 +67,7 @@
                         <i class="glyphicon glyphicon-user"></i> <span>{{ user }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-user dropdown-menu-right" aria-labelledby="login_user">
-                        <li>
+                        <li class="editUser">
                             <a onclick="openModal(this)"><i class="glyphicon glyphicon-wrench"></i> 修改密码</a>
                         </li>
                         <li>
@@ -123,7 +123,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" onclick="editPassSave()" class="btn btn-primary">确认</button>
+                        <button type="button" onclick="editPassSaveFunc()" id="editPassSave" class="btn btn-primary">确认
+                        </button>
                     </div>
                 </form>
             </div>
@@ -155,9 +156,15 @@
         $("#editUser").modal("show")
     }
 
-    function editPassSave() {
-        console.log($("#oldPassword").val(), $("#repeatPassword").val(), $("#newPassword").val())
-        {#var formData = new FormData(document.forms['editUserForm']);#}
+    $(document).keyup(function (event) {
+        if (event.keyCode == 13&&$("#editUser").is(":visible")) {
+            if ($("#editPassSave") != undefined) {
+                $("#editPassSave").trigger("click")
+            }
+        }
+    });
+
+    function editPassSaveFunc() {
         $.ajax({
             url: "{% url 'changePassword' %}",
             type: "POST",
@@ -173,17 +180,18 @@
                     var sum = 5;
                     var timer = null;
                     timer = setInterval(function () {
-
+                        var dom='wxc'+parseInt(sum+1);
+                        $("#"+dom).remove();
                         if (sum < 0) {
                             location.reload()
-                        }else{
-                             window.wxc.xcConfirm(sum + resp.msg, window.wxc.xcConfirm.typeEnum.success, {
+                        } else {
+                            window.wxc.xcConfirm(resp.msg + sum + 's', window.wxc.xcConfirm.typeEnum.success, {
                                 onOk: function (v) {
                                     location.reload()
                                 }
-                            });
+                            },'wxc'+sum);
                         }
-                        sum--
+                       sum--
                     }, 1000);
                 } else {
                     window.wxc.xcConfirm(resp.msg, window.wxc.xcConfirm.typeEnum.error);

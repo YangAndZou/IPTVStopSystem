@@ -659,3 +659,16 @@ input[type="number"]{
     background: transparent;
     color:#fff;
 }
+.dropdown-menu.dropdown-user.dropdown-menu-right li a{
+    height:48px;
+    line-height:48px;
+}
+.loginUser li.user{
+    background: url(../image/exit.png) no-repeat center right;
+    height: 50px;
+    background-size: 120px 50px;
+    width: 120px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}

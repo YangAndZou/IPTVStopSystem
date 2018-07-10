@@ -8,8 +8,8 @@ sys.setdefaultencoding('utf8')
 
 class IPTVEPG(models.Model):
     s = (
-        ('1', '关停'),
-        ('2', '开启')
+        (1, '关停'),
+        (2, '开启')
     )
     status = models.SmallIntegerField(choices=s, verbose_name='EPG状态')
 
@@ -21,8 +21,8 @@ class IPTVEPG(models.Model):
 
 class IPTVProgram(models.Model):
     program_status = (
-        ('1', '关停'),
-        ('2', '正常')
+        (1, '关停'),
+        (2, '正常')
     )
     # types = (
     #     ('sn', '省内'),
@@ -60,8 +60,8 @@ class IPTVProgram(models.Model):
 
 class IPTVCDNNode(models.Model):
     s = (
-        ('1', '关停'),
-        ('2', '正常')
+        (1, '关停'),
+        (2, '正常')
     )
     city = models.CharField(max_length=128, verbose_name='所属地市')
     ip = models.CharField(max_length=128, verbose_name='ip')

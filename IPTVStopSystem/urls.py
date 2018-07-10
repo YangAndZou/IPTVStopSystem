@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^verfiyCode$', views.create_code_img),
     url(r'^login$', views.login),
     url(r'^logout$', views.logout),
+    url(r'^changePassword$', views.change_password, name='changePassword'),
     url(r'^$', views.redirect_to_index),
     url(r'^index$', EPG.show_epg),
 

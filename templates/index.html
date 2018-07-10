@@ -18,12 +18,13 @@
     <script src="{% static 'bootstrap-select-1.12.4/js/bootstrap-select.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'bootstrap-daterangepicker/daterangepicker.css' %}">
-     <script src="{% static 'bootstrap-daterangepicker/moment.js' %}"></script>
+    <script src="{% static 'bootstrap-daterangepicker/moment.js' %}"></script>
     <script src="{% static 'bootstrap-daterangepicker/daterangepicker.js' %}"></script>
 
 
     <link rel="stylesheet" href="{% static 'dataTables/DataTables-1.10.15/1.10.15/css/dataTables.bootstrap.css' %}">
-    <script type="text/javascript" src="{% static 'dataTables/DataTables-1.10.15/1.10.15/js/dataTables.bootstrap.js' %}"></script>
+    <script type="text/javascript"
+            src="{% static 'dataTables/DataTables-1.10.15/1.10.15/js/dataTables.bootstrap.js' %}"></script>
     <link rel="stylesheet" href="{% static 'dataTables/buttonsDataTables/buttons.dataTables.css' %}">
     <script src="{% static 'dataTables/buttonsDataTables/dataTables.buttons.js' %}"></script>
     <script src="{% static 'dataTables/buttonsDataTables/buttons.colVis.js' %}"></script>
@@ -42,14 +43,14 @@
         <div class="navBar">
             <h1>湖南电信天翼高清一键关停</h1>
             <div class="itemTabContent">
-                 <ul  >
+                <ul>
                     <li>
                         <a href="/process_verify">审核码设置</a>
                     </li>
-                    <li  >
+                    <li>
                         <a href="/epg">EPG关停</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="/cdn/0/0/">区域CDN关停</a>
                     </li>
                     <li>
@@ -61,29 +62,137 @@
                 <li><i class="glyphicon glyphicon-indent-right"></i></li>
             </ul>
             <ul class="loginUser">
-                <li class="user"><i class="glyphicon glyphicon-user"></i> <span>{{ user }}</span></li>
-                <input type="hidden" id="userLevel" value={{ user.is_superuser }}  >
-                <li class="exit"><a href="/logout"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a> </li>
+                <li class="user dropdown">
+                    <a id="login_user" class="dropdown-toggle a-white" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i> <span>{{ user }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user dropdown-menu-right" aria-labelledby="login_user">
+                        <li>
+                            <a onclick="openModal(this)"><i class="glyphicon glyphicon-wrench"></i> 修改密码</a>
+                        </li>
+                        <li>
+                            <a href="/logout"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a>
+                        </li>
+                    </ul>
+                </li>
+                <input type="hidden" id="userLevel" value={{ user.is_superuser }}>
+                {#                <li class="exit"><a href="/logout"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a> </li>#}
             </ul>
 
+
+        </div>
+    </div>
+    <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUser_modal_label"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="editUser_modal_label">修改密码</h4>
+                </div>
+                <form class="form-horizontal" id="editUserForm">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"
+                                   for="form-field-4"><strong>原始密码</strong></label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="password"
+                                       placeholder="请输入原始密码.." name="oldPassword" id="oldPassword"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"
+                                   for="form-field-4"><strong>新密码</strong></label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="password"
+                                       placeholder="请输入新密码.." name="newPassword" id="newPassword"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"
+                                   for="form-field-4"><strong>确认密码</strong></label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="password"
+                                       placeholder="请再次输入密码..." name="repeatPassword" id="repeatPassword"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" onclick="editPassSave()" class="btn btn-primary">确认</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     {% block page-content %}
     {% endblock %}
     <div class="footer">©&nbsp;中国电信湖南公司客户支撑中心2017-2018</div>
 </div>
-<div class="load-container load"><div class="loader">Loading...</div><div class="title">数据加载中。。。</div> </div>
+<div class="load-container load">
+    <div class="loader">Loading...</div>
+    <div class="title">数据加载中。。。</div>
+</div>
+
 </body>
 </html>
 <script>
-    var token = '{{ csrf_token }}';
     $(function () {
-        var userLevel=$("#userLevel").val();
-        if(userLevel=="True"){
+        var userLevel = $("#userLevel").val();
+        if (userLevel == "True") {
             $(".itemTabContent").find("li").eq(0).hide();
-        }else{
-              $(".btnClose").attr("disabled",true);
-              $(".btnOpen").attr("disabled",true);
+        } else {
+            $(".btnClose").attr("disabled", true);
+            $(".btnOpen").attr("disabled", true);
         }
     })
+
+    function openModal() {
+        $("#editUser").modal("show")
+    }
+
+    function editPassSave() {
+        console.log($("#oldPassword").val(), $("#repeatPassword").val(), $("#newPassword").val())
+        {#var formData = new FormData(document.forms['editUserForm']);#}
+        $.ajax({
+            url: "{% url 'changePassword' %}",
+            type: "POST",
+            data: {
+                oldPassword: $("#oldPassword").val(),
+                repeatPassword: $("#repeatPassword").val(),
+                newPassword: $("#newPassword").val(),
+                csrfmiddlewaretoken: "{{ csrf_token  }}"
+            },
+            dataType: 'JSON',
+            success: function (resp) {
+                if (resp['code'] == 200) {
+                    var sum = 5;
+                    var timer = null;
+                    timer = setInterval(function () {
+
+                        if (sum < 0) {
+                            location.reload()
+                        }else{
+                             window.wxc.xcConfirm(sum + resp.msg, window.wxc.xcConfirm.typeEnum.success, {
+                                onOk: function (v) {
+                                    location.reload()
+                                }
+                            });
+                        }
+                        sum--
+                    }, 1000);
+                } else {
+                    window.wxc.xcConfirm(resp.msg, window.wxc.xcConfirm.typeEnum.error);
+                }
+            },
+            "error": function (resp) {
+                window.wxc.xcConfirm(resp.msg, window.wxc.xcConfirm.typeEnum.error);
+            }
+
+        })
+    }
 </script>

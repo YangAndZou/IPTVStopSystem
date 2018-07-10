@@ -7,6 +7,7 @@ from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 
@@ -60,6 +61,34 @@ def redirect_to_index(request):
         return redirect('/index')
     else:
         return redirect('/process_verify')
+
+
+@login_required()
+def change_password(request):
+    if request.method == "POST":
+        # if request.POST.get('password') == request.POST.get('c_password'):
+        oldPassword = request.POST.get('oldPassword')
+        newPassword = request.POST.get('newPassword')
+        repeatPassword = request.POST.get('repeatPassword')
+        print('----------------')
+        print(oldPassword)
+        print(newPassword)
+        print(repeatPassword)
+        print('----------------')
+        user = auth.authenticate(username=request.user.username, password=oldPassword)
+        if user is not None:
+            try:
+                current_user = User.objects.get(username=request.user)
+                if newPassword == repeatPassword:
+                    current_user.set_password(newPassword)
+                    current_user.save()
+                    return JsonResponse({"code": 200, "data": None, "msg": "密码修改成功, 即将跳转至登录页面..."})
+                else:
+                    return JsonResponse({'code': 201, 'msg': "前后密码不一致!"})
+            except Exception as e:
+                return JsonResponse({"code": 500, "data": None, "msg": "密码修改失败：%s" % str(e)})
+        else:
+            return JsonResponse({'code': 201, 'msg': "原始密码错误!"})
 
 
 def create_code_img(request):

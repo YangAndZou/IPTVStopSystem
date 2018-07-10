@@ -156,7 +156,8 @@ body{
     float: left;
     color:#509ff0
 }
-.loginUser li.exit{
+/*
+.loginUser li{
     background: url(../image/exit.png) no-repeat center right;
     height: 50px;
     background-size: 100px 50px;
@@ -164,7 +165,7 @@ body{
     text-align: center;
     line-height: 40px;
     cursor: pointer;
-}
+}*/
 .loginUser li a{
     color:#509ff0
 }
@@ -646,4 +647,15 @@ input[type="number"]{
 
 .dt-button-collection button:nth-child(2){
     display: none !important;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
+    background: transparent;
+    cursor: pointer;
+}
+.dropdown-menu{
+    background: #0c0c0c;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+    background: transparent;
+    color:#fff;
 }

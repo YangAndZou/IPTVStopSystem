@@ -4,7 +4,7 @@ import base64
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
-from IPTVStopSystem import utils
+from utils import utils
 from IPTVStopSystem.models import IPTVAuthCode, IPTVProgramOperationLog
 from IPTVStopSystem.models import IPTVEPG
 

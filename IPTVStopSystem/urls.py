@@ -14,23 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-import views
 from view import program
 from view import CDN
 from view import EPG
 from view import recommend
 from view import process_verify
+from view import index
 from django.conf.urls import url
 from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^verfiyCode$', views.create_code_img),
-    url(r'^login$', views.login),
-    url(r'^logout$', views.logout),
-    url(r'^changePassword$', views.change_password, name='changePassword'),
-    url(r'^$', views.redirect_to_index),
+    url(r'^verfiyCode$', index.create_code_img),
+    url(r'^login$', index.login),
+    url(r'^logout$', index.logout),
+    url(r'^changePassword$', index.change_password, name='changePassword'),
+    url(r'^$', index.redirect_to_index),
     url(r'^index$', EPG.show_epg),
 
     # program

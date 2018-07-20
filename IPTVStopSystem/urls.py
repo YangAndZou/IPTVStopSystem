@@ -1,3 +1,4 @@
+# coding=utf-8
 """IPTVStopSystem URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,6 +18,7 @@ import views
 from view import program
 from view import CDN
 from view import EPG
+from view import recommend
 from view import process_verify
 from django.conf.urls import url
 from django.contrib import admin
@@ -49,6 +51,8 @@ urlpatterns = [
 
     # process verify
     url(r'^process_verify$', process_verify.show_process_verify),
-    url(r'^set_code$', process_verify.set_auth_code)
+    url(r'^set_code$', process_verify.set_auth_code),
 
+    # 推荐页关停
+    url(r'^recommend$', recommend.index),
 ]

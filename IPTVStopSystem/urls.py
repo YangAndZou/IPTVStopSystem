@@ -56,4 +56,7 @@ urlpatterns = [
     # 推荐页关停
     url(r'^recommend_8$', recommend.index_8),
     url(r'^recommend_9$', recommend.index_9),
+    url(r'^load_db$', recommend.load_db),
+    url(r'^recommend_change$', recommend.recommend_change),
+    
 ]

@@ -5,7 +5,6 @@ import Queue
 import paramiko
 import threading
 import time
-from IPTVStopSystem import utils
 
 
 class WorkManager(object):

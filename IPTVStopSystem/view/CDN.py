@@ -6,8 +6,9 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, HttpResponse
-from IPTVStopSystem import utils, settings, optimizations
+from django.shortcuts import render
+from IPTVStopSystem import settings
+from utils import utils, optimizations
 from IPTVStopSystem.models import IPTVCDNNode, IPTVAuthCode
 from IPTVStopSystem.models import IPTVCDNOperationLog
 

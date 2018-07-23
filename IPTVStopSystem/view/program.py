@@ -2,18 +2,16 @@
 import base64
 import json
 
-import paramiko
 import time
 import datetime
 
-from IPTVStopSystem import utils
+from utils import utils, optimizations
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from IPTVStopSystem.models import IPTVProgramOperationLog
 from IPTVStopSystem.models import IPTVProgram
 from IPTVStopSystem.models import IPTVAuthCode
-from IPTVStopSystem import optimizations
 from IPTVStopSystem import settings
 
 

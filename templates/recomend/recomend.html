@@ -110,18 +110,31 @@
         .recomend-heading button {
             border: 0;
         }
+        .recomend-heading .version{
+            float: right;
+        }
+    .recomend-heading .version a{
+        font-weight: normal;
+        color:#337ab7;
+        font-size: 14px;
+    }
+    .recomend-heading button.active{
+        border:1px solid #337ab7;
+        color:#fff;
+    }
     </style>
     <div class="recomend">
         <div class="recomend-heading">
             <span>热门质询</span>
-            <button class="btn label-primary btn-xs" onclick="recomendTap('recom',10)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="recomBtn" onclick="recomendTap(this,'recom',10)" data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
-            <button class="btn label-primary btn-xs" onclick="recomendTap('live',7)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="liveBtn" onclick="recomendTap(this,'live',7)" data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
-            <button class="btn label-primary btn-xs" onclick="recomendTap('rank',4)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="rankBtn" onclick="recomendTap(this,'rank',4)" data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
-            <button class="btn label-primary btn-xs" onclick="recomendTap('hotapp',12)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="hotappBtn" onclick="recomendTap(this,'hotapp',12)" data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
+            <span class="version"><a href="">点击进入9期</a></span>
         </div>
         <div class="panel panel-recomend">
             <div class="recomend-body"></div>

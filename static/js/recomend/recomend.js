@@ -2,44 +2,13 @@ var oTable = null;
 var selectList = [];
 $(function () {
     $(".itemTabContent").find("li").eq(4).addClass('active');
-    recomendTap('hotapp',12)
+    recomendTap("#recomBtn",'hotapp',12)
 });
 
-function recomendTap(moduleID,num) {
-    switch(num) {
-        case 10:
-
-          break;
-        case 7:
-
-          break;
-        case 4:
-
-          break;
-        case 12:
-
-          break;
-        default:
-        break;
-
-    }
-loadImage(moduleID,num);
-    /*$.ajax({
-        url: "/program_change",
-        type: "Post",
-        data: {
-            moduleID:moduleID,
-        },
-        dataType: 'json',
-        "success": function (resp) {
-           loadImage(resp)
-        },
-        "error": function (response) {
-
-        }
-    })*/
-
-
+function recomendTap(op,moduleID,num) {
+    $(op).parent().find("button").removeClass("active");
+    $(op).addClass("active");
+    loadImage(moduleID,num);
 }
 function loadImage(moduleID,num){
     $(".recomend-body").attr('id',moduleID);
@@ -52,7 +21,7 @@ function loadImage(moduleID,num){
            }else if($index==4){
                str=str+'</div>'
            }
-        str+='<div class = "box"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
+        str+='<div class = "box" onclick="picTap(this,'+parseInt($index+1) +',\''+moduleID+'\')"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
        }
 
     }  else if (moduleID=="hotapp"){
@@ -64,15 +33,18 @@ function loadImage(moduleID,num){
            }else if($index==12){
                str=str+'</div>'
            }
-           str+='<div class = "box"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
+           str+='<div class = "box" onclick="picTap(this,'+parseInt($index+1)+',\''+moduleID+'\')"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
 
        }
     }else{
        for(var $index=0;$index<num;$index++){
-        str+='<div class = "box"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
+        str+='<div class = "box" onclick="picTap(this,'+parseInt($index+1)+',\''+moduleID+'\')"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
        }
     }
 
     $('#'+moduleID).append(str);
     onSize()
+}
+function picTap(op,pos,moduleID) {
+    console.log(op,pos,moduleID)
 }

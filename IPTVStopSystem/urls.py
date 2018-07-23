@@ -54,5 +54,6 @@ urlpatterns = [
     url(r'^set_code$', process_verify.set_auth_code),
 
     # 推荐页关停
-    url(r'^recommend$', recommend.index),
+    url(r'^recommend_8$', recommend.index_8),
+    url(r'^recommend_9$', recommend.index_9),
 ]

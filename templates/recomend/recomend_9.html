@@ -1,0 +1,133 @@
+{% extends 'index.html' %}
+{% block page-content %}
+    {% load static %}
+    {#<div class="headTitle">#}
+    {#    <span id="title">推荐页关停</span>#}
+    {#</div>#}
+    <style>
+        .recomend {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /*@media (max-width: 1920px) and (min-width: 1700px){
+              .recomend{width: 1500px;}
+        }
+        @media (max-width: 1700px) and (min-width: 1200px){
+            .recomend{width: 1400px;}
+        }
+        @media (max-width: 1200px) and (min-width: 800px){
+            .recomend{width: 1200px;}
+        }
+        @media  (max-width: 800px){
+            .recomend{width: 800px;}
+        }
+        .recomend-body{
+            position: relative;
+
+            width:100%;
+        }*/
+        .box {
+
+            float: left;
+            width: 25%;
+            position: relative;
+        }
+
+        .pic {
+
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 5px #ccc;
+        }
+
+        .recomend-body .box {
+            height: 50%;
+        }
+
+        .recomend-body .box img {
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .recomend-body .box .mask h5 {
+            transition: all 0.5s;
+            padding: 10px;
+        }
+
+        .recomend-body .box .mask {
+            color: #fff;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            min-height: 5px;
+            cursor: pointer;
+            transition: all 1s;
+        }
+
+        .recomend-body .box:hover h5 {
+            transition: all 0.5s;
+        }
+
+        .mask {
+            left: 5px;
+            right: 5px;
+            min-height: 50%;
+            bottom: 5px;
+
+            transition: all 1s;
+
+        }
+
+        .recomend-body .box:hover {
+            transform: scale(1.1, 1.1);
+            z-index: 1;
+            border: 1px solid #ccc;
+            background: #fff;
+            border-radius: 4px;
+            transition: all 0.5s;
+        }
+
+        .recomend-body .box:hover .mask .recomendBtn {
+            display: block;
+            transition: all 0.5s;
+        }
+
+        .recomend-body .box .mask .recomendBtn {
+            display: none;
+            transition: all 0.5s;
+        }
+
+        .recomend-heading span {
+            display: inline-block;
+            margin-right: 50px;
+        }
+
+        .recomend-heading button {
+            border: 0;
+        }
+    </style>
+    <div class="recomend">
+        <div class="recomend-heading">
+            <span>热门质询</span>
+            <button class="btn label-primary btn-xs" onclick="recomendTap('recom',10)" data-toggle="tooltip"
+                    data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
+            <button class="btn label-primary btn-xs" onclick="recomendTap('live',7)" data-toggle="tooltip"
+                    data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
+            <button class="btn label-primary btn-xs" onclick="recomendTap('rank',4)" data-toggle="tooltip"
+                    data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
+            <button class="btn label-primary btn-xs" onclick="recomendTap('hotapp',12)" data-toggle="tooltip"
+                    data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
+        </div>
+        <div class="panel panel-recomend">
+            <div class="recomend-body"></div>
+        </div>
+
+
+    </div>
+    <script src="{% static 'js/recomend/recomend.js' %}"></script>
+{% endblock %}

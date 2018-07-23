@@ -63,7 +63,6 @@ function layout(option) {
     $(".panel").css({
         minHeight:(height-150)+'px'
     });
-    var panelH=$(".panel").height();
     /*$(".table tr td").css({
         height:(panelH-200)/10+"px",
         lineHeight:(panelH-200)/10+"px",
@@ -72,7 +71,86 @@ function layout(option) {
     })*/
 
 }
+function onSize() {
+    var height=window.innerHeight;
+    var width=window.innerWidth;
+    $(".panel-recomend").css({
+        minHeight:(height-140)+'px'
+    });
+    var ratio=2.2;
+    $(".recomend-body").css({
+        width:'100%',
+        height:Math.floor($(".recomend-body").width()/ratio)+'px'
+    });
+    var parentW=$(".recomend-body").width()-1;
+    var parentH=$(".recomend-body").height();
+    $("#recom").find(".box").each(function (index,obj) {
+        var rows=4;
+        var boxW=0;
+        var boxH=0;
+        if(index>=6){
+            boxW=parentW/8;
+        }else if(3<index<6){
+            boxW=parentW/4;
+        }else if (index<=3){
+            boxW=parentW/4;
+        }
+        if (index<=3){
+            boxH=(parentH/rows)*3;
+        }else{
+            boxH=(parentH/rows);
+        }
+        $(obj).width(boxW).height(boxH);
+    });
+    $("#live").find(".box").each(function (index,obj) {
+        var rows=4;
+        var boxW=0;
+        var boxH=0;
+        boxW=parentW/4;
+        if (index<=3){
+            boxH=(parentH/rows);
+            $(obj).css({
+                float: 'none',
+            })
+        }else{
+            boxH=(parentH);
 
+        }
+        $(obj).width(boxW).height(boxH);
+    });
+    $("#rank").find(".box").each(function (index,obj) {
+        var rows=1;
+        var boxW=0;
+        var boxH=0;
+        boxW=parentW/4;
+        boxH=(parentH/rows);
+        $(obj).width(boxW).height(boxH);
+    });
+     $("#hotapp").find(".box").each(function (index,obj) {
+        var boxW=0;
+        var boxH=0;
+        var ratioH= parentH/3;
+        var ratioW= parentW/7;
+        if (index<3||5<index<11){
+            boxH=ratioH;
+            boxW=ratioW;
+        }
+        if(index==3){
+            boxH=ratioH*2;
+            boxW=ratioW*2;
+        }else if(index==4){
+            boxH=ratioH;
+            boxW=ratioW*2;
+        }else if(index==11){
+            boxH=ratioH*3;
+            boxW=ratioW*2;
+        }
+        $(obj).css({
+                float: 'none',
+            })
+        $(obj).width(boxW).height(boxH);
+    });
+}
 /*
 function autoInputFn() {
     var autoinput = $("input.auto-input");

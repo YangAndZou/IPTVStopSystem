@@ -195,9 +195,29 @@ body{
 .panel.panel-default .panel-body{
     color:#fff;
 }
+.panel.panel-recomend{
+    background:transparent;
+}
+.recomend-heading{
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-indent: 1em;
+}
+.recomend-body{
+    padding: 10px;
+    position: relative;
+}
 .panel{
     margin: 10px;
     border:0;
+}
+.label-primary{
+    background: transparent;
+    border:1px solid #337ab7;
+    color:#337ab7
 }
 .table-striped > tbody > tr:nth-of-type(odd),
 .table-hover > tbody > tr:hover{

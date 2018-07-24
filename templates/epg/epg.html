@@ -1,15 +1,23 @@
 {% extends 'index.html' %}
 {% block page-content %}
-{% load static %}
-<div class="headTitle">EPG一键关停</div>
-<div  class="panel panel-default">
-    <div class="epgContent">
-        <div class="epgCard">
-            <button class="btn btn-primary btnClose" onclick="modeConfirm({{ status }})">
-            EPG一键{% if status == 1 %}<span>开启</span>{% elif status == 2 %}<span>关停</span>{% endif %}
-            </button>
+    {% load static %}
+    <div class="headTitle">EPG一键关停</div>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: right">
+            <button class="btn btn-primary btn-sm">5期以前版本</button>
+            <button class="btn btn-primary btn-sm">6-8期版本</button>
+            <button class="btn btn-primary btn-sm">9期以上版本</button>
         </div>
-     </div>
-</div>
-<script src="{% static 'js/epg/epg.js' %}"></script>
+
+        <div class="epgContent">
+
+            <div class="epgCard">
+
+                <button class="btn btn-primary btnClose" onclick="modeConfirm({{ status }})">
+                    EPG一键{% if status == 1 %}<span>开启</span>{% elif status == 2 %}<span>关停</span>{% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/epg/epg.js' %}"></script>
 {% endblock %}

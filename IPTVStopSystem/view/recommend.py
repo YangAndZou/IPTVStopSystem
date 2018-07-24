@@ -24,20 +24,19 @@ def load_db(request):
 @login_required
 def recommend_change_8(request):
     position_head = request.POST.get('position_head')
-    position_x = request.POST.get('position_x')
-    position_y = request.POST.get('position_y')
+    position = request.POST.get('position')
     status = request.POST.get('status')
 
     try:
-        if position_x is None and position_y is None and position_head is None:
+        if position is None and position_head is None:
             return JsonResponse({'code': 500, 'msg': '无效的坐标！'})
 
         # 0表示关停状态，需要开启
         if status == '0':
-            utils.turn_on(position_head, position_x, position_y)
+            utils.turn_on(position_head, position)
             return JsonResponse({'code': 200, 'msg': '开启成功！'})
         else:
-            utils.turn_off(position_head, position_x, position_y)
+            utils.turn_off(position_head, position)
             return JsonResponse({'code': 200, 'msg': '关停成功！'})
 
     except Exception as e:

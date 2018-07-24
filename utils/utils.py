@@ -22,11 +22,11 @@ def ssh_paramiko(ip, port, username, passwd, cmd, sudo=False):
 
 
 # TODO 开启接口
-def turn_on(position_head, position_x, position_y):
+def turn_on(position_head, position):
     pass
 
 
 # TODO 关停接口
-def turn_off(position_head, position_x, position_y):
+def turn_off(position_head, position):
     pass
 

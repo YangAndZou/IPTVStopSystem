@@ -21,7 +21,7 @@ function loadImage(moduleID,num){
            }else if($index==4){
                str=str+'</div>'
            }
-        str+='<div class = "box" onclick="picTap(this,'+parseInt($index+1) +',\''+moduleID+'\')"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
+        str+='<div class = "box"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button onclick="picTap(this,'+parseInt($index+1) +',\''+moduleID+'\')"><i class="glyphicon glyphicon-off"></i></button> </div> </div> </div>'
        }
 
     }  else if (moduleID=="hotapp"){
@@ -33,12 +33,12 @@ function loadImage(moduleID,num){
            }else if($index==12){
                str=str+'</div>'
            }
-           str+='<div class = "box" onclick="picTap(this,'+parseInt($index+1)+',\''+moduleID+'\')"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
+           str+='<div class = "box"  > <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button onclick="picTap(this,'+parseInt($index+1)+',\''+moduleID+'\')"><i class="glyphicon glyphicon-off"></i></button> </div> </div> </div>'
 
        }
     }else{
        for(var $index=0;$index<num;$index++){
-        str+='<div class = "box" onclick="picTap(this,'+parseInt($index+1)+',\''+moduleID+'\')"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button class="btn btn-close btn-sm">关停</button> </div> </div> </div>'
+        str+='<div class = "box" onclick="picTap(this,'+parseInt($index+1)+',\''+moduleID+'\')"> <img src = "/static/image/1.png"> <div class="mask"> <h5>标题页</h5> <div class="recomendBtn"> <button onclick="picTap(this,'+parseInt($index+1)+',\''+moduleID+'\')"><i class="glyphicon glyphicon-off"></i></button> </div> </div> </div>'
        }
     }
 
@@ -46,5 +46,10 @@ function loadImage(moduleID,num){
     onSize()
 }
 function picTap(op,pos,moduleID) {
-    console.log(op,pos,moduleID)
+    window.wxc.xcConfirm("确定要关停该频道吗？", window.wxc.xcConfirm.typeEnum.warning, {
+        onOk: function (v) {
+               console.log(op,pos,moduleID)
+        }
+    });
+
 }

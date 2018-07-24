@@ -1,32 +1,11 @@
 {% extends 'index.html' %}
 {% block page-content %}
     {% load static %}
-    {#<div class="headTitle">#}
-    {#    <span id="title">推荐页关停</span>#}
-    {#</div>#}
     <style>
         .recomend {
             width: 90%;
             margin: 0 auto;
         }
-
-        /*@media (max-width: 1920px) and (min-width: 1700px){
-              .recomend{width: 1500px;}
-        }
-        @media (max-width: 1700px) and (min-width: 1200px){
-            .recomend{width: 1400px;}
-        }
-        @media (max-width: 1200px) and (min-width: 800px){
-            .recomend{width: 1200px;}
-        }
-        @media  (max-width: 800px){
-            .recomend{width: 800px;}
-        }
-        .recomend-body{
-            position: relative;
-
-            width:100%;
-        }*/
         .box {
 
             float: left;
@@ -55,6 +34,10 @@
         .recomend-body .box .mask h5 {
             transition: all 0.5s;
             padding: 10px;
+        }
+
+        .recomend-body .box:hover .mask {
+            top: 5px;
         }
 
         .recomend-body .box .mask {
@@ -95,11 +78,34 @@
         .recomend-body .box:hover .mask .recomendBtn {
             display: block;
             transition: all 0.5s;
+            text-align: center;
+            position: absolute;
+
+        }
+
+        .recomend-body .box:hover .mask .recomendBtn button {
+            background: transparent;
+            border: 0;
+            outline: none;
+            height:100%;
+            color: rgb(158, 45, 30)
         }
 
         .recomend-body .box .mask .recomendBtn {
             display: none;
             transition: all 0.5s;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 50%;
+            width: 50%;
+
+        }
+
+        .recomend-body .box .mask .recomendBtn i {
+            font-size: 60px;
+
         }
 
         .recomend-heading span {
@@ -110,31 +116,38 @@
         .recomend-heading button {
             border: 0;
         }
-        .recomend-heading .version{
+
+        .recomend-heading .version {
             float: right;
         }
-    .recomend-heading .version a{
-        font-weight: normal;
-        color:#337ab7;
-        font-size: 14px;
-    }
-    .recomend-heading button.active{
-        border:1px solid #337ab7;
-        color:#fff;
-    }
+
+        .recomend-heading .version a {
+            font-weight: normal;
+            color: #337ab7;
+            font-size: 14px;
+        }
+
+        .recomend-heading button.active {
+            border: 1px solid #337ab7;
+            color: #fff;
+        }
     </style>
     <div class="recomend">
         <div class="recomend-heading">
             <span>热门质询</span>
-            <button class="btn label-primary btn-xs" id="recomBtn" onclick="recomendTap(this,'recom',10)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="recomBtn" onclick="recomendTap(this,'recom',10)"
+                    data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
-            <button class="btn label-primary btn-xs" id="liveBtn" onclick="recomendTap(this,'live',7)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="liveBtn" onclick="recomendTap(this,'live',7)"
+                    data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
-            <button class="btn label-primary btn-xs" id="rankBtn" onclick="recomendTap(this,'rank',4)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="rankBtn" onclick="recomendTap(this,'rank',4)"
+                    data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
-            <button class="btn label-primary btn-xs" id="hotappBtn" onclick="recomendTap(this,'hotapp',12)" data-toggle="tooltip"
+            <button class="btn label-primary btn-xs" id="hotappBtn" onclick="recomendTap(this,'hotapp',12)"
+                    data-toggle="tooltip"
                     data-placement="left" title="Tooltip on left"><i class="glyphicon glyphicon-grain"></i></button>
-            <span class="version"><a href="">点击进入9期</a></span>
+            <span class="version"><a href="/recommend_9">点击进入9期</a></span>
         </div>
         <div class="panel panel-recomend">
             <div class="recomend-body"></div>

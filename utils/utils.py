@@ -19,3 +19,14 @@ def ssh_paramiko(ip, port, username, passwd, cmd, sudo=False):
     except Exception as e:
         print('%s Error,  %s\n' % (ip, e))
         return result
+
+
+# TODO 开启接口
+def turn_on(position_head, position_x, position_y):
+    pass
+
+
+# TODO 关停接口
+def turn_off(position_head, position_x, position_y):
+    pass
+

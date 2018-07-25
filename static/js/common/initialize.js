@@ -22,6 +22,7 @@ $(function () {
     layout(layoutClass);
     $(window).resize(function () {
         layout(layoutClass);
+         onSize()
     });
     $(".querySubmit").nextAll().hide();
     var bottom="<i class=\"glyphicon glyphicon-triangle-bottom\"></i>展开查询更多";
@@ -147,10 +148,38 @@ function onSize() {
         }
         $(obj).css({
                 float: 'none',
-            })
+            });
         $(obj).width(boxW).height(boxH);
     });
+     $("#header").find(".box").each(function (index,obj) {
+        var rows=4;
+        var boxW=0;
+        var boxH=0;
+        var padding=5;
+        var boxparentW=$("#header").width()-2;
+        var ratio=2.2;
+        $("#header").css({
+            height:Math.floor(boxparentW/ratio)+'px',
+        });
+        var boxparentH=$("#header").height();
+        console.log(boxparentW,boxparentH)
+        boxW=boxparentW/4;
+        boxH=boxparentH/3;
+        if(index==0){
+            boxW=boxW*2;
+            boxH=boxH*2;
+            // $(obj).css({
+            //     float: 'none',
+            // })
+
+        }else{
+            boxW=boxW*1;
+            boxH=boxH*1;
+        }
+         $(obj).width(boxW-(padding*2)).height(boxH-(padding*2));
+    });
 }
+
 /*
 function autoInputFn() {
     var autoinput = $("input.auto-input");

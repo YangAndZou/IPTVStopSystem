@@ -15,6 +15,27 @@ var data = {
         {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"}, {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}
     ]
 };//模拟数据
+var loadToolBarFn = function () {
+    var data = ["全部", "电视", "应用", "精选", "会员", "电视剧", "电影", "少儿", "综艺", "学堂", "电竞", "游戏", "教育", "商城", "4k影院"]
+    var temp = '<li><a onclick="titleTap(this)">{{ title }}</a></li>';
+    var str = '';
+    var total = data.length;
+    for (var $index = 0; $index < data.length; $index++) {
+        str += temp.replace(/{{ title }}/g, data[$index])
+    }
+    $("#toolbarList").append(str).width(90 * total);
+    $("#toolbarList").find("a").eq(0).addClass("active");
+    var width=$("#toolbarList").width();
+    var listWidth=$("#toolbarList").parent().width();
+    if(width<listWidth){
+        $(".toRight").hide()
+    }
+
+};
+var titleTap=function (op) {
+    $("#toolbarList").find("a").removeClass("active");
+    $(op).addClass("active")
+};
 
 //点击上一页
 var _prevTap = function (op, rowCount) {
@@ -33,7 +54,7 @@ var _prevTap = function (op, rowCount) {
             $(op).attr("name", parseInt($(op).attr("name")) - 1);//点击上一行则减1
             $(op).next().next().attr("name", parseInt($(op).attr("name")));//同时下一行的属性name的值也要保持一致
             var count = parseInt($(op).attr("name"));//重新获取点击的次数
-            if(count<=0){ //注意，如果次数为0的话，就不能点击上一页了
+            if (count <= 0) { //注意，如果次数为0的话，就不能点击上一页了
                 $(op).hide()
             }
             loadLeave(op, rowCount, count, parseInt(count + 5), data)//根据参数重新渲染该行的dom
@@ -133,7 +154,7 @@ var _loadImage = function (data, start, end) {
     }//boxdom渲染，box的name属性表示该行某列
     //上一页dom渲染，的name属性表示点击的次数，点击下一行则加1,点击上一行则减1
     var left = '<div class="prev" name="' + count + '" id="prev' + rowCount + '" onclick="_prevTap(this,' + rowCount + ' )"><i class="glyphicon glyphicon-chevron-left"></i></div><ul class="boxrow" name="' + rowCount + '">';
-   //下一页dom渲染，的name属性表示点击的次数，点击下一行则加1,点击上一行则减1
+    //下一页dom渲染，的name属性表示点击的次数，点击下一行则加1,点击上一行则减1
     var right = '</ul><div class="next" name="' + count + '" id="next' + rowCount + '" onclick="_nextTap(this,' + rowCount + ')"><i class="glyphicon glyphicon-chevron-right"></i></div> ';
     //该行的标题，总列数，选中某列
     var titleTempl = '<div class="rowTitle">{{title}}&nbsp;<span class="colActive">1</span>/{{colTotal}}</div>';
@@ -189,9 +210,6 @@ $(function () {
 
     Waterfall.prototype = {
         constructor: Waterfall,
-        _prevTap: function (rowCount) {
-            console.log(rowCount)
-        },
         _init: function () {
             var $this = this;
             $window.on("load", function () {
@@ -206,8 +224,10 @@ $(function () {
         },
         _loadRows: function () {
             var $this = this;
+            loadToolBarFn();
             _loadHeader1();
             _loadImage(data, 0, 5);
+
         },
         _positionAll: function () {
             var $this = this,
@@ -260,7 +280,68 @@ $(function () {
             end();
         }
     });
+    var left = 0;
+    $(".toRight").click(function () {
+        $(".toLeft").show();
+        $(".toRight").show();
+        var listDom = $("#toolbarList");
+        var toLeft = listDom.css("marginLeft");
+        var toLeftAr = -parseFloat(toLeft.substring(0, toLeft.length - 2));
+        var listW = listDom.width();
+        var tabBoxWidth = listDom.parent().width();
+        var sum = parseFloat(toLeftAr + tabBoxWidth);
+        var leftW=270;
+        if (sum <= listW) {
+            if(sum+leftW>=listW){
+               $(this).hide()
+            }
+            left = left - leftW;
+            $(this).prev().find(".toolbarList").animate({
+                marginLeft: left + "px"
+            })
+        }
+    });
+    $(".toLeft").click(function () {
+        $(".toLeft").show();
+        $(".toRight").show();
+        var listDom = $("#toolbarList");
+        var toLeft = listDom.css("marginLeft");
+        var toLeftAr = parseFloat(toLeft.substring(0, toLeft.length - 2));
+        var leftW=270;
+        if (toLeftAr < 0) {
+            if(toLeftAr+leftW>=0){
+                $(this).hide()
+            }
+            left = left + leftW;
+            $(this).next().find(".toolbarList").animate({
+                marginLeft: left
+            })
+        }
+
+    });
     $(document).keyup(function (event) {
-      
+        var row = parseInt($(".box.active").parent(".boxrow").attr("name"));
+        var col = parseInt($(".box.active").attr("name"));
+        if (event.keyCode == 37) {
+            if (col != undefined) {
+                boxmouse($($(".row")[row]).find(".box")[col - 1], row, col)
+
+            }
+        }
+        if (event.keyCode == 38) {
+            if (row != undefined) {
+                boxmouse($($(".row")[row - 1]).find(".box")[col], row, col)
+            }
+        }
+        if (event.keyCode == 39) {
+            if (col != undefined) {
+                boxmouse($($(".row")[row]).find(".box")[col + 1], row, col)
+            }
+        }
+        if (event.keyCode == 40) {
+            if (row != undefined) {
+                boxmouse($($(".row")[row + 1]).find(".box")[col], row, col)
+            }
+        }
     });
 });

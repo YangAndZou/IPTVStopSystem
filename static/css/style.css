@@ -206,6 +206,13 @@ body{
     font-weight: bold;
     text-indent: 1em;
 }
+.versionTip{
+    width: 500px;
+     margin:0 auto;
+    text-align: left;
+    margin-bottom:20px;
+
+}
 .recomend-body{
     padding: 10px;
     position: relative;

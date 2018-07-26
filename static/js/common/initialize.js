@@ -156,13 +156,12 @@ function onSize() {
         var boxW=0;
         var boxH=0;
         var padding=5;
-        var boxparentW=$("#header").width()-2;
+        var boxparentW=$("#header").width();
         var ratio=2.2;
         $("#header").css({
             height:Math.floor(boxparentW/ratio)+'px',
         });
         var boxparentH=$("#header").height();
-        console.log(boxparentW,boxparentH)
         boxW=boxparentW/4;
         boxH=boxparentH/3;
         if(index==0){

@@ -7,100 +7,154 @@ sys.setdefaultencoding('utf8')
 
 
 class IPTVEPG(models.Model):
+    """
+    EPG模板表
+    """
     s = (
-        (1, '关停'),
-        (2, '开启')
+        (0, '下线'),
+        (1, '上线')
     )
-    status = models.SmallIntegerField(choices=s, verbose_name='EPG状态')
+    version = models.CharField(max_length=25, verbose_name='EPG模板版本')
+    status = models.SmallIntegerField(choices=s, verbose_name='EPG状态', default=1)
+
+    def __unicode__(self):
+        return self.version
 
     class Meta:
         db_table = 'iptv_epg'
         verbose_name = 'EPG表'
-        verbose_name_plural = 'EPG表'
 
 
-class IPTVProgram(models.Model):
-    program_status = (
-        (1, '关停'),
-        (2, '正常')
-    )
-    # types = (
-    #     ('sn', '省内'),
-    #     ('gq', '高清'),
-    #     ('ys', '央视'),
-    #     ('ws', '卫视'),
-    #     ('qt', '其他'),
-    #     ('ff', '付费')
-    # )
-    # ip_types = (
-    #     ('iptv', 'iptv'),
-    #     ('iptv+', 'iptv+')
-    # )
-    # platform_type = (
-    #     ('huawei', '华为'),
-    #     ('ZTE', '中兴'),
-    #     ('oldZTE', '旧版中兴')
-    # )
-    program_num = models.CharField(verbose_name='频道号', max_length=128, null=True)
-    program_name = models.CharField(max_length=128, verbose_name='频道名称', null=True)
-    program_type = models.CharField(max_length=30, verbose_name='频道类型', null=True)
-    program_ip = models.CharField(max_length=256, verbose_name='频道ip', null=True)
-    program_ip_type = models.CharField(verbose_name='ip地址类型', max_length=50, null=True)
-    platform = models.CharField(max_length=30, verbose_name='平台类型', null=True)
-    status = models.SmallIntegerField(choices=program_status, verbose_name='频道状态 1 关停 2 正常')
-
-    def __str__(self):
-        return self.program_name
-
-    class Meta:
-        db_table = 'iptv_program'
-        verbose_name = '直播频道表'
-        verbose_name_plural = '直播频道表'
-
-
-class IPTVCDNNode(models.Model):
+class IPTVLiveProgram(models.Model):
+    """
+    直播频道表
+    """
     s = (
-        (1, '关停'),
-        (2, '正常')
+        (0, '下线'),
+        (1, '上线')
     )
-    city = models.CharField(max_length=128, verbose_name='所属地市')
-    ip = models.CharField(max_length=128, verbose_name='ip')
-    device_name = models.CharField(max_length=64, verbose_name='设备名')
-    status = models.SmallIntegerField(choices=s, verbose_name='状态')
-    paltform = models.CharField(max_length=64, verbose_name='平台')
+
+    name = models.CharField(max_length=50, verbose_name='频道名称')
+    status = models.SmallIntegerField(choices=s, verbose_name='频道状态', default=1)
+    channel_id = models.CharField(max_length=25, verbose_name='频道名英文缩写')
+    number = models.SmallIntegerField(verbose_name='频道号', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
 
     class Meta:
-        db_table = 'iptv_cdn_node'
-        verbose_name = 'CDN节点表'
-        verbose_name_plural = 'CDN节点表'
+        db_table = 'iptv_live_program'
+        verbose_name = '直播频道表'
 
 
-class IPTVProgramOperationLog(models.Model):
-    program = models.ForeignKey(to=IPTVProgram, verbose_name='频道', related_name='iptv_program_operation_log', null=True)
-    content = models.TextField(verbose_name='操作内容')
-    update_time = models.DateTimeField(auto_now_add=True, verbose_name='更新时间')
+class IPTVVOD(models.Model):
+    """
+    点播频道表
+    """
+    s = (
+        (0, '下线'),
+        (1, '上线')
+    )
+    name = models.CharField(max_length=50, verbose_name='已操作的点播频道名')
+    status = models.SmallIntegerField(choices=s, verbose_name='点播频道状态', default=1)
 
-    class Meta:
-        db_table = 'iptv_program_operation_log'
-        verbose_name = '直播频道操作日志表'
-        verbose_name_plural = '直播频道操作日志表'
-
-
-class IPTVCDNOperationLog(models.Model):
-    cdn = models.ForeignKey(to=IPTVCDNNode, verbose_name='CDN节点', related_name='iptv_cdn_operation_log')
-    content = models.TextField(verbose_name='操作内容')
-    update_time = models.DateTimeField(auto_now_add=True, verbose_name='更新时间')
+    def __unicode__(self):
+        return self.name
 
     class Meta:
-        db_table = 'iptv_cdn_operation_log'
-        verbose_name = 'CDN操作日志表'
-        verbose_name_plural = 'CDN操作日志表'
+        db_table = 'iptv_vod'
+        verbose_name = '点播频道表'
 
 
-class IPTVAuthCode(models.Model):
-    auth_code = models.CharField(max_length=256, verbose_name='授权码（加密）')
+class IPTVRecommend(models.Model):
+    """
+    推荐位表
+    """
+    s = (
+        (0, '下线'),
+        (1, '上线')
+    )
+
+    desc = models.CharField(max_length=256, verbose_name='推荐描述', null=True, blank=True)
+    picture_url = models.CharField(max_length=256, verbose_name='图片URL地址', null=True, blank=True)
+    status = models.SmallIntegerField(choices=s, verbose_name='推荐位状态', default=1)
+    version = models.CharField(max_length=25, verbose_name='模板版本')
+    domain = models.CharField(max_length=25, verbose_name='当前页面所在域')
+    postion_x = models.SmallIntegerField(verbose_name='横向编号')
+    postion_y = models.IntegerField(verbose_name='纵向编号', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.desc
 
     class Meta:
-        db_table = 'iptv_auth_code'
-        verbose_name = '授权码表'
-        verbose_name_plural = '授权码表'
+        db_table = 'iptv_recommend'
+        verbose_name = '推荐位表'
+
+
+class IPTVEPGLog(models.Model):
+    """
+    EPG操作日志记录表
+    """
+    log = models.ForeignKey(to='IPTVEPG', verbose_name='日志关联EPG的外键',
+                            related_name='iptv_epg_log', on_delete=models.SET_NULL,
+                            null=True, blank=True)
+    content = models.CharField(max_length=100, verbose_name='操作内容')
+    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+
+    def __unicode__(self):
+        return self.content
+
+    class Meta:
+        db_table = 'iptv_epg_log'
+        verbose_name = 'EPG日志记录表'
+
+
+class IPTVLiveProgramLog(models.Model):
+    """
+    直播频道操作日志记录表
+    """
+    log = models.ForeignKey(to='IPTVLiveProgram', verbose_name='日志关联直播的外键',
+                            related_name='iptv_live_program_log', on_delete=models.SET_NULL,
+                            null=True, blank=True)
+    content = models.CharField(max_length=100, verbose_name='操作内容')
+    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+
+    def __unicode__(self):
+        return self.content
+
+    class Meta:
+        db_table = 'iptv_live_program_log'
+        verbose_name = '直播频道操作日志记录表'
+
+
+class IPTVVODLog(models.Model):
+    """
+       点播频道操作日志记录表
+       """
+    log = models.ForeignKey(to='IPTVVOD', verbose_name='日志关联点播的外键',
+                            related_name='iptv_vod_log', on_delete=models.SET_NULL,
+                            null=True, blank=True)
+    content = models.CharField(max_length=100, verbose_name='操作内容')
+    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+
+    def __unicode__(self):
+        return self.content
+
+    class Meta:
+        db_table = 'iptv_vod_log'
+        verbose_name = '点播频道操作日志记录表'
+
+
+class IPTVRecommendLog(models.Model):
+    log = models.ForeignKey(to='IPTVRecommend', verbose_name='日志关联推荐位的外键',
+                            related_name='iptv_recommend_log', on_delete=models.SET_NULL,
+                            null=True, blank=True)
+    content = models.CharField(max_length=100, verbose_name='操作内容')
+    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+
+    def __unicode__(self):
+        return self.content
+
+    class Meta:
+        db_table = 'iptv_recommend_log'
+        verbose_name = '点播频道操作日志记录表'

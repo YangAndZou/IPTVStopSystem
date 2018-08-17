@@ -7,7 +7,7 @@
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
     <META HTTP-EQUIV="expires" CONTENT="0">
     <title>湖南电信天翼高清一键关停</title>
-    <link rel="icon" href="/static/image/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{% static '/image/favicon.ico' %}" type="image/x-icon">
     <script src="{% static 'jquery/jquery.min.js' %}"></script>
     <script src="{% static 'js/common/initialize.js' %}"></script>
 
@@ -39,7 +39,9 @@
     <script>
 
     </script>
+    <style>
 
+    </style>
 <body>
 <div class="container-box">
     <div class="nav">
@@ -64,9 +66,9 @@
                     </li>
                 </ul>
             </div>
-{#            <ul class="loginMenu">#}
-{#                <li><i class="glyphicon glyphicon-indent-right"></i></li>#}
-{#            </ul>#}
+            {#            <ul class="loginMenu">#}
+            {#                <li><i class="glyphicon glyphicon-indent-right"></i></li>#}
+            {#            </ul>#}
             <ul class="loginUser">
                 <li class="user dropdown">
                     <a id="login_user" class="dropdown-toggle a-white" data-toggle="dropdown">
@@ -76,8 +78,10 @@
                         <li class="editUser">
                             <a onclick="openModal(this)"><i class="glyphicon glyphicon-wrench"></i> 修改密码</a>
                         </li>
-                        <li class="help">
-                            <a onmouseover="helpModal(this)"><i class="glyphicon  glyphicon-question-sign"></i> 帮助</a>
+                        <li class="help" onmouseover="helpModal(this)" onmouseleave="hideHelp(this)">
+                            <div class="helpDoc">
+                            </div>
+                            <a><i class="glyphicon  glyphicon-question-sign"></i> 帮助</a>
                         </li>
                         <li>
                             <a href="/logout"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a>
@@ -160,16 +164,27 @@
             $(".btnClose").attr("disabled", true);
             $(".btnOpen").attr("disabled", true);
         }
-    })
+    });
 
     function openModal() {
         $("#editUser").modal("show")
     }
-    function helpModal(){
+
+    function helpModal(op) {
+        if ($(op).find(".helpDoc").text() > 0) {
+            $(op).find(".helpDoc").fadeIn();
+            $(op).find("a").addClass("to")
+        }
 
     }
+
+    function hideHelp(op) {
+        $(op).find(".helpDoc").fadeOut();
+        $(op).find("a").removeClass("to")
+    }
+
     $(document).keyup(function (event) {
-        if (event.keyCode == 13&&$("#editUser").is(":visible")) {
+        if (event.keyCode == 13 && $("#editUser").is(":visible")) {
             if ($("#editPassSave") != undefined) {
                 $("#editPassSave").trigger("click")
             }
@@ -192,8 +207,8 @@
                     var sum = 5;
                     var timer = null;
                     timer = setInterval(function () {
-                        var dom='wxc'+parseInt(sum+1);
-                        $("#"+dom).remove();
+                        var dom = 'wxc' + parseInt(sum + 1);
+                        $("#" + dom).remove();
                         if (sum < 0) {
                             location.reload()
                         } else {
@@ -201,9 +216,9 @@
                                 onOk: function (v) {
                                     location.reload()
                                 }
-                            },'wxc'+sum);
+                            }, 'wxc' + sum);
                         }
-                       sum--
+                        sum--
                     }, 1000);
                 } else {
                     window.wxc.xcConfirm(resp.msg, window.wxc.xcConfirm.typeEnum.error);

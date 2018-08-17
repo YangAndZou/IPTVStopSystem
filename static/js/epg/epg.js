@@ -1,6 +1,28 @@
 var selectList = [];
 $(function () {
     $(".itemTabContent").find("li").eq(1).addClass('active');
+     $(".versionTip").find("span").text("5期以前版本");
+    $(".version input").click(function () {
+        var index=$(this).index();
+        var version="5期以前版本";
+        switch (index){
+            case 0:
+                version="5期以前版本";
+                break;
+            case 1:
+                version="6-8期版本";
+                break;
+            case 2:
+                version="9期以上版本";
+                break;
+            default:
+                break;
+        }
+        $(".version input").removeClass("active");
+        $(this).addClass("active");
+        $(".versionTip").find("span").text(version)
+
+    })
 });
 
 function modeConfirm(index) {

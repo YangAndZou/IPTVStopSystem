@@ -24,7 +24,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
 
     url(r'^verfiyCode$', index.create_code_img),
     url(r'^login$', index.login),

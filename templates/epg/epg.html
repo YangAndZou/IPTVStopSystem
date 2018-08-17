@@ -3,17 +3,19 @@
     {% load static %}
     <div class="headTitle">EPG一键关停</div>
     <div class="panel panel-default">
-        <div class="panel-heading" style="text-align: right">
-            <input type="radio" class="version" name="version" value="0">5期以前版本
-            <input type="radio" class="version" name="version" value="1">6-8期版本
-            <input type="radio" class="version" name="version" value="2">9期以上版本
-        </div>
+        <style>
 
+        </style>
         <div class="epgContent">
-            <div class="versionTip">5期当前状态:上线</div>
+            <div class="version">
+                <input class="gv active" value="5期以前版本" type="button">
+                <input class="gv" value="6-8期版本" type="button">
+                <input class="gv" value="9期以上版本" type="button">
+            </div>
+            <div class="versionTip"><span></span>当前状态:上线</div>
             <div class="epgCard">
 
-                <button class="btn btn-primary btnClose" onclick="modeConfirm({{ status }})">
+                <button class="btnClose" onclick="modeConfirm({{ status }})">
                     EPG一键{% if status == 1 %}<span>开启</span>{% elif status == 2 %}<span>关停</span>{% endif %}
                 </button>
             </div>

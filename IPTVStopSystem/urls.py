@@ -15,10 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from view import program
-from view import CDN
+# from view import CDN
 from view import EPG
 from view import recommend
-from view import process_verify
+# from view import process_verify
 from view import index
 from django.conf.urls import url
 from django.contrib import admin
@@ -37,21 +37,21 @@ urlpatterns = [
     url(r'^program/(?P<program_name>[\s\S]*)/(?P<program_type>[\s\S]*)/(?P<platform>[\s\S]*)/(?P<status>[\s\S]*)/(?P<program_ip_type>[\s\S]*)$',
         program.show_program),
     url(r'^program_logs/(?P<start_time>[\s\S]*)/(?P<end_time>[\s\S]*)$', program.show_log),
-    url(r'^program_change$', program.program_change),
+    # url(r'^program_change$', program.program_change),
     url(r'^approximate$', program.approximate),
 
     # CDN
-    url(r'^cdn_logs/(?P<start_time>[\s\S]*)/(?P<end_time>[\s\S]*)$', CDN.show_log),
-    url(r'^cdn/(?P<platform>[\s\S]*)/(?P<city>[\s\S]*)/$', CDN.show_cdn),
-    url(r'^cdn_change$', CDN.cdn_change),
+    # url(r'^cdn_logs/(?P<start_time>[\s\S]*)/(?P<end_time>[\s\S]*)$', CDN.show_log),
+    # url(r'^cdn/(?P<platform>[\s\S]*)/(?P<city>[\s\S]*)/$', CDN.show_cdn),
+    # url(r'^cdn_change$', CDN.cdn_change),
 
     # EPG
     url(r'^epg$', EPG.show_epg),
-    url(r'^epg_one_key$', EPG.epg_one_key),
+    # url(r'^epg_one_key$', EPG.epg_one_key),
 
     # process verify
-    url(r'^process_verify$', process_verify.show_process_verify),
-    url(r'^set_code$', process_verify.set_auth_code),
+    # url(r'^process_verify$', process_verify.show_process_verify),
+    # url(r'^set_code$', process_verify.set_auth_code),
 
     # 推荐页关停
     url(r'^recommend_8$', recommend.index_8, name='recommend_8'),

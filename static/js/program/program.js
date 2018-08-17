@@ -1,5 +1,5 @@
 var oTable = null;
-var selectList = [];
+var selectList = [];//checkbox提交选中数据时需要的list
 $(function () {
     $(".itemTabContent").find("li").eq(3).addClass('active');
     initTable();
@@ -76,24 +76,28 @@ function initTable() {
                 }
             }
         ],
+        //页数切换时的回调函数
         "drawCallback": function (settings) {
+            //checkbox切换页面是加载的数据
+            /*   获取表头上的checkbox
+            *    具体逻辑，点击它可全部选中数据，取消则 可取消列表中的全部数据
+            *   页面加载时获取表头checkbox状态，选中表格数据则全部选中，取消则全部取消
+            *   .icheckbox_all表头的checkbox，只有一个
+            *    .icheckbox_minimal每行的checkbox，每一行都有，多个
+            * */
             var ischeckAll = $(settings.nTable).find(".icheckbox_all").prop('checked');
-            //if(ischeckAll){
-            //$(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
-            //}else{
-            // $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
-            // }
+            // 页面加载时获取表头checkbox状态，选中表格数据则全部选中，取消则全部取消
             $(settings.nTable).find(".icheckbox_minimal").prop("checked", ischeckAll);
-            // var ischeckAll = $("#all_checked").prop('checked');
-            // $(":checkbox").prop("checked", ischeckAll);
-            for (var index = 0; index < $(settings.nTBody).find("tr").length; index++) {
-                if (selectList.length > 0) {
+            //因为selectList没有数据时checkbox没有任何选中，所以没有任何操作，这里只判断有数据时的操作
+
+            for (var index = 0; index < $(settings.nTBody).find("tr").length; index++) {//遍历表格行
+                if (selectList.length > 0) {//通过selectList里的数据遍历，选中selectList里的id == 表格table里的id
                     for (var i = 0; i < selectList.length; i++) {
                         var dom = $($(settings.nTBody).find("tr")[index]).find("td");
-                        var text = dom.parents('tr').find('td').eq(1).text();
-                        var data = selectList[i];
+                        var text = dom.parents('tr').find('td').eq(1).text();//表格table里的id
+                        var data = selectList[i];//selectList里的id
                         if (text == data) {
-                            dom.eq(0).find(":checkbox").prop("checked", true);
+                            dom.eq(0).find(":checkbox").prop("checked", true);//选择
                         }
                     }
                 }
@@ -101,47 +105,40 @@ function initTable() {
         },
 
     });
-
+    //icheckbox_all表头的checkbox,状态改变事件
     $('#dataTableList_wrapper').on("change", ".icheckbox_all", function () {
-        //选择全选复选框按钮
+        //或者表头的checkbox状态
         var ischeckAll = $(this).prop('checked');
-
         if (ischeckAll == true) {
+            //有就全部选中
             $("#dataTableList").find(".icheckbox_minimal").prop("checked", true);
-            selectList = selectListAllFn()
-        } else {
+            selectList = selectListAllFn()//这里就是表格全部选中的id
+        } else {//相反则取消，数据清空
             $("#dataTableList").find(".icheckbox_minimal").prop("checked", false);
             selectList = []
         }
-        // $(":checkbox").prop("checked", ischeckAll);
-        /* if(ischeckAll){
-             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",true);
-         }else{
-             $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll).attr("disabled",false);
-         }*/
-        // $("#dataTableList").find(".icheckbox_minimal").prop("checked", ischeckAll);
-        // if ($("#dataTableList").find(".icheckbox_minimal").prop("checked")==true) {
-        //     selectList = selectListAllFn()
-        // } else {
-        //     selectList = []
-        // }
-        //  console.log(ischeckAll,selectList)
     });
+    //icheckbox_minimal每行的checkbox,状态改变事件
     $('#dataTableList_wrapper').on("change", ".icheckbox_minimal", function () {
-        //选择复选框按钮事件
+        //选择每行的checkbox事件
+        /*
+        * 注意，在选择每行的checkbox中，要判断.icheckbox_all的状态，如果icheckbox_all还是选中状态，那表示表格是全部选中的，
+        * 这是点击每行checkbox也就是icheckbox_minimal操作是取消操作，取消了之后就不是全部被选中了，代码128-132
+        * */
         var allcheck = $('#dataTableList_wrapper').find('.icheckbox_all');
         var isallcheck = allcheck.prop("checked");
         if (isallcheck) {
             allcheck.prop("checked", false)
         }
+
         var ischeck = $(this).prop('checked');
-        if (ischeck) {
-            selectList.push($(this).parents('tr').find('td').eq(1).text())
+        if (ischeck) {//如果为选中则吧id添加到selectList
+            selectList.push($(this).parents('tr').find('td').eq(1).text())//表格id
         } else {
             for (var index = 0; index < selectList.length; index++) {
-                var filed = $(this).parents('tr').find('td').eq(1).text();
+                var filed = $(this).parents('tr').find('td').eq(1).text();//表格id
                 if (selectList[index] == filed) {
-                    selectList.splice(index, 1)
+                    selectList.splice(index, 1)//如果为选中则把selectList与表格对应的id删除
                 }
             }
         }
@@ -267,6 +264,7 @@ function reset() {
 }
 
 function selectListAllFn() {
+    //这里的programIds是表格数据里所有的id
     //一定要注意这里不能直接复制，否则会改变原来初始的值（关与引用类型和基本类型的概念）
     var allList = [];
     for (var index = 0; index < programIds.length; index++) {
@@ -278,7 +276,7 @@ function selectListAllFn() {
 function programData(op) {
     var value = op.value;
     var list = "";
-    $(op).next().remove();
+
     $.ajax({
         url: "/approximate",
         type: "Post",
@@ -288,6 +286,7 @@ function programData(op) {
         },
         dataType: 'json',
         "success": function (resp) {
+            $(op).next().remove();
             var list = "";
             var data = resp.search_names;
             if (data != "undefined") {

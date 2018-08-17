@@ -22,7 +22,7 @@ $(function () {
     layout(layoutClass);
     $(window).resize(function () {
         layout(layoutClass);
-         onSize()
+        onSize()
     });
     $(".querySubmit").nextAll().hide();
     var bottom="<i class=\"glyphicon glyphicon-triangle-bottom\"></i>展开查询更多";
@@ -176,6 +176,7 @@ function onSize() {
             boxH=boxH*1;
         }
          $(obj).width(boxW-(padding*2)).height(boxH-(padding*2));
+         $(obj).removeClass("active")
     });
 }
 

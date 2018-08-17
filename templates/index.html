@@ -64,9 +64,9 @@
                     </li>
                 </ul>
             </div>
-            <ul class="loginMenu">
-                <li><i class="glyphicon glyphicon-indent-right"></i></li>
-            </ul>
+{#            <ul class="loginMenu">#}
+{#                <li><i class="glyphicon glyphicon-indent-right"></i></li>#}
+{#            </ul>#}
             <ul class="loginUser">
                 <li class="user dropdown">
                     <a id="login_user" class="dropdown-toggle a-white" data-toggle="dropdown">
@@ -75,6 +75,9 @@
                     <ul class="dropdown-menu dropdown-user dropdown-menu-right" aria-labelledby="login_user">
                         <li class="editUser">
                             <a onclick="openModal(this)"><i class="glyphicon glyphicon-wrench"></i> 修改密码</a>
+                        </li>
+                        <li class="help">
+                            <a onmouseover="helpModal(this)"><i class="glyphicon  glyphicon-question-sign"></i> 帮助</a>
                         </li>
                         <li>
                             <a href="/logout"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a>
@@ -126,6 +129,7 @@
                             </div>
                         </div>
 
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -161,7 +165,9 @@
     function openModal() {
         $("#editUser").modal("show")
     }
+    function helpModal(){
 
+    }
     $(document).keyup(function (event) {
         if (event.keyCode == 13&&$("#editUser").is(":visible")) {
             if ($("#editPassSave") != undefined) {

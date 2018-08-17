@@ -497,7 +497,7 @@ body{
 
 @media (max-width: 1057px){
 
-    .loginMenu{
+   /* .loginMenu{
         display:block;
     }
     .loginUser{
@@ -512,18 +512,19 @@ body{
         z-index: 100;
         height: auto;
         overflow: hidden;
-    }
-    .loginUser ul{
+    }*/
+    /*.loginUser ul{
          border:2px dashed #0682f5;
         padding:10px;
-    }
+    }*/
+    /*
     .loginUser li,
     .loginUser li.exit{
         float: none;
         padding: 0;
         height:36px;
         line-height: 36px;
-    }
+    }*/
     .loginUser li.exit{
         background: none;
         text-align: left;
@@ -679,10 +680,10 @@ input[type="number"]{
     background: transparent;
     cursor: pointer;
 }
-.dropdown-menu{
+.loginUser .dropdown-menu{
     background: #0c0c0c;
 }
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+.loginUser .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
     background: transparent;
     color:#fff;
 }

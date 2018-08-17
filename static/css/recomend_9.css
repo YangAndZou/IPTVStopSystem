@@ -37,11 +37,17 @@
     width: 100%;
     height: 100%;
     transition: 1s all;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .cardCxt .box .pic .mask button {
-    margin-top: 80px;
+    transition: all 0.5s;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50%;
     background: transparent;
     border: 0;
     outline: none;
@@ -135,8 +141,8 @@
 }
 
 .header .box.active {
-    border: 2px solid #cc500c;
-    box-shadow: 0 0 10px #cc520c;
+    /*border: 2px solid #cc500c;*/
+    box-shadow: 0 0 20px #ff6801;
     transform: scale(1.1);
     border-radius: 4px;
     transition: 1s all;
@@ -151,7 +157,7 @@
 .header .box .mask {
     color: #fff;
     position: absolute;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     left: 0;
     right: 0;
     bottom: 0;
@@ -160,7 +166,7 @@
     transition: 1s all;
 }
 
-.header .box:active .mask {
+.header .box.active .mask {
     min-height: 100%;
     transition: 1s all;
 }
@@ -171,24 +177,9 @@
     padding: 0 10px;
 }
 
-.header .box .mask .recomendBtn {
-    display: none;
-    transition: all 0.5s;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 50%;
-}
 
-.header .box.acitve .mask .recomendBtn {
-    display: block;
-    transition: all 0.5s;
-    text-align: center;
-    position: absolute;
-}
 
-.header .box.acitve .mask .recomendBtn button {
+.header .box .mask .recomendBtn button {
     background: transparent;
     border: 0;
     outline: none;
@@ -199,12 +190,17 @@
     display: none;
     transition: all 0.5s;
     text-align: center;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 50%;
 }
 
+.header .box.active  .recomendBtn{
+    display: block;
+    transition: all 1s;
+}
 .header .box .mask .recomendBtn button.closed i {
     color: rgb(158, 45, 30);
     font-size: 60px;
@@ -272,10 +268,30 @@
 }
 
 .cardCxt, .header, .toolbar {
-    width: 1200px;
     margin: 0 auto;
 }
-
+.version span{
+    float: right;
+}
+.version{overflow: hidden;margin: 0 auto;margin-bottom: 20px;}
+.version span a{
+    color:#337ab7;
+}
+@media  (max-width:992px) {
+    .cardCxt, .header, .toolbar ,.version{
+         width:800px;
+    }
+}
+@media (min-width:992px) and (max-width:1200px) {
+    .cardCxt, .header, .toolbar,.version {
+         width:1000px;
+    }
+}
+@media (min-width:1200px) {
+    .cardCxt, .header, .toolbar,.version {
+         width:1200px;
+    }
+}
 /*
         .row .box{
             animation-name: leftOn;

@@ -9,12 +9,6 @@
 * */
 var rowCount = 1;//动态部分默认调用一次，第一列为1
 var activeRow = 0;//鼠标移动到某列会记录当前的那一列
-var data = {
-    "data": [
-        {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"}, {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"},
-        {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"}, {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}
-    ]
-};//模拟数据
 var loadToolBarFn = function () {
     var data = ["全部", "电视", "应用", "精选", "会员", "电视剧", "电影", "少儿", "综艺", "学堂", "电竞", "游戏", "教育", "商城", "4k影院"]
     var temp = '<li><a onclick="titleTap(this)">{{ title }}</a></li>';
@@ -25,27 +19,21 @@ var loadToolBarFn = function () {
     }
     $("#toolbarList").append(str).width(90 * total);
     $("#toolbarList").find("a").eq(0).addClass("active");
-    var width=$("#toolbarList").width();
-    var listWidth=$("#toolbarList").parent().width();
-    if(width<listWidth){
+    var width = $("#toolbarList").width();
+    var listWidth = $("#toolbarList").parent().width();
+    if (width < listWidth) {
         $(".toRight").hide()
     }
 
 };
-var titleTap=function (op) {
+var titleTap = function (op) {
     $("#toolbarList").find("a").removeClass("active");
     $(op).addClass("active")
 };
 
 //点击上一页
-var _prevTap = function (op, rowCount) {
+var _prevTap = function (op,rowCount,data) {
     $(op).nextAll().show();//点击上一下
-    var data = {
-        "data": [
-            {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"}, {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"},
-            {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"}, {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}
-        ]
-    };
     var start = parseInt($(op).next().find(".box").first().attr("name"));//获取dom元素当前行的第一列
     var end = parseInt($(op).next().find(".box").last().attr("name"));//获取dom元素当前行的最后一列
     if (start > 0) { //开头为0，则是第一列
@@ -57,43 +45,86 @@ var _prevTap = function (op, rowCount) {
             if (count <= 0) { //注意，如果次数为0的话，就不能点击上一页了
                 $(op).hide()
             }
-            loadLeave(op, rowCount, count, parseInt(count + 5), data)//根据参数重新渲染该行的dom
+            _loadChangeCol(op, rowCount, count, parseInt(count + 5), data)//根据参数重新渲染该行的dom
         }
     }
 
 
 };
 //点击下一页
-var _nextTap = function (op, rowCount) {
+var _nextTap = function (op, rowCount,data) {
+    var data=[
+    {
+      "src": "1.png"
+    },
+    {
+      "src": "2.png"
+    },
+    {
+      "src": "3.png"
+    },
+    {
+      "src": "4.png"
+    },
+    {
+      "src": "5.png"
+    },
+    {
+      "src": "1.png"
+    },
+    {
+      "src": "2.png"
+    },
+    {
+      "src": "3.png"
+    },
+    {
+      "src": "4.png"
+    },
+    {
+      "src": "5.png"
+    },
+    {
+      "src": "1.png"
+    },
+    {
+      "src": "2.png"
+    },
+    {
+      "src": "3.png"
+    },
+    {
+      "src": "4.png"
+    },
+    {
+      "src": "5.png"
+    },
+    {
+      "src": "1.png"
+    }
+  ]
     $(op).prevAll().show();
-    var data = {
-        "data": [
-            {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"}, {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"},
-            {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}, {"src": "2.png"}, {"src": "3.png"}, {"src": "4.png"}, {"src": "5.png"}, {"src": "1.png"}
-        ]
-    };
-
     var start = parseInt($(op).prev().find(".box").first().attr("name"));//开始索引
     var end = parseInt($(op).prev().find(".box").last().attr("name")) + 1;//获取每列中的最后一个数，+1截取字符串的索引
-    if (end >= data.data.length) {//end加了1则为数据截取的索引
+    if (end >=data.length) {//end加了1则为数据截取的索引
         $(op).hide()
     } else {
         $(op).attr("name", parseInt($(op).attr("name")) + 1);//点击下一行则加1
         $(op).prev().prev().attr("name", parseInt($(op).attr("name")));
         var count = parseInt($(op).attr("name"));
-        loadLeave(op, rowCount, count, parseInt(count + 5), data)
+        _loadChangeCol(op, rowCount, count, parseInt(count + 5), data)
     }
 
 
 };
 //点击上一页或者下一页，获取某行的数据渲染dom
-var loadLeave = function (op, rowCount, start, end, data) {
+var _loadChangeCol = function (op, rowCount, start, end, data) {
     // var start = 5 * count;//这里屏蔽的逻辑是每5列替换
     // var end = 5 * count + 5;
     // console.log(parseInt(start + 1), parseInt(end + 2))
     // var start =parseInt(start+1) ;
     // var end = parseInt(end+1);
-    var data = data.data.slice(start, end);//通过调用的开始索引和结束索引来截取数据
+    var data = data.slice(start, end);//通过调用的开始索引和结束索引来截取数据
     var str = '';
     if ($(op).attr("class") == "next") {//清空
         $(op).prev().empty();
@@ -116,6 +147,7 @@ var loadLeave = function (op, rowCount, start, end, data) {
         $(op).hide()
     }*///每行没有五个数据则隐藏，每五个加载会有该情况
 };
+
 //点击关停函数
 var boxTap = function (op, rowCount, colCount) {
     window.wxc.xcConfirm("确定要关停该频道吗？", window.wxc.xcConfirm.typeEnum.warning, {
@@ -143,25 +175,42 @@ var _loadImage = function (data, start, end) {
     * */
     var str = "";
     var count = 0;
-    var rowLoadData = data.data.slice(start, end);
+    var dataLength = data.length;
+    var rowLoadData = data.slice(start, end);
     var title = "电视剧";
     var templ = '<li class="box" name="{{colCount}}"  onmouseover="boxmouse(this,{{rowCount}},{{colCount}})"><div class="pic"><img src="/static/image/{{src}}" /><p>图文信息图文信息图文信息图文信息图文信息图文信息</p><div class="mask"><button onclick="boxTap(this,{{rowCount}},{{colCount}})"><i class="glyphicon glyphicon-off"></i></button></div></div> </li>';
     for (var i = 0; i < rowLoadData.length; i++) {
         str += templ
-            .replace(/{{src}}/g, data.data[i].src)
+            .replace(/{{src}}/g, data[i].src)
             .replace(/{{rowCount}}/g, rowCount)
             .replace(/{{colCount}}/g, i);
     }//boxdom渲染，box的name属性表示该行某列
     //上一页dom渲染，的name属性表示点击的次数，点击下一行则加1,点击上一行则减1
-    var left = '<div class="prev" name="' + count + '" id="prev' + rowCount + '" onclick="_prevTap(this,' + rowCount + ' )"><i class="glyphicon glyphicon-chevron-left"></i></div><ul class="boxrow" name="' + rowCount + '">';
+    var prevDom = '<div class="prev" name="{{count}}"  onclick="_loadChangeColResponse(this,{{rowCount}},{{_prevTap}})"><i class="glyphicon glyphicon-chevron-left"></i></div><ul class="boxrow" name="{{rowCount}}">';
+
+    prevDom = prevDom
+        .replace(/{{count}}/g, count)
+        .replace(/{{rowCount}}/g, rowCount)
+        .replace(/{{_prevTap}}/g,0);
     //下一页dom渲染，的name属性表示点击的次数，点击下一行则加1,点击上一行则减1
-    var right = '</ul><div class="next" name="' + count + '" id="next' + rowCount + '" onclick="_nextTap(this,' + rowCount + ')"><i class="glyphicon glyphicon-chevron-right"></i></div> ';
+    var nextDom = '</ul><div class="next" name="{{count}}" onclick="_loadChangeColResponse(this,{{rowCount}},{{_nextTap}})"><i class="glyphicon glyphicon-chevron-right"></i></div> ';
+
+    nextDom = nextDom
+        .replace(/{{count}}/g, count)
+        .replace(/{{rowCount}}/g, rowCount)
+        .replace(/{{_nextTap}}/g,1);
     //该行的标题，总列数，选中某列
     var titleTempl = '<div class="rowTitle">{{title}}&nbsp;<span class="colActive">1</span>/{{colTotal}}</div>';
-    titleTempl = titleTempl.replace(/{{title}}/g, title).replace(/{{colTotal}}/g, data.data.length);
+
+    titleTempl = titleTempl
+        .replace(/{{title}}/g, title)
+        .replace(/{{colTotal}}/g, data.length);
     //渲染该行
-    str = titleTempl + '<div class="row" style="opacity:0;filter:alpha(opacity=0);">' + left + str + right + '</div>';
+    str = titleTempl + '<div class="row" style="opacity:0;filter:alpha(opacity=0);">' + prevDom + str + nextDom + '</div>';
     $(str).appendTo($("#cardCxt"));
+    if (dataLength <= 5) {
+        $("#cardCxt").find(".row").last().find(".next").hide()
+    }
     //每调用一次该行就加1
     rowCount++
 };
@@ -187,7 +236,26 @@ var _loadHeader1 = function (data) {
     //该函数，设置了每个box宽高，按照比例进行计算
     onSize()
 };
-
+var _loadChangeColResponse=function(op,rowCount,tap){
+     $.ajax({
+        url: "static\\js\\recomend\\recomend9_data.json",
+        type: "get",
+        /*data: {
+           row:rowCount,
+           csrfmiddlewaretoken: token
+        },*/
+        dataType: 'json',
+        "success": function (resp) {
+            if(tap==undefined){
+                  _loadImage(resp.data, 0, 5);
+             }else{
+                (tap==0)? _prevTap(op,rowCount,resp.data):_nextTap(op,rowCount,resp.data)
+            }
+         },
+        "error": function (response) {
+        }
+    });
+};
 $(function () {
     $(".itemTabContent").find("li").eq(4).addClass('active');
     var $window = $(window),
@@ -199,7 +267,7 @@ $(function () {
             ajaxCallback: null // callback when ajax loaded, two parameters ( success, end )
         };
 
-    function Waterfall(element, options, aa) {
+    function Waterfall(element, options) {
         this.$element = $(element);
         this.options = $.extend(true, {}, defaults, options);
         this.ajaxLoading = false;
@@ -226,7 +294,7 @@ $(function () {
             var $this = this;
             loadToolBarFn();
             _loadHeader1();
-            _loadImage(data, 0, 5);
+            _loadChangeColResponse()
 
         },
         _positionAll: function () {
@@ -252,7 +320,7 @@ $(function () {
                         $this.ajaxLoading = true;
                         $this.options.ajaxCallback && $this.options.ajaxCallback(
                             function () {
-                                _loadImage(data, 0, 5);
+                              _loadChangeColResponse()
                             },
                             function () {
                                 $this._positionAll();
@@ -290,10 +358,10 @@ $(function () {
         var listW = listDom.width();
         var tabBoxWidth = listDom.parent().width();
         var sum = parseFloat(toLeftAr + tabBoxWidth);
-        var leftW=270;
+        var leftW = 270;
         if (sum <= listW) {
-            if(sum+leftW>=listW){
-               $(this).hide()
+            if (sum + leftW >= listW) {
+                $(this).hide()
             }
             left = left - leftW;
             $(this).prev().find(".toolbarList").animate({
@@ -307,9 +375,9 @@ $(function () {
         var listDom = $("#toolbarList");
         var toLeft = listDom.css("marginLeft");
         var toLeftAr = parseFloat(toLeft.substring(0, toLeft.length - 2));
-        var leftW=270;
+        var leftW = 270;
         if (toLeftAr < 0) {
-            if(toLeftAr+leftW>=0){
+            if (toLeftAr + leftW >= 0) {
                 $(this).hide()
             }
             left = left + leftW;

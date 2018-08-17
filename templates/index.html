@@ -80,6 +80,7 @@
                         </li>
                         <li class="help" onmouseover="helpModal(this)" onmouseleave="hideHelp(this)">
                             <div class="helpDoc">
+                                杨
                             </div>
                             <a><i class="glyphicon  glyphicon-question-sign"></i> 帮助</a>
                         </li>
@@ -171,7 +172,8 @@
     }
 
     function helpModal(op) {
-        if ($(op).find(".helpDoc").text() > 0) {
+        if ($(op).find(".helpDoc").text().length > 0) {
+
             $(op).find(".helpDoc").fadeIn();
             $(op).find("a").addClass("to")
         }
